@@ -1,0 +1,499 @@
+{
+  "easycom": {
+    "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+  },
+  "lazyCodeLoading": "requiredComponents",
+  /*
+   * author：Gengbaodada
+   * create by date：2024/11/11
+   * content：主包
+   */
+  "pages": [
+    {
+      "path": "pages/splashscreen/index",
+      "style": {
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom",
+        "navigationBarBackgroundColor": "#fff",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom",
+        "navigationBarBackgroundColor": "#fff",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "首页",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/index/search",
+      "style": {
+        "navigationBarTitleText": "搜索",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/modeSelect/index",
+      "style": {
+        "navigationBarTitleText": "模式选择",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/moreOptions/index",
+      "style": {
+        "navigationBarTitleText": "more Option",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/learnMode/index",
+      "style": {
+        "navigationBarTitleText": "learn Mode",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/learnQuestion/index",
+      "style": {
+        "navigationBarTitleText": "start Learn Mode",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/learnQuestion/wrong",
+      "style": {
+        "navigationBarTitleText": "wrong",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/learnQuestion/detail",
+      "style": {
+        "navigationBarTitleText": "Question Detail",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/testMode/index",
+      "style": {
+        "navigationBarTitleText": "Test Mode",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/hazard/index",
+      "style": {
+        "navigationBarTitleText": "Hazard Test",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/highwayCode/index",
+      "style": {
+        "navigationBarTitleText": "Highway Code",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/highwayCode/highwayCode",
+      "style": {
+        "navigationBarTitleText": "Highway Code",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/highwayLearn/index",
+      "style": {
+        "navigationBarTitleText": "Highway Learn",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/community/home",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "发现",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "pages/community/create",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "create Post",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/community/userProfile",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "create Post",
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/community/detail",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/community/addTag",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/community/centerSelect",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/fansAndFollowes",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/mySaved",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/editProfile",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/switchQuestion",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/contact",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/privacy",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/terms",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/subscription",
+      "style": {
+        "navigationBarBackgroundColor": "#fff",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/my/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "我的",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/login/forgetPassword",
+      "style": {
+        "navigationStyle": "custom",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/login/enterPassword",
+      "style": {
+        "navigationStyle": "custom",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/login/register",
+      "style": {
+        "navigationStyle": "custom",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/login/registerStepQuestion",
+      "style": {
+        "navigationStyle": "custom",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/login/registerSelectTime",
+      "style": {
+        "navigationStyle": "custom",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path": "pages/my/testAnalysis",
+      "style": {
+        "navigationStyle": "custom",
+        "app-plus": {
+          "bounce": "none"
+        }
+      }
+    },
+    {
+      "path" : "pages/roadSign/roadSign",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/roadSign/learn",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/theoryTest/theoryTest",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/hazardPerception/hazardPerception",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/hazardPerception/hazardLearn",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/hazardPerception/hazardTest",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/hazardPerception/testList",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/hazardPerception/testVideo",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/hazardPerception/list",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/mockTest/mockTest",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom",
+        "pageOrientation": "landscape"
+      }
+    },
+    {
+      "path" : "pages/mockTest/test",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom",
+        "pageOrientation": "landscape"
+      }
+    },
+    {
+      "path" : "pages/mockTest/testVideo",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom",
+        "pageOrientation": "landscape"
+      }
+    },
+    {
+      "path" : "pages/mockTest/record",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom",
+        "pageOrientation": "primary"
+      }
+    },
+    {
+      "path" : "pages/overview/overview",
+      "style" : 
+      {
+        "navigationBarTitleText" : "",
+        "navigationStyle": "custom"
+      }
+    }
+  ],
+  /*
+   * author：Gengbaodada
+   * create by date：2024/11/11
+   * content：分包
+   */
+  "subPackages": [
+    {
+      "root": "pagesA",
+      "pages": [
+        {
+          "path": "newdetal/newdetal",
+          "style": {
+            "navigationBarBackgroundColor": "#1873FF",
+            "navigationBarTextStyle": "white",
+            "navigationBarTitleText": "新闻资讯",
+            "enablePullDownRefresh": false
+          }
+        }
+      ]
+    }
+  ],
+  /*
+   * author：Gengbaodada
+   * create by date：2024/11/11
+   * content：底部导航栏
+   */
+  "tabBar": {
+    "borderStyle": "white",
+    "box-shadow": "0px 3px 15px 1px rgba(207,207,207,0.27)",
+    "border-radius": "31px",
+    "selectedColor": "#419FFF",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "Home",
+        "iconPath": "static/tabBar/tab_home_normal.png",
+        "selectedIconPath": "static/tabBar/tab_home_select.png"
+      },
+      {
+        "pagePath": "pages/community/home",
+        "text": "Forum",
+        "iconPath": "static/tabBar/tab_comunity_normal.png",
+        "selectedIconPath": "static/tabBar/tab_comunity_select.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "Account",
+        "iconPath": "static/tabBar/tab_me_normal.png",
+        "selectedIconPath": "/static/tabBar/tab_me_select.png"
+      }
+    ]
+  },
+  "globalStyle": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTextStyle": "black"
+  }
+}

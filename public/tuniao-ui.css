@@ -1,0 +1,612 @@
+
+.tn-text-xs {
+    font-size: 10px;
+}
+
+.tn-text-sm {
+    font-size: 12px;
+}
+
+.tn-text-md {
+    font-size: 14px;
+}
+
+.tn-text-lg {
+    font-size: 16px;
+}
+
+.tn-text-xl {
+    font-size: 18px;
+}
+
+.tn-text-xxl {
+    font-size: 20px;
+}
+
+.tn-text-xl-xxl {
+    font-size: 40px;
+}
+
+.tn-text-xxl-xxl {
+    font-size: 60px;
+}
+
+/* 全部大写 */
+.tn-text-upper {
+    text-transform: uppercase;
+}
+
+/* 首字母大写 */
+.tn-text-cap {
+    text-transform: capitalize;
+}
+
+/* 全部小写 */
+.tn-text-lower {
+    text-transform: lowercase;
+}
+
+/* 加粗 */
+.tn-text-bold {
+    font-weight: bold;
+}
+
+.tn-text-center {
+    text-align: center;
+}
+
+.tn-text-left {
+    text-align: left;
+}
+
+.tn-text-right {
+    text-align: right;
+}
+
+
+/* 显示一行 */
+.tn-text-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* 显示两行 */
+.tn-text-ellipsis-2 {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* Flex布局 */
+.tn-flex {
+    display: -webkit-flex;
+    display: flex;
+}
+
+/* 1.子元素是否换行 */
+
+/* 换行 */
+.tn-flex-wrap {
+    flex-wrap: wrap;
+}
+
+/* 不换行 */
+.tn-flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+/* 设置布局的方向 */
+
+/* 垂直布局 */
+.tn-flex-direction-column {
+    flex-direction: column;
+}
+
+/* 水平布局 */
+.tn-flex-direction-row {
+    flex-direction: row;
+}
+
+/* 反向垂直布局 */
+.tn-flex-direction-column-reverse {
+    flex-direction: column-reverse;
+}
+
+/* 反向水平布局 */
+.tn-flex-direction-row-reverse {
+    flex-direction: row-reverse;
+}
+
+/* 3.容器自身垂直方向的对齐方式 */
+
+.tn-flex-center {
+    align-self: center;
+}
+
+.tn-flex-top {
+    align-self: flex-start;
+}
+
+.tn-flex-end {
+    align-self: flex-end;
+}
+
+.tn-flex-stretch {
+    align-self: stretch;
+}
+
+/* 4.子元素垂直方向的对齐方式 */
+.tn-flex-col-center {
+    align-items: center;
+}
+
+.tn-flex-col-top {
+    align-items: flex-start;
+}
+
+.tn-flex-col-bottom {
+    align-items: flex-end;
+}
+
+/* 5.子元素水平方向的对齐方式 */
+
+.tn-flex-row-center {
+    justify-content: center;
+}
+
+.tn-flex-row-left {
+    justify-content: flex-start;
+}
+
+.tn-flex-row-right {
+    justify-content: flex-end;
+}
+
+.tn-flex-row-between {
+    justify-content: space-between;
+}
+
+.tn-flex-row-around {
+    justify-content: space-around;
+}
+
+/* 6.子元素控件分布 */
+
+.tn-flex-1 {
+    flex: 1
+}
+
+.tn-flex-2 {
+    flex: 2
+}
+
+.tn-flex-3 {
+    flex: 3
+}
+
+.tn-flex-4 {
+    flex: 4
+}
+
+.tn-flex-5 {
+    flex: 5
+}
+
+.tn-flex-6 {
+    flex: 6
+}
+
+.tn-flex-7 {
+    flex: 7
+}
+
+.tn-flex-8 {
+    flex: 8
+}
+
+.tn-flex-9 {
+    flex: 9
+}
+
+.tn-flex-10 {
+    flex: 10
+}
+
+.tn-flex-11 {
+    flex: 11
+}
+
+.tn-flex-12 {
+    flex: 12
+}
+
+
+.tn-col-12 {
+    width: 100%;
+}
+
+.tn-col-11 {
+    width: 91.66666667%;
+}
+
+.tn-col-10 {
+    width: 83.33333333%;
+}
+
+.tn-col-9 {
+    width: 75%;
+}
+
+.tn-col-8 {
+    width: 66.66666667%;
+}
+
+.tn-col-7 {
+    width: 58.33333333%;
+}
+
+.tn-col-6 {
+    width: 50%;
+}
+
+.tn-col-5 {
+    width: 41.66666667%;
+}
+
+.tn-col-4 {
+    width: 33.33333333%;
+}
+
+.tn-col-3 {
+    width: 25%;
+}
+
+.tn-col-2 {
+    width: 16.66666667%;
+}
+
+.tn-col-1 {
+    width: 8.33333333%;
+}
+.tn-col-12-5 {
+    width: 12.5%;
+}
+.tn-col-15 {
+    width: 15%;
+}
+
+.tn-col-20 {
+    width: 20%;
+}
+
+.tn-col-25 {
+    width: 20%;
+}
+
+.tn-col-30 {
+    width: 30%;
+}
+
+.tn-col-40 {
+    width: 40%;
+}
+
+
+
+
+/* 7.设置flex盒子的基准值 */
+.tn-flex-basic-xxs {
+    flex-basis: 15%;
+}
+
+.tn-flex-basic-xs {
+    flex-basis: 20%;
+}
+
+.tn-flex-basic-sm {
+    flex-basis: 40%;
+}
+
+.tn-flex-basic-md {
+    flex-basis: 50%;
+}
+
+.tn-flex-basic-lg {
+    flex-basis: 70%;
+}
+
+.tn-flex-basic-xl {
+    flex-basis: 80%;
+}
+
+.tn-flex-basic-full {
+    flex-basis: 100%;
+}
+
+.tn-no-margin {
+    margin: 0;
+}
+
+.tn-margin-xs {
+    margin: 5px;
+}
+
+.tn-margin-sm {
+    margin: 15px;
+}
+
+.tn-margin {
+    margin: 30px;
+}
+
+.tn-margin-lg {
+    margin: 40px;
+}
+
+.tn-margin-xl {
+    margin: 50px;
+}
+
+/* For top */
+.tn-no-margin-top {
+    margin-top: 0;
+}
+
+.tn-margin-top-xs {
+    margin-top: 5px;
+}
+
+.tn-margin-top-sm {
+    margin-top: 15px;
+}
+
+.tn-margin-top {
+    margin-top: 30px;
+}
+
+.tn-margin-top-lg {
+    margin-top: 40px;
+}
+
+.tn-margin-top-xl {
+    margin-top: 50px;
+}
+
+/* For right */
+.tn-no-margin-right {
+    margin-right: 0;
+}
+
+.tn-margin-right-xs {
+    margin-right: 5px;
+}
+
+.tn-margin-right-sm {
+    margin-right: 15px;
+}
+
+.tn-margin-right {
+    margin-right: 30px;
+}
+
+.tn-margin-right-lg {
+    margin-right: 40px;
+}
+
+.tn-margin-right-xl {
+    margin-right: 50px;
+}
+
+/* For bottom */
+.tn-no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.tn-margin-bottom-xs {
+    margin-bottom: 5px;
+}
+
+.tn-margin-bottom-sm {
+    margin-bottom: 15px;
+}
+
+.tn-margin-bottom {
+    margin-bottom: 30px;
+}
+
+.tn-margin-bottom-lg {
+    margin-bottom: 40px;
+}
+
+.tn-margin-bottom-xl {
+    margin-bottom: 50px;
+}
+
+/* For left */
+.tn-no-margin-left {
+    margin-left: 0;
+}
+
+.tn-margin-left-xs {
+    margin-left: 5px;
+}
+
+.tn-margin-left-sm {
+    margin-left: 15px;
+}
+
+.tn-margin-left {
+    margin-left: 30px;
+}
+
+.tn-margin-left-lg {
+    margin-left: 40px;
+}
+
+.tn-margin-left-xl {
+    margin-left: 50px;
+}
+
+
+.tn-no-padding {
+    padding: 0;
+}
+
+.tn-padding-xs {
+    padding: 5px;
+}
+
+.tn-padding-sm {
+    padding: 15px;
+}
+
+.tn-padding {
+    padding: 30px;
+}
+
+.tn-padding-lg {
+    padding: 40px;
+}
+
+.tn-padding-xl {
+    padding: 50px;
+}
+
+/* For top */
+.tn-no-padding-top {
+    padding-top: 0;
+}
+
+.tn-padding-top-xs {
+    padding-top: 5px;
+}
+
+.tn-padding-top-sm {
+    padding-top: 15px;
+}
+
+.tn-padding-top {
+    padding-top: 30px;
+}
+
+.tn-padding-top-lg {
+    padding-top: 40px;
+}
+
+.tn-padding-top-xl {
+    padding-top: 50px;
+}
+
+/* For right */
+.tn-no-padding-right {
+    padding-right: 0;
+}
+
+.tn-padding-right-xs {
+    padding-right: 5px;
+}
+
+.tn-padding-right-sm {
+    padding-right: 15px;
+}
+
+.tn-padding-right {
+    padding-right: 30px;
+}
+
+.tn-padding-right-lg {
+    padding-right: 40px;
+}
+
+.tn-padding-right-xl {
+    padding-right: 50px;
+}
+
+/* For bottom */
+.tn-no-padding-bottom {
+    padding-bottom: 0;
+}
+
+.tn-padding-bottom-xs {
+    padding-bottom: 5px;
+}
+
+.tn-padding-bottom-sm {
+    padding-bottom: 15px;
+}
+
+.tn-padding-bottom {
+    padding-bottom: 30px;
+}
+
+.tn-padding-bottom-lg {
+    padding-bottom: 40px;
+}
+
+.tn-padding-bottom-xl {
+    padding-bottom: 50px;
+}
+
+/* For left */
+.tn-no-padding-left {
+    padding-left: 0;
+}
+
+.tn-padding-left-xs {
+    padding-left: 5px;
+}
+
+
+
+.tn-padding-left-sm {
+    padding-left: 15px;
+}
+
+.tn-padding-left {
+    padding-left: 30px;
+}
+
+.tn-padding-left-lg {
+    padding-left: 40px;
+}
+
+.tn-padding-left-xl {
+    padding-left: 50px;
+}
+
+
+.tn-hover {
+    opacity: 0.6;
+}
+
+.tn-round {
+    border-radius: 5000px !important;
+}
+
+.tn-radius {
+    border-radius: 6px;
+}
+
+.tn-width-full {
+    width: 100%;
+}
+
+.tn-width-half {
+    width: 50%;
+}
+
+.tn-color-white {
+    color: #fff !important;
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 5vh;
+    right: 0;
+}

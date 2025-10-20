@@ -1,0 +1,17 @@
+{
+    "id": "wjd-audioplayer",
+    "name": "语音播报",
+    "version": "1.0.0",
+    "description": "uniapp混合开发的APP端的语音播报功能，适用于iOS和Android；",
+    "keywords": [
+        "uniapp",
+        "语音播报",
+        "后台背景音乐"
+    ],
+    "dcloudext": {
+        "category": [
+            "JS SDK",
+            "通用 SDK"
+        ]
+    }
+}
