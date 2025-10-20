@@ -98,97 +98,90 @@
         <scroll-view scroll-y class="slide" @scroll="onScroll"
     :scroll-with-animation="true">
           <view class="question-page">
-            <!-- 题目区域 -->
-            <view class="question-section">
-              <!-- 题目头部 -->
-              <view class="question-header">
-                <!-- 音频播放按钮 -->
-                <button class="audio-button" :class="{ playing: playingIndex === index }" @tap="playAudio(index)">
-                  <text class="audio-icon">🔊</text>
-                </button>
-                <!-- 题目文本 -->
-                <text class="question-text">{{ question.title }}</text>
-              </view>
-
-              <!-- 题目图片 -->
-              <view class="question-image" v-if="question.title_video_url">
-                <image :src="question.title_video_url" mode=""></image>
-              </view>
-            </view>
-
-            <!-- 选项列表 -->
-            <view class="options-list" v-if="mode == 'learn'">
-              <view v-for="(option, optIndex) in question.options_json" :key="optIndex" class="option-item" :class="optionClass(question, option)" @tap="selectOption(index, optIndex)">
-                <view class="option-label">
-                  <text
-                    v-if="!question.showAnswer || ((question.selectedOption != option.key) && (option.key != question.answer))">{{ option.key }}</text>
-                  <text v-else-if="option.key == question.answer" class="option-label-icon check">✓</text>
-                  <text v-else-if="(question.selectedOption == option.key) && (option.key != question.answer)"
-                    class="option-label-icon cross">✗</text>
-                </view>
-                <text class="option-text">{{ option.value }}  111</text>
-              </view>
-            </view>
-            
-            <!-- test模式，只出现选中的答案 -->
-            <view class="options-list" v-if="mode == 'test'">
-              <view v-for="(option, optIndex) in question.options_json" :key="optIndex" class="option-item" :class="optionClass(question, option)" @tap="selectOption(index, optIndex)">
-                <view class="option-label">
-                  <text>{{ option.key }}</text>
-                  <!-- <text v-else-if="option.key == question.answer" class="option-label-icon check">✓</text>
-                  <text v-else-if="(question.selectedOption == option.key) && (option.key != question.answer)"
-                    class="option-label-icon cross">✗</text> -->
-                </view>
-                <text class="option-text">{{ option.value }}</text>
-              </view>
-            </view>
-            
-            <!-- Key Point - 极简设计，直接跟在选项后面 -->
-            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="key-point-section">
-              <text class="key-point-text">💡 {{ question.key_point }}</text>
-            </view>
-
-            <!-- AI解释 - 只在答错时显示 -->
-            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="ai-explanation">
-              <view class="ai-header">
-                <view class="ai-avatar">
-                  <text class="ai-avatar-icon">🤖</text>
-                </view>
-                <text class="ai-title">AI Explanation</text>
-              </view>
-              <view class="ai-content">
-                <text>{{ question.explain }}</text>
-                <text class="remember-tip">
-                  <text class="strong" style="margin-right: 20rpx;">Remember:</text>
-                  {{ question.rememberTip || 'Always check your mirrors and follow the Highway Code.' }}
-                </text>
-              </view>
-            </view>
-
-            <!-- 统计信息 - 只在答错时显示 -->
-            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="stats-container">
-              <view class="stat-card">
-                <text class="stat-label">Difficulty Level</text>
-                <view class="difficulty-visual">
-                  <view v-for="i in 5" :key="i" class="difficulty-bar" :class="{ active: i <= question.difficulty }">
+            <view class="question-primary">
+              <!-- 题目卡片 -->
+              <view class="question-card">
+                <view class="question-section">
+                  <view class="question-header">
+                    <button class="audio-button" :class="{ playing: playingIndex === index }" @tap="playAudio(index)">
+                      <text class="audio-icon">🔊</text>
+                    </button>
+                    <text class="question-text">{{ question.title }}</text>
+                  </view>
+                  <view class="question-image" v-if="question.title_video_url">
+                    <image :src="question.title_video_url" mode=""></image>
                   </view>
                 </view>
               </view>
-              <view class="stat-card">
-                <text class="stat-label">Pass Rate</text>
-                <view class="accuracy-visual">
-                  <view class="accuracy-circle" :style="{ '--accuracy': Number(question.accuracy) }">
-                    <text class="accuracy-value">{{ question.accuracy }}%</text>
+
+              <!-- 选项卡片 -->
+              <view class="options-card">
+                <view class="options-list" v-if="mode == 'learn'">
+                  <view v-for="(option, optIndex) in question.options_json" :key="optIndex" class="option-item" :class="optionClass(question, option)" @tap="selectOption(index, optIndex)">
+                    <view class="option-label">
+                      <text
+                        v-if="!question.showAnswer || ((question.selectedOption != option.key) && (option.key != question.answer))">{{ option.key }}</text>
+                      <text v-else-if="option.key == question.answer" class="option-label-icon check">✓</text>
+                      <text v-else-if="(question.selectedOption == option.key) && (option.key != question.answer)"
+                        class="option-label-icon cross">✗</text>
+                    </view>
+                    <text class="option-text">{{ option.value }}  111</text>
+                  </view>
+                </view>
+                <view class="options-list" v-else>
+                  <view v-for="(option, optIndex) in question.options_json" :key="optIndex" class="option-item" :class="optionClass(question, option)" @tap="selectOption(index, optIndex)">
+                    <view class="option-label">
+                      <text>{{ option.key }}</text>
+                    </view>
+                    <text class="option-text">{{ option.value }}</text>
                   </view>
                 </view>
               </view>
             </view>
 
-            <!-- 社区评论区 - 只在答错时显示 -->
-            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="comments-section">
-              <view class="comments-header">
-                <text>Community Discussion</text>
-                <text class="comments-count">{{ question.comments ? question.comments.length : 0 }} comments</text>
+            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="question-insights">
+              <view class="key-point-section">
+                <text class="key-point-text">💡 {{ question.key_point }}</text>
+              </view>
+
+              <view class="ai-explanation">
+                <view class="ai-header">
+                  <view class="ai-avatar">
+                    <text class="ai-avatar-icon">🤖</text>
+                  </view>
+                  <text class="ai-title">AI Explanation</text>
+                </view>
+                <view class="ai-content">
+                  <text>{{ question.explain }}</text>
+                  <text class="remember-tip">
+                    <text class="strong" style="margin-right: 20rpx;">Remember:</text>
+                    {{ question.rememberTip || 'Always check your mirrors and follow the Highway Code.' }}
+                  </text>
+                </view>
+              </view>
+
+              <view class="stats-container">
+                <view class="stat-card">
+                  <text class="stat-label">Difficulty Level</text>
+                  <view class="difficulty-visual">
+                    <view v-for="i in 5" :key="i" class="difficulty-bar" :class="{ active: i <= question.difficulty }">
+                    </view>
+                  </view>
+                </view>
+                <view class="stat-card">
+                  <text class="stat-label">Pass Rate</text>
+                  <view class="accuracy-visual">
+                    <view class="accuracy-circle" :style="{ '--accuracy': Number(question.accuracy) }">
+                      <text class="accuracy-value">{{ question.accuracy }}%</text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+              <view class="comments-section">
+                <view class="comments-header">
+                  <text>Community Discussion</text>
+                  <text class="comments-count">{{ question.comments ? question.comments.length : 0 }} comments</text>
               </view>
 
               <!-- 评论列表 -->
@@ -1336,13 +1329,35 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    gap: 40rpx;
     padding: 40rpx;
-    padding-bottom: 200rpx;
+    padding-bottom: 160rpx;
+  }
+
+  .question-primary {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32rpx;
+    justify-content: space-between;
+  }
+
+  .question-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f2f7ff 100%);
+    border-radius: 40rpx;
+    padding: 48rpx 40rpx;
+    box-shadow: 0 20rpx 80rpx rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 32rpx;
+    flex-shrink: 0;
   }
 
   /* 题目区域 */
   .question-section {
-    margin-bottom: 40rpx;
+    display: flex;
+    flex-direction: column;
+    gap: 32rpx;
   }
 
   /* 题目头部 - 音频按钮和题目文本 */
@@ -1350,7 +1365,6 @@
     display: flex;
     align-items: flex-start;
     gap: 30rpx;
-    margin-bottom: 50rpx;
   }
 
   /* 音频播放按钮 */
@@ -1358,13 +1372,12 @@
     width: 88rpx;
     height: 88rpx;
     border-radius: 50%;
-    // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    // background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
+    background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    // box-shadow: 0 8rpx 30rpx rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8rpx 30rpx rgba(102, 126, 234, 0.3);
     flex-shrink: 0;
   }
 
@@ -1398,7 +1411,7 @@
   /* 题目文本 */
   .question-text {
     flex: 1;
-    font-size: 40rpx;
+    font-size: 44rpx;
     font-weight: 600;
     color: #1a1a1a;
     line-height: 1.5;
@@ -1408,18 +1421,17 @@
   /* 题目图片 */
   .question-image {
     width: 100%;
-    height: 400rpx;
+    height: 320rpx;
     border-radius: 40rpx;
     overflow: hidden;
-    margin-bottom: 50rpx;
     position: relative;
-    // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
-    box-shadow: 0 20rpx 80rpx rgba(102, 126, 234, 0.15);
-    
+    background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+    box-shadow: 0 20rpx 80rpx rgba(102, 126, 234, 0.12);
+
     > image {
       width: 100%;
       height: 100%;
+      object-fit: cover;
     }
   }
 
@@ -1487,11 +1499,23 @@
     }
   }
 
+  .options-card {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 40rpx;
+    padding: 32rpx;
+    box-shadow: 0 18rpx 60rpx rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 24rpx;
+  }
+
   /* 选项列表 */
   .options-list {
     display: flex;
     flex-direction: column;
-    // gap: 24rpx;
+    gap: 24rpx;
   }
 
   .option-item {
@@ -1502,7 +1526,6 @@
     border-radius: 32rpx;
     border: 4rpx solid transparent;
     position: relative;
-    margin-bottom: 24rpx;
   }
 
   .option-item:active {
@@ -1571,9 +1594,14 @@
     font-weight: 500;
   }
 
+  .question-insights {
+    display: flex;
+    flex-direction: column;
+    gap: 40rpx;
+  }
+
   /* Key Point - 极简设计，直接显示在选项后面 */
   .key-point-section {
-    margin-top: 40rpx;
     padding: 0;
   }
 
@@ -2238,6 +2266,20 @@
     color: #e5e5e5;
   }
 
+  .dark-mode .question-card {
+    background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+    box-shadow: 0 20rpx 80rpx rgba(0, 0, 0, 0.6);
+  }
+
+  .dark-mode .question-image {
+    background: linear-gradient(180deg, #1f2937 0%, #0f172a 100%);
+  }
+
+  .dark-mode .options-card {
+    background: #1f1f1f;
+    box-shadow: 0 18rpx 60rpx rgba(0, 0, 0, 0.6);
+  }
+
   .dark-mode .option-item {
     background: #2a2a2a;
     color: #e5e5e5;
@@ -2455,9 +2497,22 @@
       font-size: 30rpx;
     }
 
-    // .question-page {
-    //   padding: 30rpx;
-    // }
+    .question-page {
+      padding: 30rpx;
+      padding-bottom: 150rpx;
+      gap: 32rpx;
+    }
+
+    .question-card,
+    .options-card {
+      padding: 36rpx 28rpx;
+      border-radius: 32rpx;
+    }
+
+    .option-item {
+      padding: 32rpx;
+      border-radius: 28rpx;
+    }
   }
 
   /* 平板适配 */
