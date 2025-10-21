@@ -1464,7 +1464,7 @@
     display: flex;
     flex-direction: column;
     padding: 40rpx;
-    padding-bottom: 200rpx;
+    padding-bottom: calc(200rpx + env(safe-area-inset-bottom));
   }
 
   /* 题目区域 */
@@ -1616,9 +1616,9 @@
 
   /* 选项列表 */
   .options-list {
-    display: flex;
-    flex-direction: column;
-    // gap: 24rpx;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    gap: 24rpx;
   }
 
   .option-item {
@@ -1629,7 +1629,6 @@
     border-radius: 32rpx;
     border: 4rpx solid transparent;
     position: relative;
-    margin-bottom: 24rpx;
   }
 
   .option-item:active {
@@ -1807,7 +1806,7 @@
   .stats-container {
     margin-top: 48rpx;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280rpx, 1fr));
     gap: 32rpx;
   }
 
@@ -2193,9 +2192,9 @@
   /* 底部操作栏 */
   .bottom-bar {
     position: fixed;
-    bottom: 40rpx;
-    left: 40rpx;
-    right: 40rpx;
+    bottom: calc(30rpx + env(safe-area-inset-bottom));
+    left: 30rpx;
+    right: 30rpx;
     background: white;
     padding: 32rpx 40rpx;
     box-shadow: 0 20rpx 80rpx rgba(0, 0, 0, 0.15);
@@ -2220,7 +2219,7 @@
   .comment-input-bottom {
     display: flex;
     align-items: center;
-    // gap: 24rpx;
+    gap: 24rpx;
     width: 100%;
   }
 
@@ -2233,7 +2232,6 @@
     font-size: 28rpx;
     outline: none;
     height: 100%;
-    margin-right: 24rpx;
   }
 
   .comment-input-field:focus {

@@ -475,11 +475,12 @@ export default {
 /* 容器 */
 .container {
   flex: 1;
-  padding: 20px;
+  padding: 30rpx;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 10;
+  padding-bottom: calc(30rpx + env(safe-area-inset-bottom));
 }
 
 /* 搜索栏 */
@@ -527,11 +528,9 @@ export default {
 /* 模式选择卡片 */
 .mode-cards-container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  max-width: 350px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280rpx, 1fr));
+  gap: 24rpx;
   width: 100%;
   margin: 0 auto;
 }
@@ -701,7 +700,6 @@ export default {
 .road-signs-container {
   flex: 1;
   overflow-y: auto;
-  max-width: 400px;
   width: 100%;
   margin: 0 auto;
 }
@@ -747,9 +745,9 @@ export default {
 /* 道路标志网格 */
 .signs-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-bottom: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(140rpx, 1fr));
+  gap: 20rpx;
+  margin-bottom: 20rpx;
 }
 
 .signs-grid:active {
@@ -834,10 +832,9 @@ export default {
 .category-detail-container {
   flex: 1;
   overflow-y: auto;
-  max-width: 400px;
   width: 100%;
   margin: 0 auto;
-  padding-bottom: 20px;
+  padding: 0 10rpx calc(30rpx + env(safe-area-inset-bottom));
 }
 
 .category-detail-header {
@@ -855,9 +852,9 @@ export default {
 /* 详情页面的道路标志网格 - 2列布局 */
 .detail-signs-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  padding: 0 10px;
+  grid-template-columns: repeat(auto-fit, minmax(260rpx, 1fr));
+  gap: 24rpx;
+  padding: 0 10rpx;
 }
 
 .detail-sign-item {
@@ -980,26 +977,26 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 15px 20px;
+  padding: 30rpx 40rpx calc(30rpx + env(safe-area-inset-bottom));
   background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 30%, white 100%);
   z-index: 20;
 }
 
 .action-button {
   width: 100%;
-  max-width: 330px;
+  max-width: 500rpx;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 32rpx;
   background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
   color: white;
   border: none;
-  border-radius: 25px;
-  font-size: 16px;
+  border-radius: 40rpx;
+  font-size: 32rpx;
   font-weight: 600;
-  box-shadow: 0 6px 20px rgba(74, 158, 255, 0.35);
+  box-shadow: 0 12rpx 40rpx rgba(74, 158, 255, 0.35);
   transition: all 0.3s ease;
   text-align: center;
 }

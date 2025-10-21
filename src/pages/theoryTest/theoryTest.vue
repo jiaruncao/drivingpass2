@@ -344,21 +344,20 @@ export default {
 /* 容器 */
 .container {
   flex: 1;
-  padding: 20px;
+  padding: 30rpx;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 10;
+  padding-bottom: calc(30rpx + env(safe-area-inset-bottom));
 }
 
 /* 模式选择卡片 */
 .mode-cards-container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  max-width: 350px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280rpx, 1fr));
+  gap: 24rpx;
   width: 100%;
   margin: 0 auto;
 }
@@ -527,17 +526,18 @@ export default {
 .categories-container {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 100px;
-  max-width: 350px;
+  padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
   width: 100%;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280rpx, 1fr));
+  gap: 24rpx;
 }
 
 .category-card {
   background: white;
   border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 15px;
+  padding: 28rpx;
   box-shadow: 0 5px 18px rgba(0,0,0,0.06);
   border: 2px solid transparent;
 }
@@ -555,19 +555,19 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16rpx;
 }
 
 .category-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16rpx;
 }
 
 .radio-button {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #4A9EFF;
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid #4A9EFF;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -578,40 +578,41 @@ export default {
 
 .radio-button.selected::after {
   content: '';
-  width: 10px;
-  height: 10px;
+  width: 20rpx;
+  height: 20rpx;
   background: #4A9EFF;
   border-radius: 50%;
 }
 
 .category-name {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: 600;
   color: #333;
 }
 
 .category-progress {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: 600;
   color: #4A9EFF;
 }
 
 .category-stats {
   display: flex;
-  gap: 25px;
-  font-size: 14px;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  font-size: 28rpx;
   color: #666;
-  margin-bottom: 12px;
-  padding-left: 32px;
+  margin-bottom: 16rpx;
+  padding-left: 32rpx;
 }
 
 .progress-bar {
-  width: calc(100% - 32px);
-  height: 6px;
+  width: 100%;
+  height: 12rpx;
   background: #F0F0F0;
-  border-radius: 3px;
+  border-radius: 6rpx;
   overflow: hidden;
-  margin-left: 32px;
+  margin-left: 32rpx;
 }
 
 .progress-fill {
@@ -627,26 +628,26 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 15px 20px;
+  padding: 30rpx 40rpx calc(30rpx + env(safe-area-inset-bottom));
   background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 30%, white 100%);
   z-index: 20;
 }
 
 .action-button {
   width: 100%;
-  max-width: 330px;
+  max-width: 500rpx;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 32rpx;
   background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
   color: white;
   border: none;
-  border-radius: 25px;
-  font-size: 16px;
+  border-radius: 40rpx;
+  font-size: 32rpx;
   font-weight: 600;
-  box-shadow: 0 6px 20px rgba(74, 158, 255, 0.35);
+  box-shadow: 0 12rpx 40rpx rgba(74, 158, 255, 0.35);
   text-align: center;
 }
 

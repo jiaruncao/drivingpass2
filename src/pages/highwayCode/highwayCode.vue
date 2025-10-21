@@ -467,7 +467,7 @@ export default {
   flex-direction: column;
   position: relative;
   z-index: 10;
-  padding: 80rpx 40rpx 80rpx;
+  padding: 80rpx 40rpx calc(80rpx + env(safe-area-inset-bottom));
   align-items: center;
   justify-content: center;
 }

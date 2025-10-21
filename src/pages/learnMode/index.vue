@@ -417,9 +417,11 @@ export default {
 
 <style lang="scss" scoped>
 .learn_mode {
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
+
   .btn {
     width: calc(100% - 60rpx);
-    margin: 117rpx 30rpx;
+    margin: 117rpx 30rpx calc(60rpx + env(safe-area-inset-bottom));
     height: 85rpx;
     background: linear-gradient(90deg, #67a6fe 0%, #4180ff 100%);
     border-radius: 43rpx;
@@ -429,58 +431,81 @@ export default {
     text-align: center;
     line-height: 85rpx;
   }
+
   .learn_mode_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280rpx, 1fr));
+    gap: 24rpx;
+    padding: 0 30rpx;
+
     .learn_item {
-      width: calc(100% - 60rpx);
-      margin: 23rpx 30rpx;
-      height: 148rpx;
+      width: 100%;
       background: #dfefff;
-      border-radius: 10rpx;
+      border-radius: 16rpx;
       display: flex;
+      align-items: stretch;
+      padding: 24rpx 20rpx;
+      min-height: 148rpx;
+
       .item_progress {
-        margin-right: 20rpx;
-        width: 100rpx;
         margin-left: auto;
+        width: 120rpx;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12rpx;
+
         .progress {
-          margin-top: 50rpx;
+          margin-top: 0;
         }
+
         .percentage {
-          margin-top: 12rpx;
           font-weight: 400;
           font-size: 20rpx;
           color: #999999;
           text-align: center;
         }
       }
+
       .item_content {
-        margin-top: 35rpx;
+        margin: 0 24rpx;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12rpx;
+
         .content_name {
           font-weight: bold;
           font-size: 28rpx;
           color: #419fff;
         }
+
         .content_sum {
-          margin-top: 10rpx;
           display: flex;
+          flex-wrap: wrap;
+          gap: 20rpx;
           font-weight: 400;
           font-size: 22rpx;
           color: #333333;
-          .sum_wrong {
-            margin-left: 40rpx;
-          }
         }
       }
+
       .item_select {
-        padding: 56rpx 29rpx;
+        padding: 0 16rpx;
+        display: flex;
+        align-items: center;
       }
     }
   }
+
   .learn_title {
     padding: 0 29rpx 20rpx 29rpx;
   }
+
   .top_nav {
     padding: 60rpx 30rpx;
     display: flex;
+
     .head_name {
       margin-top: -5rpx;
       margin-left: 28rpx;

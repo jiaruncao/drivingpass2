@@ -101,10 +101,11 @@ export default {
 
 <style lang="scss" scoped>
 .highayw_main {
-  padding-bottom: 127rpx;
+  padding-bottom: calc(127rpx + env(safe-area-inset-bottom));
   .read_btn {
-    width: calc(100% - 420rpx);
-    margin: 30rpx 210rpx;
+    width: 100%;
+    max-width: 500rpx;
+    margin: 30rpx auto;
     height: 84rpx;
     background: #ffffff;
     border-radius: 42rpx;
@@ -146,8 +147,10 @@ export default {
       color: #333333;
     }
     .info_img {
-      width: calc(100% - 220rpx);
-      margin: 0 110rpx;
+      width: 100%;
+      max-width: 600rpx;
+      margin: 0 auto;
+      padding: 0 60rpx;
       img {
         width: 100%;
         height: auto;
@@ -161,14 +164,16 @@ export default {
     }
   }
   .bottom_nav {
-    width: calc(100vw - 60rpx);
-    display: flex;
     position: fixed;
+    left: 0;
+    right: 0;
     bottom: 0;
+    display: flex;
+    align-items: center;
     height: 107rpx;
     line-height: 107rpx;
     border-top: 1px solid #d7d7d7;
-    padding: 0 30rpx;
+    padding: 0 30rpx calc(env(safe-area-inset-bottom));
     background: #fff;
     z-index: 9;
     .save_name {
