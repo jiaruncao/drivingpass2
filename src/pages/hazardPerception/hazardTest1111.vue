@@ -455,17 +455,18 @@ export default {
 .video-container {
   position: relative;
   width: 100%;
-  flex: 1;
+  padding-top: 56.25%;
   background: #1a1a1a;
   overflow: hidden;
 }
 
 /* 模拟视频背景 - 道路场景 */
 .video-content {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(to bottom, #4a5568 0%, #2d3748 40%, #1a202c 100%);
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
