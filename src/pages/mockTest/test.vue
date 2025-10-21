@@ -491,23 +491,28 @@ export default {
 }
 /* 全局样式重置 */
 .container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* 顶部栏 */
 .top-bar {
-  background: #F5F5F5;
-  padding: 0.375rem 1.25rem; /* 6px 20px → 0.375rem 1.25rem */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(245, 245, 245, 0.95);
+  padding: calc(env(safe-area-inset-top) + 0.5rem) 1.25rem 0.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.0625rem solid #E0E0E0; /* 1px → 0.0625rem */
-  height: 2.5rem; /* 40px → 2.5rem */
+  backdrop-filter: blur(0.75rem);
 }
 
 .question-counter {
@@ -539,7 +544,9 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: row;
-  padding: 0.625rem 0.9375rem; /* 10px 15px → 0.625rem 0.9375rem */
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 0.75rem 1.25rem;
   background: #FFFFFF;
   min-height: 0;
 }
@@ -552,13 +559,14 @@ export default {
 
 /* 左侧问题区域 */
 .question-section {
-  flex: 1.2;
+  flex: 1 1 55%;
   display: flex;
   flex-direction: column;
-  max-width: 55%;
   justify-content: space-between;
-  padding-right: 0.9375rem; /* 15px → 0.9375rem */
+  padding-right: 0.75rem;
   overflow: auto;
+  min-width: 16rem;
+  gap: 1rem;
 }
 
 .question-header {
@@ -585,20 +593,20 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-evenly;
+  gap: 0.75rem;
 }
 
 .answer-option {
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 0.75rem;
   padding: 0.75rem 0.875rem; /* 12px 14px → 0.75rem 0.875rem */
   background: #F9F9F9;
   border-radius: 0.5rem; /* 8px → 0.5rem */
   transition: all 0.2s ease;
   border: 0.125rem solid transparent; /* 2px → 0.125rem */
   min-height: 3rem; /* 48px → 3rem */
-  margin-bottom: 0.5rem; /* 8px → 0.5rem */
 }
 
 .answer-checkbox {
@@ -610,7 +618,6 @@ export default {
   flex-shrink: 0;
   position: relative;
   transition: all 0.2s ease;
-  margin-right: 0.75rem; /* 12px → 0.75rem */
 }
 
 .answer-option:active {
@@ -647,12 +654,13 @@ export default {
 
 /* 右侧图片区域 */
 .image-section {
-  flex: 0.8;
+  flex: 1 1 35%;
   max-width: 45%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.3125rem; /* 5px → 0.3125rem */
+  padding: 0.5rem;
+  min-width: 14rem;
 }
 
 .question-image {
@@ -665,13 +673,14 @@ export default {
 /* 底部控制栏 */
 .bottom-controls {
   background: #E8E4DC;
-  padding: 0.625rem 0.9375rem; /* 10px 15px → 0.625rem 0.9375rem */
+  padding: 0.75rem 1.25rem;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   border-top: 0.0625rem solid #D0D0C0; /* 1px → 0.0625rem */
-  height: 4.375rem; /* 70px → 4.375rem */
+  gap: 0.75rem;
 }
 
 .control-buttons {
@@ -679,7 +688,8 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  height: 100%;
+  flex-wrap: wrap;
+  gap: 0.625rem;
 }
 
 .control-button {
@@ -697,8 +707,6 @@ export default {
   white-space: nowrap;
   font-weight: 500;
   min-height: 3rem; /* 48px → 3rem */
-  margin-right: 0.625rem; /* 10px → 0.625rem */
-  height: 100%;
 }
 
 .control-button:active {

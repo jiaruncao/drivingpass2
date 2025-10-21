@@ -702,6 +702,8 @@ export default {
   position: relative;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   color: #333;
+  overflow-x: hidden;
+  background: rgba(255, 255, 255, 0.92);
 }
 
 /* 渐变背景 */
@@ -734,45 +736,52 @@ export default {
 
 /* Header 样式 */
 .header {
-  padding: 15px 20px;
-  display: flex;
-  align-items: center;
-  background: transparent;
-  position: relative;
-  z-index: 10;
-  min-height: 60px;
-}
-
-.back-button {
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 20px;
-  padding: 8px;
+  position: sticky;
+  top: 0;
+  padding: calc(env(safe-area-inset-top) + 24rpx) 40rpx 24rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 20;
+  min-height: 120rpx;
+  backdrop-filter: blur(16rpx);
+}
+
+.back-button {
+  position: absolute;
+  left: 40rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 40rpx;
+  padding: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72rpx;
+  height: 72rpx;
 }
 
 .page-title {
-  font-size: 24px;
+  font-size: 48rpx;
   font-weight: 600;
   color: #333;
   flex: 1;
   text-align: center;
-  margin-right: 40px;
 }
 
 /* 容器 */
 .container {
   flex: 1;
-  padding: 20px;
+  padding: 40rpx 48rpx 160rpx;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 10;
+  gap: 48rpx;
 }
 
 /* 模式选择卡片 */
@@ -781,21 +790,26 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // gap: 20px;
-  max-width: 350px;
+  align-items: center;
+  gap: 40rpx;
+  max-width: 700rpx;
   width: 100%;
   margin: 0 auto;
 }
 
 .mode-card {
-  background: white;
-  border-radius: 20px;
-  padding: 30px 25px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 40rpx;
+  padding: 60rpx 50rpx;
   text-align: center;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 16rpx 50rpx rgba(0,0,0,0.08);
   position: relative;
   overflow: hidden;
-  margin-bottom: 40rpx;
+  min-height: 320rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
 }
 
 .mode-card:active {
@@ -808,7 +822,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 8rpx;
 }
 
 .mode-card.learn::before {
@@ -820,48 +834,48 @@ export default {
 }
 
 .mode-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 20px;
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto 32rpx;
   background: #F8F9FA;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 56rpx;
 }
 
 .mode-title {
-  font-size: 22px;
+  font-size: 44rpx;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 16rpx;
   color: #333;
   display: block;
 }
 
 .mode-subtitle {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #666;
-  margin-bottom: 20px;
-  line-height: 1.4;
+  margin-bottom: 32rpx;
+  line-height: 1.5;
   display: block;
 }
 
 .progress-info {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  padding-top: 16px;
-  border-top: 1px solid #F0F0F0;
+  align-items: center;
+  padding-top: 32rpx;
+  border-top: 2rpx solid #F0F0F0;
 }
 
 .progress-label {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #999;
 }
 
 .progress-value {
-  font-size: 24px;
+  font-size: 48rpx;
   font-weight: 700;
 }
 
@@ -878,25 +892,30 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  max-width: 350px;
+  max-width: 700rpx;
   width: 100%;
   margin: 0 auto;
+  gap: 32rpx;
 }
 
 .options-card {
-  background: white;
-  border-radius: 20px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 40rpx;
+  padding: 48rpx;
+  box-shadow: 0 16rpx 48rpx rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
 }
 
 .option-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid #F5F5F5;
+  padding: 36rpx 0;
+  border-bottom: 2rpx solid #F5F5F5;
+  flex-wrap: wrap;
+  gap: 24rpx;
 }
 
 .option-item:last-child {
@@ -904,67 +923,72 @@ export default {
 }
 
 .option-label {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #333;
   font-weight: 500;
 }
 
 .option-value {
-  font-size: 16px;
+  font-size: 36rpx;
   color: #4A9EFF;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12rpx;
 }
 
 .toggle-switch {
-  width: 48px;
-  height: 28px;
+  width: 96rpx;
+  height: 56rpx;
   background: #E0E0E0;
-  border-radius: 14px;
+  border-radius: 28rpx;
   position: relative;
   transition: background 0.3s;
 }
 
 .toggle-switch.active {
-  background: #4A9EFF;
+  background: linear-gradient(90deg, #4A9EFF 0%, #2196F3 100%);
 }
 
 .toggle-switch::after {
   content: '';
   position: absolute;
-  width: 22px;
-  height: 22px;
+  width: 48rpx;
+  height: 48rpx;
   background: white;
   border-radius: 50%;
-  top: 3px;
-  left: 3px;
+  top: 4rpx;
+  left: 4rpx;
   transition: transform 0.3s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 8rpx 20rpx rgba(74, 158, 255, 0.2);
 }
 
 .toggle-switch.active::after {
-  transform: translateX(20px);
+  transform: translateX(40rpx);
 }
 
 /* 分类选择 */
 .categories-container {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 100px;
-  max-width: 350px;
+  padding-bottom: 160rpx;
+  max-width: 700rpx;
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
 }
 
 .category-card {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 5px 18px rgba(0,0,0,0.06);
-  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 40rpx;
+  padding: 40rpx;
+  box-shadow: 0 12rpx 40rpx rgba(0,0,0,0.06);
+  border: 4rpx solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
 }
 
 .category-card:active {
@@ -981,18 +1005,20 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  gap: 24rpx;
+  flex-wrap: wrap;
 }
 
 .category-left {
   display: flex;
   align-items: center;
-  // gap: 12px;
+  gap: 16rpx;
 }
 
 .radio-button {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #4A9EFF;
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid #4A9EFF;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1003,17 +1029,16 @@ export default {
 
 .radio-button.selected::after {
   content: '';
-  width: 10px;
-  height: 10px;
+  width: 20rpx;
+  height: 20rpx;
   background: #4A9EFF;
   border-radius: 50%;
 }
 
 .category-name {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: 600;
   color: #333;
-  margin-left: 20rpx;
 }
 
 // .category-progress {
@@ -1025,9 +1050,9 @@ export default {
 .category-progress {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 0 5px;
-  font-size: 16px;
+  gap: 16rpx;
+  padding: 0 8rpx;
+  font-size: 32rpx;
   font-weight: 600;
   color: #4A9EFF;
 }
@@ -1038,11 +1063,11 @@ export default {
 
 .category-stats {
   display: flex;
-  // gap: 25px;
-  font-size: 14px;
+  flex-wrap: wrap;
+  gap: 24rpx;
+  font-size: 28rpx;
   color: #666;
-  margin-bottom: 12px;
-  padding-left: 32px;
+  padding-left: 64rpx;
 }
 
 // .progress-bar {
@@ -1055,15 +1080,15 @@ export default {
 // }
 .progress-bar {
   flex: 1;
-  height: 8px;
+  height: 16rpx;
   background: #f0f0f0;
-  border-radius: 4px;
+  border-radius: 8rpx;
   overflow: hidden;
 }
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #4A9EFF 0%, #2196F3 100%);
-  border-radius: 3px;
+  border-radius: 8rpx;
   transition: width 0.5s ease;
 }
 
@@ -1073,26 +1098,26 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 15px 20px;
+  padding: 30rpx 40rpx calc(env(safe-area-inset-bottom) + 40rpx);
   background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 30%, white 100%);
   z-index: 20;
 }
 
 .action-button {
   width: 100%;
-  max-width: 330px;
+  max-width: 660rpx;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 32rpx;
   background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
   color: white;
   border: none;
-  border-radius: 25px;
-  font-size: 16px;
+  border-radius: 50rpx;
+  font-size: 32rpx;
   font-weight: 600;
-  box-shadow: 0 6px 20px rgba(74, 158, 255, 0.35);
+  box-shadow: 0 12rpx 40rpx rgba(74, 158, 255, 0.35);
   text-align: center;
 }
 
@@ -1115,60 +1140,60 @@ export default {
 
 .modal-content {
   background: white;
-  border-radius: 25px 25px 0 0;
-  padding: 25px 20px 35px;
+  border-radius: 50rpx 50rpx 0 0;
+  padding: 50rpx 40rpx 70rpx;
   width: 100%;
   animation: slideUp 0.3s ease;
 }
 
 .modal-header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 50rpx;
 }
 
 .modal-title {
-  font-size: 20px;
+  font-size: 40rpx;
   font-weight: 600;
   color: #333;
 }
 
 .picker-container {
-  padding: 15px 0;
+  padding: 30rpx 0;
 }
 
 .range-slider {
   width: 100%;
-  margin: 20px 0;
+  margin: 40rpx 0;
 }
 
 .range-value {
   text-align: center;
-  font-size: 42px;
+  font-size: 84rpx;
   font-weight: 700;
   color: #4A9EFF;
-  margin: 15px 0;
+  margin: 30rpx 0;
   display: block;
 }
 
 .range-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 26rpx;
   color: #999;
-  margin-top: 8px;
+  margin-top: 16rpx;
 }
 
 .modal-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 35px;
+  gap: 24rpx;
+  margin-top: 70rpx;
 }
 
 .modal-button {
   flex: 1;
-  padding: 14px;
-  border-radius: 20px;
-  font-size: 16px;
+  padding: 28rpx;
+  border-radius: 40rpx;
+  font-size: 32rpx;
   font-weight: 600;
   border: none;
   text-align: center;
@@ -1185,7 +1210,7 @@ export default {
 .modal-button.confirm {
   background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
   color: white;
-  box-shadow: 0 3px 12px rgba(74, 158, 255, 0.3);
+  box-shadow: 0 6rpx 24rpx rgba(74, 158, 255, 0.3);
 }
 
 @keyframes slideUp {
@@ -1194,48 +1219,30 @@ export default {
 }
 
 /* 移动端优化 */
-@media screen and (max-width: 375px) {
-  .mode-cards-container {
-    max-width: 320px;
-  }
-  
-  .options-container,
-  .categories-container {
-    max-width: 320px;
-  }
-  
+@media screen and (max-width: 23.5rem) {
   .mode-card {
-    padding: 25px 20px;
-  }
-  
-  .mode-title {
-    font-size: 20px;
-  }
-  
-  .mode-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
+    padding: 40rpx;
   }
 }
 /* 搜索栏 */
 .search-container {
-  margin-bottom: 30px;
+  margin-bottom: 60rpx;
   display: flex;
-  gap: 10px;
+  gap: 20rpx;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .search-input {
   flex: 1;
   background: #f5f5f5;
   border: none;
-  border-radius: 25px;
-  padding: 15px 20px;
-  font-size: 16px;
+  border-radius: 50rpx;
+  padding: 30rpx 40rpx;
+  font-size: 32rpx;
   color: #333;
   outline: none;
-  height: 100%;
+  min-height: 88rpx;
 }
 
 .search-input::placeholder {
@@ -1246,11 +1253,11 @@ export default {
   background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
   color: white;
   border: none;
-  border-radius: 20px;
-  padding: 15px 25px;
-  font-size: 16px;
+  border-radius: 50rpx;
+  padding: 30rpx 48rpx;
+  font-size: 32rpx;
   font-weight: 600;
-  box-shadow: 0 4px 15px rgba(74, 158, 255, 0.3);
+  box-shadow: 0 12rpx 36rpx rgba(74, 158, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1263,21 +1270,32 @@ export default {
 .road-signs-container {
   flex: 1;
   overflow-y: auto;
-  max-width: 400px;
+  max-width: 800rpx;
   width: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+  padding-bottom: 160rpx;
 }
 
 .category-section {
-  margin-bottom: 30px;
+  margin: 0;
+  padding: 40rpx;
+  background: rgba(255,255,255,0.92);
+  border-radius: 40rpx;
+  box-shadow: 0 16rpx 50rpx rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
 }
 
 .category-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-  padding: 0 5px;
+  gap: 24rpx;
+  flex-wrap: wrap;
 }
 
 .category-header:active {
@@ -1285,7 +1303,7 @@ export default {
 }
 
 .category-title {
-  font-size: 20px;
+  font-size: 40rpx;
   font-weight: 600;
   color: #333;
 }
@@ -1293,26 +1311,27 @@ export default {
 .category-meta {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16rpx;
+  color: #999;
+  font-size: 28rpx;
+  flex-wrap: wrap;
 }
 
 .category-count {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #999;
 }
 
 .next-arrow {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #999;
 }
 
 /* 道路标志网格 */
 .signs-grid {
-  display: flex;
-  flex-wrap: wrap;
-  // grid-template-columns: repeat(4, 1fr);
-  // gap: 15px;
-  margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180rpx, 1fr));
+  gap: 24rpx;
 }
 
 .signs-grid:active {
@@ -1320,38 +1339,32 @@ export default {
 }
 
 .sign-item {
-  // aspect-ratio: 1;
-  width: 150rpx;
-  height: 150rpx;
-  margin-right: 20rpx;
   background: white;
-  border-radius: 15px;
+  border-radius: 36rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  // transition: all 0.3s ease;
-  // position: relative;
-  // pointer-events: none; /* 阻止单个标志的点击事件 */
+  box-shadow: 0 16rpx 40rpx rgba(0,0,0,0.08);
+  min-height: 220rpx;
+  padding: 32rpx;
+  transition: transform 0.3s ease;
 }
 
 .sign-item image {
-  width: 80%;
-  height: 80%;
-  // object-fit: contain;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
 }
 
 /* 用CSS创建道路标志图标 */
 .sign-icon {
-  width: 50px;
-  height: 50px;
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  // font-size: 24px;
-  // color: white;
-  // font-weight: bold;
+  overflow: hidden;
 }
 
 /* 禁止类标志 - 红色圆形 */
@@ -1362,7 +1375,7 @@ export default {
 .sign-icon.no-pedestrians,
 .sign-icon.no-horn {
   background: #ff4444;
-  border: 3px solid #cc0000;
+  border: 6rpx solid #cc0000;
 }
 
 /* 警告类标志 - 黄色三角形 */
@@ -1371,7 +1384,7 @@ export default {
 .sign-icon.children-crossing,
 .sign-icon.animals-crossing {
   background: #ffcc00;
-  border: 3px solid #ff9900;
+  border: 6rpx solid #ff9900;
   color: #000;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   border-radius: 0;
@@ -1383,7 +1396,7 @@ export default {
 .sign-icon.ahead-only,
 .sign-icon.roundabout {
   background: #4A9EFF;
-  border: 3px solid #2196F3;
+  border: 6rpx solid #2196F3;
 }
 
 /* 信息类标志 - 绿色或蓝色方形 */
@@ -1392,28 +1405,31 @@ export default {
 .sign-icon.hospital,
 .sign-icon.petrol-station {
   background: #00cc66;
-  border: 3px solid #009944;
-  border-radius: 8px;
+  border: 6rpx solid #009944;
+  border-radius: 16rpx;
 }
 
 /* 分类详情页面样式 */
 .category-detail-container {
   flex: 1;
   overflow-y: auto;
-  max-width: 400px;
+  max-width: 800rpx;
   width: 100%;
   margin: 0 auto;
-  padding-bottom: 20px;
+  padding-bottom: 160rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
 }
 
 .category-detail-header {
   text-align: center;
-  margin-bottom: 30px;
-  padding: 5px 5px 20px 5px;
+  margin-bottom: 40rpx;
+  padding: 10rpx 10rpx 40rpx 10rpx;
 }
 
 .category-completion {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #4A9EFF;
   font-weight: 500;
 }
@@ -1421,20 +1437,20 @@ export default {
 /* 详情页面的道路标志网格 - 2列布局 */
 .detail-signs-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  padding: 0 10px;
+  grid-template-columns: repeat(auto-fill, minmax(240rpx, 1fr));
+  gap: 32rpx;
+  padding: 0 20rpx;
 }
 
 .detail-sign-item {
   background: white;
-  border-radius: 20px;
-  padding: 25px 20px;
+  border-radius: 40rpx;
+  padding: 50rpx 40rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  gap: 30rpx;
+  box-shadow: 0 16rpx 40rpx rgba(0,0,0,0.08);
   transition: all 0.3s ease;
 }
 
@@ -1443,15 +1459,17 @@ export default {
 }
 
 .detail-sign-icon {
-  width: 70px;
-  height: 70px;
+  width: 140rpx;
+  height: 140rpx;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 64rpx;
   color: white;
   font-weight: bold;
+  overflow: hidden;
+
   > image {
     width: 100%;
     height: 100%;
@@ -1467,7 +1485,7 @@ export default {
 .detail-sign-icon.no-pedestrians,
 .detail-sign-icon.no-horn {
   background: #ff4444;
-  border: 4px solid #cc0000;
+  border: 8rpx solid #cc0000;
 }
 
 .detail-sign-icon.warning-general,
@@ -1475,7 +1493,7 @@ export default {
 .detail-sign-icon.children-crossing,
 .detail-sign-icon.animals-crossing {
   background: #ffcc00;
-  border: 4px solid #ff9900;
+  border: 8rpx solid #ff9900;
   color: #000;
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   border-radius: 0;
@@ -1486,7 +1504,7 @@ export default {
 .detail-sign-icon.ahead-only,
 .detail-sign-icon.roundabout {
   background: #4A9EFF;
-  border: 4px solid #2196F3;
+  border: 8rpx solid #2196F3;
 }
 
 .detail-sign-icon.information,
@@ -1494,16 +1512,16 @@ export default {
 .detail-sign-icon.hospital,
 .detail-sign-icon.petrol-station {
   background: #00cc66;
-  border: 4px solid #009944;
-  border-radius: 12px;
+  border: 8rpx solid #009944;
+  border-radius: 24rpx;
 }
 
 .detail-sign-name {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: 500;
   color: #333;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 
@@ -1511,36 +1529,36 @@ export default {
   border-bottom: none !important;
   flex-direction: column !important;
   align-items: stretch !important;
-  padding-bottom: 10px !important;
+  padding-bottom: 20rpx !important;
 }
 
 .option-label {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #333;
   font-weight: 500;
 }
 
 .option-label-mb {
-  margin-bottom: 15px !important;
+  margin-bottom: 30rpx !important;
 }
 /* 单选按钮组 */
 .radio-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20rpx;
 }
 
 .radio-option {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 0;
+  gap: 20rpx;
+  padding: 20rpx 0;
 }
 
 .radio-circle {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #4A9EFF;
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid #4A9EFF;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1551,14 +1569,14 @@ export default {
 
 .radio-circle.selected::after {
   content: '';
-  width: 10px;
-  height: 10px;
+  width: 20rpx;
+  height: 20rpx;
   background: #4A9EFF;
   border-radius: 50%;
 }
 
 .radio-text {
-  font-size: 15px;
+  font-size: 30rpx;
   color: #333;
 }
 </style>

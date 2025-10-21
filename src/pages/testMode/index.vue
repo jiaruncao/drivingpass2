@@ -993,13 +993,20 @@ export default {
     }
   }
   .top_nav {
-    padding: 60rpx 30rpx;
+    position: sticky;
+    top: 0;
+    padding: calc(env(safe-area-inset-top) + 40rpx) 30rpx 30rpx;
     display: flex;
+    align-items: center;
+    gap: 24rpx;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16rpx);
+    z-index: 10;
+
     .head_name {
       margin-left: auto;
-      margin-top: -5rpx;
-      font-weight: 400;
-      font-size: 28rpx;
+      font-weight: 500;
+      font-size: 32rpx;
       color: #333333;
     }
   }

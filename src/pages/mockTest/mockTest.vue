@@ -61,7 +61,7 @@
       </view>
     </view>
     
-    <u-modal width="400px" title="Test Instructions" :show="showTest" :showCancelButton="true" cancelText="Cancel" confirmText="Start" content='You will have 57 minutes to complete 50 multiple-choice questions, followed by 14 hazard perception video clips. You must score at least 43/50 in multiple-choice and 44/75 in hazard perception to pass.' @confirm="confirm" @cancel="cancel"></u-modal>
+    <u-modal width="700rpx" title="Test Instructions" :show="showTest" :showCancelButton="true" cancelText="Cancel" confirmText="Start" content='You will have 57 minutes to complete 50 multiple-choice questions, followed by 14 hazard perception video clips. You must score at least 43/50 in multiple-choice and 44/75 in hazard perception to pass.' @confirm="confirm" @cancel="cancel"></u-modal>
     
   </view>
 </template>
@@ -226,7 +226,6 @@
 </script>
 
 <style lang="scss">
-  /* 全局重置样式 */
   * {
     margin: 0;
     padding: 0;
@@ -234,66 +233,59 @@
   }
 
   .app {
-    width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     color: #333;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: env(safe-area-inset-bottom);
+    background-color: rgba(255, 255, 255, 0.92);
   }
 
-  /* 渐变背景 - 横屏优化 */
   .gradient-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: fixed;
+    inset: 0;
     z-index: 0;
   }
 
   .gradient-top {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
+    inset: 0 0 50% 0;
     background: linear-gradient(180deg, #E3F2FD 0%, #FFFFFF 100%);
   }
 
   .gradient-bottom {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
+    inset: 50% 0 0 0;
     background: linear-gradient(180deg, #FFFFFF 0%, #FFF4F4 100%);
   }
 
-  /* Header 样式 - 横屏调整 */
   .header {
-    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: calc(env(safe-area-inset-top) + 24rpx) 64rpx 32rpx;
     display: flex;
     align-items: center;
-    background: transparent;
-    position: relative;
-    z-index: 10;
-    min-height: 60px;
+    gap: 24rpx;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16rpx);
   }
 
   .back-button {
     background: none;
     border: none;
     color: #666;
-    font-size: 24px;
-    padding: 8px;
+    font-size: 48rpx;
+    padding: 12rpx;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 80rpx;
+    height: 80rpx;
     transition: opacity 0.3s;
 
     &:active {
@@ -301,139 +293,125 @@
     }
   }
 
-  /* 主容器 - 横屏布局 */
   .main-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px 40px 40px 40px;
+    padding: 40rpx 80rpx 120rpx;
     position: relative;
     z-index: 10;
-    margin-top: -20px;
+    gap: 60rpx;
   }
 
-  /* 标题区域 */
   .title-section {
     text-align: center;
-    margin-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 16rpx;
   }
 
   .main-title {
-    font-size: 42px;
+    font-size: 84rpx;
     font-weight: 700;
     color: #333;
-    margin-bottom: 10px;
-    display: block;
   }
 
   .subtitle {
-    font-size: 20px;
+    font-size: 40rpx;
     background: linear-gradient(90deg, #4A9EFF 0%, #A78BFA 50%, #EC4899 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 400;
-    display: block;
   }
 
-  /* 测试类型卡片容器 */
   .test-types-container {
     display: flex;
-    flex-direction: row;
-    // gap: 40px;
-    margin-bottom: 40px;
-    width: 100%;
-    max-width: 900px;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 60rpx;
+    width: 100%;
+    max-width: 900rpx;
   }
 
-  /* 测试类型卡片 */
   .test-type-card {
-    flex: 1;
-    background: white;
-    border-radius: 25px;
-    padding: 35px 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    flex: 1 1 320rpx;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 48rpx;
+    padding: 70rpx 60rpx;
+    box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.08);
     text-align: center;
-    position: relative;
-    max-width: 400px;
-    margin-right: 40px; /* 添加右侧间距 */
+    min-height: 360rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24rpx;
   }
-  
-  /* 移除最后一个卡片的右边距 */
-  .test-type-card:last-child {
-    margin-right: 0;
-  }
-  
+
   .test-type-title {
-    font-size: 26px;
+    font-size: 52rpx;
     font-weight: 600;
     color: #333;
-    margin-bottom: 15px;
-    display: block;
   }
 
   .test-type-details {
     display: flex;
     flex-direction: column;
+    gap: 12rpx;
     align-items: center;
   }
 
   .test-type-main {
-    font-size: 18px;
+    font-size: 36rpx;
     color: #333;
-    margin-bottom: 10px;
-    display: block;
   }
 
   .pass-mark {
     color: #999;
-    font-size: 16px;
-    display: block;
+    font-size: 32rpx;
   }
 
-  /* 按钮容器 */
   .buttons-container {
     display: flex;
-    flex-direction: row;
-    // gap: 30px;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 40rpx;
+    width: 100%;
+    max-width: 700rpx;
   }
 
-  /* 主要按钮 */
-  .primary-button {
-    padding: 18px 60px;
-    background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
-    border-radius: 50px;
-    box-shadow: 0 8px 24px rgba(74, 158, 255, 0.35);
-    transition: all 0.3s ease;
+  .primary-button,
+  .secondary-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 30px; /* 添加右侧间距 */
+    min-height: 120rpx;
+    padding: 32rpx 96rpx;
+    border-radius: 100rpx;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .primary-button {
+    background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
+    box-shadow: 0 16rpx 48rpx rgba(74, 158, 255, 0.35);
+
     &:active {
       transform: scale(0.98);
     }
   }
 
   .primary-button-text {
-    color: white;
-    font-size: 22px;
+    color: #fff;
+    font-size: 44rpx;
     font-weight: 600;
   }
 
-  /* 次要按钮 */
   .secondary-button {
-    padding: 16px 48px;
-    background: white;
-    border: 2px solid #4A9EFF;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #fff;
+    border: 4rpx solid #4A9EFF;
 
     &:active {
       transform: scale(0.98);
@@ -443,15 +421,10 @@
 
   .secondary-button-text {
     color: #4A9EFF;
-    font-size: 20px;
+    font-size: 40rpx;
     font-weight: 600;
   }
-  /* 移除最后一个按钮的右边距 */
-  .primary-button:last-child,
-  .secondary-button:last-child {
-    margin-right: 0;
-  }
-  /* 装饰性元素 */
+
   .decoration-circle {
     position: absolute;
     border-radius: 50%;
@@ -460,86 +433,23 @@
   }
 
   .circle-1 {
-    width: 200px;
-    height: 200px;
+    width: 400rpx;
+    height: 400rpx;
     top: 10%;
     right: 5%;
   }
 
   .circle-2 {
-    width: 150px;
-    height: 150px;
+    width: 300rpx;
+    height: 300rpx;
     bottom: 10%;
     left: 5%;
   }
 
-  /* 响应式设计 - 针对不同横屏尺寸 */
-  @media screen and (max-height: 500px) {
-    .main-title {
-      font-size: 32px;
-    }
-
-    .subtitle {
-      font-size: 16px;
-    }
-
-    .test-type-card {
-      padding: 25px 20px;
-    }
-
-    .test-type-title {
-      font-size: 20px;
-    }
-
-    .test-type-main {
-      font-size: 16px;
-    }
-
-    .pass-mark {
-      font-size: 14px;
-    }
-
-    .primary-button {
-      padding: 14px 40px;
-    }
-
-    .primary-button-text {
-      font-size: 18px;
-    }
-
-    .secondary-button {
-      padding: 12px 36px;
-    }
-
-    .secondary-button-text {
-      font-size: 18px;
-    }
-
-    .title-section {
-      margin-bottom: 25px;
-    }
-
-    .test-types-container {
-      margin-bottom: 30px;
-    }
-  }
-
-  /* 超宽屏优化 */
-  @media screen and (min-width: 1400px) {
-    .test-types-container {
-      max-width: 1100px;
-    }
-
-    .test-type-card {
-      max-width: 480px;
-    }
-  }
-
-  /* 动画效果 */
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(20rpx);
     }
 
     to {
@@ -560,45 +470,40 @@
     animation: fadeIn 0.6s ease 0.4s both;
   }
 
-  /* 强制横屏提示 */
   .orientation-message {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: white;
+    inset: 0;
+    background: #fff;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 40rpx;
     text-align: center;
   }
 
   .orientation-icon {
-    font-size: 60px;
-    margin-bottom: 20px;
+    font-size: 120rpx;
+    margin-bottom: 40rpx;
     animation: rotate 2s infinite;
     display: block;
   }
 
   .orientation-text {
-    font-size: 18px;
+    font-size: 36rpx;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 20rpx;
     display: block;
   }
 
   .orientation-subtext {
-    font-size: 14px;
+    font-size: 28rpx;
     color: #666;
     display: block;
   }
 
   @keyframes rotate {
-
     0%,
     100% {
       transform: rotate(-90deg);
