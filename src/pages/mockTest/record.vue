@@ -86,12 +86,15 @@
       <view class="chart-card fade-in">
         <text class="chart-title">Multiple Choice Score</text>
         <view class="chart-container">
-          <canvas 
-            canvas-id="multipleChoiceChart" 
-            id="multipleChoiceChart"
-            class="chart-canvas"
-            :style="{width: chartWidth + 'px', height: '200px'}">
-          </canvas>
+          <view class="chart-resize-shell">
+            <canvas
+              canvas-id="multipleChoiceChart"
+              id="multipleChoiceChart"
+              class="chart-canvas"
+              :width="canvasWidth"
+              :height="canvasHeight">
+            </canvas>
+          </view>
         </view>
       </view>
 
@@ -99,12 +102,15 @@
       <view class="chart-card fade-in">
         <text class="chart-title">Hazard Perception Score</text>
         <view class="chart-container">
-          <canvas 
-            canvas-id="hazardPerceptionChart" 
-            id="hazardPerceptionChart"
-            class="chart-canvas"
-            :style="{width: chartWidth + 'px', height: '200px'}">
-          </canvas>
+          <view class="chart-resize-shell">
+            <canvas
+              canvas-id="hazardPerceptionChart"
+              id="hazardPerceptionChart"
+              class="chart-canvas"
+              :width="canvasWidth"
+              :height="canvasHeight">
+            </canvas>
+          </view>
         </view>
       </view>
     </scroll-view>
@@ -164,8 +170,13 @@ export default {
       },
       // 模态框显示状态
       showModal: false,
-      // 图表宽度
+      // 图表尺寸
       chartWidth: 0,
+      chartHeight: 0,
+      canvasWidth: 0,
+      canvasHeight: 0,
+      chartAspectRatio: 0.6,
+      devicePixelRatio: 1,
       // 图表数据
       multipleChoiceChartData: null,
       hazardPerceptionChartData: null,
@@ -205,14 +216,23 @@ export default {
     // 获取系统信息，设置图表宽度
     getSystemInfo() {
       const systemInfo = uni.getSystemInfoSync();
-      this.setChartWidth(systemInfo.windowWidth);
+      this.devicePixelRatio = systemInfo.pixelRatio || 1;
+      this.setChartWidth(systemInfo.windowWidth, this.devicePixelRatio);
     },
 
-    setChartWidth(windowWidth) {
+    setChartWidth(windowWidth, pixelRatio = this.devicePixelRatio) {
       const numericWidth = typeof windowWidth === 'number' ? windowWidth : parseFloat(windowWidth) || 0;
-      const padding = 40; // scroll-view 左右各 20px
+      const padding = typeof uni.upx2px === 'function' ? uni.upx2px(40) : 40; // scroll-view 左右留白
       const calculatedWidth = Math.max(numericWidth - padding, 0);
+      const aspectRatio = this.chartAspectRatio || 0.6;
+      const derivedHeight = calculatedWidth * aspectRatio;
+      const dpr = pixelRatio || 1;
+
+      this.devicePixelRatio = dpr;
       this.chartWidth = calculatedWidth;
+      this.chartHeight = derivedHeight;
+      this.canvasWidth = Math.round(calculatedWidth * dpr);
+      this.canvasHeight = Math.round(derivedHeight * dpr);
     },
 
     registerResizeListener() {
@@ -220,7 +240,13 @@ export default {
         return;
       }
       this.resizeListener = res => {
-        this.setChartWidth(res.size.windowWidth);
+        if (!res || !res.size || typeof res.size.windowWidth === 'undefined') {
+          return;
+        }
+        const nextPixelRatio = res.size && typeof res.size.pixelRatio === 'number'
+          ? res.size.pixelRatio
+          : this.devicePixelRatio;
+        this.setChartWidth(res.size.windowWidth, nextPixelRatio);
         this.redrawCharts();
       };
       uni.onWindowResize(this.resizeListener);
@@ -282,19 +308,26 @@ export default {
         return;
       }
       const ctx = uni.createCanvasContext(canvasId, this);
-      const width = this.chartWidth;
-      const height = 200;
-      const padding = 30;
+      const dpr = this.devicePixelRatio || 1;
+      const width = this.canvasWidth || this.chartWidth;
+      const height = this.canvasHeight || this.chartHeight || width * this.chartAspectRatio;
+      if (!width || !height) {
+        return;
+      }
+      const padding = Math.max(width * 0.08, 48 * dpr);
       const graphWidth = width - padding * 2;
       const graphHeight = height - padding * 2;
-      
+      if (graphWidth <= 0 || graphHeight <= 0) {
+        return;
+      }
+
       // 清除画布
       ctx.clearRect(0, 0, width, height);
-      
+
       // 设置样式
       ctx.setStrokeStyle('#E0E0E0');
-      ctx.setLineWidth(1);
-      
+      ctx.setLineWidth(Math.max(width * 0.002, 1.5 * dpr));
+
       // 绘制网格线
       for (let i = 0; i <= 5; i++) {
         const y = padding + (graphHeight / 5) * i;
@@ -306,7 +339,7 @@ export default {
       
       // 绘制数据线
       ctx.setStrokeStyle('#4A9EFF');
-      ctx.setLineWidth(2);
+      ctx.setLineWidth(Math.max(width * 0.003, 2.5 * dpr));
       ctx.setFillStyle('rgba(74, 158, 255, 0.1)');
       
       const maxValue = 100;
@@ -338,44 +371,50 @@ export default {
       ctx.lineTo(padding, height - padding);
       ctx.closePath();
       ctx.fill();
-      
+
       // 绘制数据点
       ctx.setFillStyle('#4A9EFF');
+      const pointRadius = Math.max(width * 0.006, 6 * dpr);
       chartData.data.forEach((value, index) => {
         const x = padding + xStep * index;
         const y = padding + graphHeight - ((value - minValue) / range) * graphHeight;
-        
+
         ctx.beginPath();
-        ctx.arc(x, y, 4, 0, 2 * Math.PI);
+        ctx.arc(x, y, pointRadius, 0, 2 * Math.PI);
         ctx.fill();
-        
+
         // 绘制白色边框
         ctx.setStrokeStyle('#FFFFFF');
-        ctx.setLineWidth(2);
+        ctx.setLineWidth(Math.max(width * 0.0025, 2 * dpr));
         ctx.stroke();
         ctx.setStrokeStyle('#4A9EFF');
       });
-      
+
       // 绘制x轴标签
       ctx.setFillStyle('#999');
-      ctx.setFontSize(11);
+      const axisFontSize = Math.max(width * 0.025, 20 * dpr);
+      const axisLabelOffset = Math.max(height * 0.05, 24 * dpr);
+      ctx.setFontSize(axisFontSize);
       ctx.setTextAlign('center');
-      
+
       // 只显示部分标签避免拥挤
       const labelStep = Math.ceil(chartData.labels.length / 5) || 1;
       chartData.labels.forEach((label, index) => {
         if (index % labelStep === 0 || index === chartData.labels.length - 1) {
           const x = padding + xStep * index;
-          ctx.fillText(label, x, height - 10);
+          ctx.fillText(label, x, height - axisLabelOffset);
         }
       });
-      
+
       // 绘制y轴标签
       ctx.setTextAlign('right');
+      ctx.setFontSize(Math.max(width * 0.022, 18 * dpr));
+      const yLabelOffset = Math.max(height * 0.01, 6 * dpr);
+      const yLabelPadding = Math.max(padding * 0.12, 6 * dpr);
       for (let i = 0; i <= 5; i++) {
         const value = (100 / 5) * (5 - i);
-        const y = padding + (graphHeight / 5) * i + 4;
-        ctx.fillText(value.toString(), padding - 5, y);
+        const y = padding + (graphHeight / 5) * i + yLabelOffset;
+        ctx.fillText(value.toString(), padding - yLabelPadding, y);
       }
       
       // 执行绘制
@@ -771,31 +810,59 @@ export default {
 
 /* 图表卡片 */
 .chart-card {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  background: #fff;
+  border-radius: 40rpx;
+  padding: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 16rpx 48rpx rgba(0,0,0,0.06);
   box-sizing: border-box;
 }
 
 .chart-title {
   display: block;
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: 600;
   color: #333;
-  margin-bottom: 15px;
+  margin-bottom: 30rpx;
 }
 
 .chart-container {
   position: relative;
-  height: 200px;
-  margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.chart-resize-shell {
+  position: relative;
+  width: 100%;
+}
+
+.chart-resize-shell::before {
+  content: '';
+  display: block;
+  padding-top: 60%;
+}
+
+@supports (aspect-ratio: 5 / 3) {
+  .chart-resize-shell {
+    aspect-ratio: 5 / 3;
+  }
+
+  .chart-resize-shell::before {
+    content: none;
+    padding-top: 0;
+  }
 }
 
 .chart-canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 200px;
+  height: 100%;
+  max-width: 100%;
 }
 
 /* 模态框样式 */
