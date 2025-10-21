@@ -558,7 +558,13 @@ export default {
 
 <style lang="scss" scoped>
 .question_main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   padding-bottom: 127rpx;
+  background: #ffffff;
+  overflow-x: hidden;
+  overflow-y: auto;
   .add_comment {
     text-align: center;
     color: #999;
@@ -934,30 +940,41 @@ export default {
   }
   .question_info {
     padding: 0 30rpx;
+    display: flex;
+    flex-direction: column;
+    gap: 35rpx;
     .info_option {
-      margin-top: 35rpx;
+      display: flex;
+      flex-direction: column;
+      gap: 24rpx;
       .option_item {
-        margin-bottom: 30rpx;
         display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 24rpx;
         flex-wrap: wrap;
+        padding: 24rpx 20rpx;
+        border-radius: 20rpx;
+        background: #f6f8fb;
+        min-height: 96rpx;
         .item_title {
-          flex: 1 1 10%;
-          margin-left: 25rpx;
+          flex: 1 1 auto;
           font-weight: 400;
           font-size: 34rpx;
           color: #333333;
         }
         .item_option {
-          width: 54rpx;
-          height: 54rpx;
+          width: 64rpx;
+          height: 64rpx;
           background: #ffffff;
-          box-shadow: 0rpx 3rpx 9rpx 1rpx rgba(207, 207, 207, 0.99);
+          box-shadow: 0rpx 3rpx 9rpx 1rpx rgba(207, 207, 207, 0.4);
           border-radius: 50%;
           text-align: center;
-          line-height: 54rpx;
-          font-weight: 400;
+          line-height: 64rpx;
+          font-weight: 600;
           font-size: 30rpx;
           color: #333333;
+          flex-shrink: 0;
         }
       }
     }
@@ -993,12 +1010,19 @@ export default {
     }
   }
   .top_nav {
-    padding: 60rpx 30rpx;
+    padding: 60rpx 30rpx 40rpx;
     display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8rpx);
+    border-bottom: 2rpx solid rgba(0, 0, 0, 0.05);
+    align-items: center;
+    gap: 20rpx;
     .head_name {
       margin-left: auto;
-      margin-top: -5rpx;
-      font-weight: 400;
+      font-weight: 500;
       font-size: 28rpx;
       color: #333333;
     }

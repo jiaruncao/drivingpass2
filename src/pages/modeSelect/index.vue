@@ -737,10 +737,13 @@ export default {
   padding: 15px 20px;
   display: flex;
   align-items: center;
-  background: transparent;
-  position: relative;
-  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 20;
   min-height: 60px;
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .back-button {
@@ -773,6 +776,7 @@ export default {
   flex-direction: column;
   position: relative;
   z-index: 10;
+  gap: 24px;
 }
 
 /* 模式选择卡片 */
@@ -781,8 +785,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // gap: 20px;
-  max-width: 350px;
+  gap: 20px;
+  max-width: 360px;
   width: 100%;
   margin: 0 auto;
 }
@@ -886,17 +890,23 @@ export default {
 .options-card {
   background: white;
   border-radius: 20px;
-  padding: 25px;
+  padding: 25px 24px;
   margin-bottom: 25px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .option-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 0;
+  padding: 14px 0;
   border-bottom: 1px solid #F5F5F5;
+  gap: 16px;
+  min-height: 56px;
+  flex-wrap: wrap;
 }
 
 .option-item:last-child {

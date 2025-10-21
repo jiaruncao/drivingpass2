@@ -429,40 +429,67 @@ export default {
 
 <style lang="scss" scoped>
 .more_option {
-  max-height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-weight: 400;
   font-size: 28rpx;
   color: #333333;
+  background: #ffffff;
+  overflow-x: hidden;
+  overflow-y: auto;
   .btn {
     width: calc(100% - 60rpx);
-    margin: 50rpx 30rpx;
-    height: 86rpx;
+    margin: 40rpx 30rpx 60rpx;
     background: #419fff;
-    border-radius: 8rpx;
+    border-radius: 16rpx;
     color: #ffffff;
-    line-height: 86rpx;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 96rpx;
+    font-weight: 600;
   }
   .opeion_main {
+    display: flex;
+    flex-direction: column;
+    gap: 24rpx;
+    padding: 40rpx 30rpx 0;
     .option_item {
-      margin: 100rpx 29rpx;
       display: flex;
+      align-items: center;
+      gap: 20rpx;
+      padding: 32rpx 24rpx;
+      border-radius: 20rpx;
+      background: #f6f8fb;
+      min-height: 96rpx;
       .item_value {
         margin-left: auto;
+        display: flex;
+        align-items: center;
       }
       .item_icon {
-        margin-left: 10rpx;
-        margin-top: 8rpx;
+        margin-left: 12rpx;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
       }
     }
   }
   .top_nav {
-    padding: 60rpx 30rpx;
+    padding: 60rpx 30rpx 40rpx;
     display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8rpx);
+    border-bottom: 2rpx solid rgba(0, 0, 0, 0.05);
+    align-items: center;
+    gap: 20rpx;
     .head_name {
-      margin-top: -5rpx;
-      margin-left: 28rpx;
-      font-weight: 400;
+      margin-left: auto;
+      font-weight: 500;
       font-size: 28rpx;
       color: #333333;
     }

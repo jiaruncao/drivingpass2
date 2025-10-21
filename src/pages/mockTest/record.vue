@@ -504,9 +504,12 @@ export default {
   padding: 15px 20px;
   display: flex;
   align-items: center;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 10;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .back-button {
@@ -531,10 +534,13 @@ export default {
 /* 滚动容器 */
 .container {
   flex: 1;
-  padding: 0 20px 20px;
+  padding: 20px 20px 24px;
   position: relative;
   z-index: 5;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* 学员信息卡片 */

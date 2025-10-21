@@ -491,23 +491,27 @@ export default {
 }
 /* 全局样式重置 */
 .container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* 顶部栏 */
 .top-bar {
   background: #F5F5F5;
-  padding: 0.375rem 1.25rem; /* 6px 20px → 0.375rem 1.25rem */
+  padding: 0.5rem 1.25rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.0625rem solid #E0E0E0; /* 1px → 0.0625rem */
-  height: 2.5rem; /* 40px → 2.5rem */
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  min-height: 2.75rem;
 }
 
 .question-counter {
@@ -542,6 +546,7 @@ export default {
   padding: 0.625rem 0.9375rem; /* 10px 15px → 0.625rem 0.9375rem */
   background: #FFFFFF;
   min-height: 0;
+  gap: 1.25rem;
 }
 
 /* 当没有图片时，问题区域占满 */
@@ -556,9 +561,9 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 55%;
-  justify-content: space-between;
   padding-right: 0.9375rem; /* 15px → 0.9375rem */
   overflow: auto;
+  gap: 1rem;
 }
 
 .question-header {
@@ -585,7 +590,7 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-evenly;
+  gap: 0.75rem;
 }
 
 .answer-option {
@@ -598,7 +603,6 @@ export default {
   transition: all 0.2s ease;
   border: 0.125rem solid transparent; /* 2px → 0.125rem */
   min-height: 3rem; /* 48px → 3rem */
-  margin-bottom: 0.5rem; /* 8px → 0.5rem */
 }
 
 .answer-checkbox {
@@ -671,7 +675,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   border-top: 0.0625rem solid #D0D0C0; /* 1px → 0.0625rem */
-  height: 4.375rem; /* 70px → 4.375rem */
+  min-height: 4.375rem; /* 70px → 4.375rem */
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .control-buttons {
@@ -679,7 +685,8 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  height: 100%;
+  gap: 0.625rem;
+  flex-wrap: wrap;
 }
 
 .control-button {
@@ -697,8 +704,6 @@ export default {
   white-space: nowrap;
   font-weight: 500;
   min-height: 3rem; /* 48px → 3rem */
-  margin-right: 0.625rem; /* 10px → 0.625rem */
-  height: 100%;
 }
 
 .control-button:active {

@@ -1010,23 +1010,28 @@ export default {
 }
 /* 全局样式重置 */
 .container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* 顶部栏 */
 .top-bar {
   background: #F5F5F5;
-  padding: 0.375rem 1.25rem; /* 6px 20px → 0.375rem 1.25rem */
+  padding: 0.5rem 1.25rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-bottom: 0.0625rem solid #E0E0E0; /* 1px → 0.0625rem */
-  height: 2.5rem; /* 40px → 2.5rem */
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 2.75rem;
+  gap: 0.75rem;
 }
 
 .question-counter {
@@ -1058,10 +1063,11 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* padding: 0.625rem 0.9375rem; */
   background: #FFFFFF;
   min-height: 0;
   position: relative;
+  gap: 1rem;
+  padding-bottom: 1rem;
 }
 
 /* 当没有图片时，问题区域占满 */
@@ -1076,9 +1082,9 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 55%;
-  justify-content: space-between;
   padding-right: 0.9375rem; /* 15px → 0.9375rem */
   overflow: auto;
+  gap: 1rem;
 }
 
 .question-header {
@@ -1105,7 +1111,7 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-evenly;
+  gap: 0.75rem;
 }
 
 .answer-option {
@@ -1118,7 +1124,6 @@ export default {
   transition: all 0.2s ease;
   border: 0.125rem solid transparent; /* 2px → 0.125rem */
   min-height: 3rem; /* 48px → 3rem */
-  margin-bottom: 0.5rem; /* 8px → 0.5rem */
 }
 
 .answer-checkbox {
@@ -1191,7 +1196,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   border-top: 0.0625rem solid #D0D0C0; /* 1px → 0.0625rem */
-  height: 4.375rem; /* 70px → 4.375rem */
+  min-height: 4.375rem; /* 70px → 4.375rem */
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .control-buttons {
@@ -1199,10 +1206,12 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  height: 100%;
+  gap: 0.625rem;
+  flex-wrap: wrap;
 }
 
 .control-button {
+  padding: 0.75rem 1.25rem;
   font-size: 1rem; /* 16px → 1rem */
   border: 0.125rem solid #B0A090; /* 2px → 0.125rem */
   border-radius: 0.5rem; /* 8px → 0.5rem */
@@ -1215,9 +1224,7 @@ export default {
   box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1); /* 2px 4px → 0.125rem 0.25rem */
   white-space: nowrap;
   font-weight: 500;
-  
-  margin-right: 0.625rem; /* 10px → 0.625rem */
-  height: 100%;
+  min-height: 3rem;
 }
 
 .control-button:active {
@@ -1641,24 +1648,26 @@ export default {
 
 /* 底部控制区域 */
 .bottom-controls-video {
-  /* position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1.9375rem;
-  background: transparent; */
-  height: 2rem;
-  background: transparent;
+  position: sticky;
+  top: 2.75rem;
+  z-index: 18;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* 细进度条 */
 .thin-progress-bar {
-  position: absolute;
-  height: 1.5625rem; /* 50rpx → 3.125rem */
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
   height: 0.375rem; /* 6rpx → 0.375rem */
-  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 .thin-progress-fill {
@@ -1670,22 +1679,20 @@ export default {
 
 /* 得分条容器 */
 .score-bar-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1.5625rem; /* 50rpx → 3.125rem */
+  position: relative;
+  width: 100%;
+  min-height: 1.5625rem; /* 50rpx → 3.125rem */
   display: flex;
   align-items: stretch;
   background: #f5f5f5;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 /* 测试模式条 - 全灰色 */
 .test-mode-bar {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  /* background: #a0a0a0; */
+  inset: 0;
 }
 
 /* 用户标记旗子 */

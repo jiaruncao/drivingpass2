@@ -235,13 +235,14 @@
 
   .app {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     color: #333;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   /* 渐变背景 - 横屏优化 */
@@ -277,10 +278,13 @@
     padding: 15px 30px;
     display: flex;
     align-items: center;
-    background: transparent;
-    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
     z-index: 10;
     min-height: 60px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   .back-button {
@@ -308,10 +312,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px 40px 40px 40px;
+    padding: 30px 24px 40px;
     position: relative;
     z-index: 10;
-    margin-top: -20px;
+    gap: 32px;
   }
 
   /* 标题区域 */
@@ -342,7 +346,8 @@
   .test-types-container {
     display: flex;
     flex-direction: row;
-    // gap: 40px;
+    flex-wrap: wrap;
+    gap: 24px;
     margin-bottom: 40px;
     width: 100%;
     max-width: 900px;
@@ -351,7 +356,7 @@
 
   /* 测试类型卡片 */
   .test-type-card {
-    flex: 1;
+    flex: 1 1 260px;
     background: white;
     border-radius: 25px;
     padding: 35px 30px;
@@ -359,14 +364,9 @@
     text-align: center;
     position: relative;
     max-width: 400px;
-    margin-right: 40px; /* 添加右侧间距 */
+    min-height: 220px;
   }
-  
-  /* 移除最后一个卡片的右边距 */
-  .test-type-card:last-child {
-    margin-right: 0;
-  }
-  
+
   .test-type-title {
     font-size: 26px;
     font-weight: 600;
@@ -398,7 +398,8 @@
   .buttons-container {
     display: flex;
     flex-direction: row;
-    // gap: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
   }
 
@@ -412,7 +413,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 30px; /* 添加右侧间距 */
+    min-height: 44px;
     &:active {
       transform: scale(0.98);
     }
@@ -434,6 +435,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 44px;
 
     &:active {
       transform: scale(0.98);
@@ -445,11 +447,6 @@
     color: #4A9EFF;
     font-size: 20px;
     font-weight: 600;
-  }
-  /* 移除最后一个按钮的右边距 */
-  .primary-button:last-child,
-  .secondary-button:last-child {
-    margin-right: 0;
   }
   /* 装饰性元素 */
   .decoration-circle {
