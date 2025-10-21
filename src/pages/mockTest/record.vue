@@ -85,12 +85,14 @@
       <!-- 多选题成绩图表 -->
       <view class="chart-card fade-in">
         <text class="chart-title">Multiple Choice Score</text>
-        <view class="chart-container">
-          <canvas 
-            canvas-id="multipleChoiceChart" 
+        <view class="chart-container" :style="chartContainerStyle">
+          <canvas
+            canvas-id="multipleChoiceChart"
             id="multipleChoiceChart"
             class="chart-canvas"
-            :style="{width: chartWidth + 'px', height: '200px'}">
+            :style="chartCanvasStyle"
+            :width="chartPixelWidth"
+            :height="chartPixelHeight">
           </canvas>
         </view>
       </view>
@@ -98,12 +100,14 @@
       <!-- 危险感知成绩图表 -->
       <view class="chart-card fade-in">
         <text class="chart-title">Hazard Perception Score</text>
-        <view class="chart-container">
-          <canvas 
-            canvas-id="hazardPerceptionChart" 
+        <view class="chart-container" :style="chartContainerStyle">
+          <canvas
+            canvas-id="hazardPerceptionChart"
             id="hazardPerceptionChart"
             class="chart-canvas"
-            :style="{width: chartWidth + 'px', height: '200px'}">
+            :style="chartCanvasStyle"
+            :width="chartPixelWidth"
+            :height="chartPixelHeight">
           </canvas>
         </view>
       </view>
@@ -166,6 +170,11 @@ export default {
       showModal: false,
       // 图表宽度
       chartWidth: 0,
+      chartHeight: 0,
+      chartPixelWidth: 0,
+      chartPixelHeight: 0,
+      devicePixelRatio: 1,
+      chartScale: 1,
       // 图表数据
       multipleChoiceChartData: null,
       hazardPerceptionChartData: null,
@@ -181,6 +190,23 @@ export default {
       if (rate >= 60) return 'average';    // 黄色
       if (rate >= 50) return 'poor';       // 橙色
       return 'failing';                     // 红色
+    },
+    chartHeightUnit () {
+      const fallbackHeight = 220;
+      const effectiveHeight = this.chartHeight || fallbackHeight;
+      return `${effectiveHeight}px`;
+    },
+    chartContainerStyle () {
+      return {
+        height: this.chartHeightUnit,
+        minHeight: this.chartHeightUnit
+      };
+    },
+    chartCanvasStyle () {
+      return {
+        width: '100%',
+        height: '100%'
+      };
     }
   },
   onLoad() {
@@ -202,17 +228,43 @@ export default {
     });
   },
   methods: {
-    // 获取系统信息，设置图表宽度
+    // 获取系统信息，设置图表尺寸
     getSystemInfo() {
+      if (typeof uni.getSystemInfoSync !== 'function') {
+        this.setChartDimensions(375, this.devicePixelRatio);
+        return;
+      }
       const systemInfo = uni.getSystemInfoSync();
-      this.setChartWidth(systemInfo.windowWidth);
+      const pixelRatio = systemInfo.pixelRatio && systemInfo.pixelRatio > 0 ? systemInfo.pixelRatio : 1;
+      this.setChartDimensions(systemInfo.windowWidth, pixelRatio);
     },
 
-    setChartWidth(windowWidth) {
-      const numericWidth = typeof windowWidth === 'number' ? windowWidth : parseFloat(windowWidth) || 0;
-      const padding = 40; // scroll-view 左右各 20px
-      const calculatedWidth = Math.max(numericWidth - padding, 0);
-      this.chartWidth = calculatedWidth;
+    setChartDimensions(windowWidth, pixelRatio = 1) {
+      const parsedWidth = typeof windowWidth === 'number' ? windowWidth : parseFloat(windowWidth) || 0;
+      const baseWidth = parsedWidth > 0 ? parsedWidth : 375;
+      const cappedWidth = Math.min(baseWidth, 720);
+      const sidePadding = Math.min(20, Math.max(12, baseWidth * 0.05));
+      const horizontalPadding = sidePadding * 2;
+      const rawWidth = cappedWidth - horizontalPadding;
+      let availableWidth = rawWidth > 0 ? rawWidth : cappedWidth;
+      const minWidth = Math.min(Math.max(rawWidth, 0), Math.min(cappedWidth, 140));
+      if (availableWidth < minWidth) {
+        availableWidth = minWidth;
+      }
+      availableWidth = Math.max(Math.min(availableWidth, cappedWidth), 1);
+
+      const scale = Math.min(Math.max(baseWidth / 375, 0.65), 1.4);
+      const minHeight = 160;
+      const maxHeight = 320;
+      const calculatedHeight = Math.min(Math.max(Math.round(220 * scale), minHeight), maxHeight);
+      const effectiveRatio = pixelRatio > 0 ? pixelRatio : 1;
+
+      this.chartScale = scale;
+      this.chartWidth = Math.round(availableWidth);
+      this.chartHeight = calculatedHeight;
+      this.devicePixelRatio = effectiveRatio;
+      this.chartPixelWidth = Math.max(Math.round(this.chartWidth * effectiveRatio), 1);
+      this.chartPixelHeight = Math.max(Math.round(calculatedHeight * effectiveRatio), 1);
     },
 
     registerResizeListener() {
@@ -220,7 +272,19 @@ export default {
         return;
       }
       this.resizeListener = res => {
-        this.setChartWidth(res.size.windowWidth);
+        const nextWidth = res && res.size ? res.size.windowWidth : this.chartWidth;
+        let nextPixelRatio = this.devicePixelRatio;
+        if (typeof uni.getSystemInfoSync === 'function') {
+          try {
+            const latestInfo = uni.getSystemInfoSync();
+            if (latestInfo && latestInfo.pixelRatio) {
+              nextPixelRatio = latestInfo.pixelRatio;
+            }
+          } catch (error) {
+            nextPixelRatio = this.devicePixelRatio;
+          }
+        }
+        this.setChartDimensions(nextWidth, nextPixelRatio);
         this.redrawCharts();
       };
       uni.onWindowResize(this.resizeListener);
@@ -281,104 +345,116 @@ export default {
       if (!chartData || !Array.isArray(chartData.data) || chartData.data.length === 0) {
         return;
       }
+
       const ctx = uni.createCanvasContext(canvasId, this);
-      const width = this.chartWidth;
-      const height = 200;
-      const padding = 30;
-      const graphWidth = width - padding * 2;
-      const graphHeight = height - padding * 2;
-      
-      // 清除画布
-      ctx.clearRect(0, 0, width, height);
-      
-      // 设置样式
+      const ratio = this.devicePixelRatio > 0 ? this.devicePixelRatio : 1;
+      const width = this.chartWidth || Math.round((this.chartPixelWidth || 0) / ratio);
+      const fallbackHeight = this.chartHeight || Math.round((this.chartPixelHeight || 0) / ratio) || 220;
+      const scaledWidth = Math.max(Math.round(width * ratio), 1);
+      const scaledHeight = Math.max(Math.round(fallbackHeight * ratio), 1);
+      ctx.clearRect(0, 0, scaledWidth, scaledHeight);
+
+      const scaleFactor = this.chartScale || 1;
+      const basePadding = Math.max(Math.round(28 * scaleFactor), 20);
+      const paddingX = Math.min(basePadding, width / 2);
+      const paddingY = Math.min(basePadding, fallbackHeight / 2);
+      const graphWidth = width - paddingX * 2;
+      const graphHeight = fallbackHeight - paddingY * 2;
+
+      if (graphWidth <= 0 || graphHeight <= 0) {
+        ctx.draw();
+        return;
+      }
+
+      ctx.save();
+      if (ratio !== 1) {
+        ctx.scale(ratio, ratio);
+      }
+
+      const gridLineWidth = Math.max(scaleFactor, 0.5);
       ctx.setStrokeStyle('#E0E0E0');
-      ctx.setLineWidth(1);
-      
-      // 绘制网格线
+      ctx.setLineWidth(gridLineWidth);
+
       for (let i = 0; i <= 5; i++) {
-        const y = padding + (graphHeight / 5) * i;
+        const y = paddingY + (graphHeight / 5) * i;
         ctx.beginPath();
-        ctx.moveTo(padding, y);
-        ctx.lineTo(width - padding, y);
+        ctx.moveTo(paddingX, y);
+        ctx.lineTo(width - paddingX, y);
         ctx.stroke();
       }
-      
-      // 绘制数据线
-      ctx.setStrokeStyle('#4A9EFF');
-      ctx.setLineWidth(2);
-      ctx.setFillStyle('rgba(74, 158, 255, 0.1)');
-      
+
       const maxValue = 100;
       const minValue = 0;
       const range = maxValue - minValue;
       const dataLength = chartData.data.length;
       const xStep = dataLength > 1 ? graphWidth / (dataLength - 1) : 0;
-      
-      // 开始绘制路径
-      ctx.beginPath();
-      
-      // 绘制数据点和连线
-      chartData.data.forEach((value, index) => {
-        const x = padding + xStep * index;
-        const y = padding + graphHeight - ((value - minValue) / range) * graphHeight;
 
+      const dataLineWidth = Math.max(Math.round(2 * scaleFactor), 1);
+      ctx.setStrokeStyle('#4A9EFF');
+      ctx.setLineWidth(dataLineWidth);
+      ctx.setFillStyle('rgba(74, 158, 255, 0.1)');
+
+      ctx.beginPath();
+      chartData.data.forEach((value, index) => {
+        const x = paddingX + xStep * index;
+        const y = paddingY + graphHeight - ((value - minValue) / range) * graphHeight;
         if (index === 0) {
           ctx.moveTo(x, y);
         } else {
           ctx.lineTo(x, y);
         }
       });
-      
-      // 绘制线条
       ctx.stroke();
-      
-      // 绘制填充区域
-      ctx.lineTo(width - padding, height - padding);
-      ctx.lineTo(padding, height - padding);
+
+      ctx.lineTo(width - paddingX, fallbackHeight - paddingY);
+      ctx.lineTo(paddingX, fallbackHeight - paddingY);
       ctx.closePath();
       ctx.fill();
-      
-      // 绘制数据点
+
+      const pointRadius = Math.max(Math.round(4 * scaleFactor), 3);
+      const pointBorder = Math.max(Math.round(2 * scaleFactor), 1);
       ctx.setFillStyle('#4A9EFF');
       chartData.data.forEach((value, index) => {
-        const x = padding + xStep * index;
-        const y = padding + graphHeight - ((value - minValue) / range) * graphHeight;
-        
+        const x = paddingX + xStep * index;
+        const y = paddingY + graphHeight - ((value - minValue) / range) * graphHeight;
+
         ctx.beginPath();
-        ctx.arc(x, y, 4, 0, 2 * Math.PI);
+        ctx.arc(x, y, pointRadius, 0, 2 * Math.PI);
         ctx.fill();
-        
-        // 绘制白色边框
+
         ctx.setStrokeStyle('#FFFFFF');
-        ctx.setLineWidth(2);
+        ctx.setLineWidth(pointBorder);
         ctx.stroke();
+
         ctx.setStrokeStyle('#4A9EFF');
+        ctx.setLineWidth(dataLineWidth);
       });
-      
-      // 绘制x轴标签
+
+      const axisFontSize = Math.max(Math.round(11 * scaleFactor), 10);
+      const axisLabelOffset = Math.max(Math.round(6 * scaleFactor), 4);
+      const xLabelBaseline = Math.max(Math.round(8 * scaleFactor), 6);
+
       ctx.setFillStyle('#999');
-      ctx.setFontSize(11);
+      ctx.setFontSize(axisFontSize);
       ctx.setTextAlign('center');
-      
-      // 只显示部分标签避免拥挤
+
       const labelStep = Math.ceil(chartData.labels.length / 5) || 1;
       chartData.labels.forEach((label, index) => {
         if (index % labelStep === 0 || index === chartData.labels.length - 1) {
-          const x = padding + xStep * index;
-          ctx.fillText(label, x, height - 10);
+          const x = paddingX + xStep * index;
+          const labelBaseline = fallbackHeight - Math.max(xLabelBaseline, paddingY * 0.4);
+          ctx.fillText(label, x, labelBaseline);
         }
       });
-      
-      // 绘制y轴标签
+
       ctx.setTextAlign('right');
       for (let i = 0; i <= 5; i++) {
-        const value = (100 / 5) * (5 - i);
-        const y = padding + (graphHeight / 5) * i + 4;
-        ctx.fillText(value.toString(), padding - 5, y);
+        const value = (maxValue / 5) * (5 - i);
+        const y = paddingY + (graphHeight / 5) * i + axisLabelOffset;
+        ctx.fillText(value.toString(), paddingX - axisLabelOffset, y);
       }
-      
-      // 执行绘制
+
+      ctx.restore();
       ctx.draw();
     },
     redrawCharts () {
@@ -417,7 +493,6 @@ export default {
     },
     getTestStatistics () {
       getTestStatistics().then(res => {
-        console.log(res)
         if (res.code == 1) {
           this.info = res.data.list
           const multipleChoiceLabels = Array.isArray(this.info.labels)
@@ -531,9 +606,13 @@ export default {
 /* 滚动容器 */
 .container {
   flex: 1;
-  padding: 0 20px 20px;
+  padding: 0 clamp(12px, 5vw, 20px) clamp(16px, 5vw, 24px);
   position: relative;
   z-index: 5;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
@@ -655,7 +734,7 @@ export default {
 }
 
 .pass-rate {
-  font-size: 48px;
+  font-size: clamp(38px, 12vw, 48px);
   font-weight: 700;
 }
 
@@ -681,7 +760,7 @@ export default {
 }
 
 .percent-symbol {
-  font-size: 28px;
+  font-size: clamp(22px, 8vw, 30px);
   font-weight: 600;
   margin-left: 2px;
 }
@@ -723,34 +802,26 @@ export default {
 
 /* 统计数据网格 */
 .stats-grid {
-  display: flex;
-  flex-wrap: wrap;
-  // gap: 15px;
-  // margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .stat-card {
-  flex: 1;
-  min-width: calc(50% - 8px);
   background: white;
   border-radius: 16px;
-  padding: 18px;
+  padding: clamp(16px, 4vw, 22px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  margin-right: 16px;
-  margin-bottom: 30rpx;
-}
-/* 清除最后一列的右侧 margin */
-.stat-card:nth-child(2n) {
-  margin-right: 0;
 }
 .stat-number {
   display: block;
-  font-size: 32px;
+  font-size: clamp(24px, 5.5vw, 32px);
   font-weight: 700;
   color: #333;
   margin-bottom: 4px;
@@ -758,14 +829,14 @@ export default {
 
 .stat-label {
   display: block;
-  font-size: 13px;
+  font-size: clamp(12px, 3.5vw, 14px);
   color: #666;
   margin-bottom: 2px;
 }
 
 .stat-sublabel {
   display: block;
-  font-size: 11px;
+  font-size: clamp(10px, 3vw, 12px);
   color: #999;
 }
 
@@ -773,15 +844,15 @@ export default {
 .chart-card {
   background: white;
   border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: clamp(18px, 4.5vw, 24px);
+  margin-bottom: clamp(16px, 4vw, 24px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   box-sizing: border-box;
 }
 
 .chart-title {
   display: block;
-  font-size: 16px;
+  font-size: clamp(15px, 4vw, 18px);
   font-weight: 600;
   color: #333;
   margin-bottom: 15px;
@@ -789,13 +860,16 @@ export default {
 
 .chart-container {
   position: relative;
-  height: 200px;
-  margin-bottom: 10px;
+  width: 100%;
+  min-height: 160px;
+  margin-bottom: clamp(8px, 2vw, 16px);
+  overflow: hidden;
 }
 
 .chart-canvas {
   width: 100%;
-  height: 200px;
+  height: 100%;
+  display: block;
 }
 
 /* 模态框样式 */
