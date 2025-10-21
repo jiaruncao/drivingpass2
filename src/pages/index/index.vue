@@ -1,9 +1,5 @@
 <template>
   <view class="index_main">
-    <view class="gradient-bg">
-      <view class="gradient-top"></view>
-      <view class="gradient-bottom"></view>
-    </view>
     <view class="container">
       <view class="search_main" @click="toSearch">
         <view class="search_icon">
@@ -137,205 +133,178 @@
 </script>
 
 <style lang="scss" scoped>
-  /* 渐变背景 */
-  .gradient-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-  }
-
-  .gradient-top {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 45%;
-    background: linear-gradient(180deg, #E3F2FD 0%, #FFFFFF 100%);
-  }
-
-  .gradient-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 55%;
-    background: linear-gradient(180deg, #FFFFFF 0%, #FFF4F4 100%);
-  }
-  .container {
-    z-index: 10;
-    flex: 1;
-    padding-top: 60rpx;
-  }
   .index_main {
-    // min-height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    position: relative;
-    padding-bottom: 140rpx; /* 为底部导航预留空间 */
+    padding-top: calc(env(safe-area-inset-top) + 40rpx);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 140rpx);
+    background: linear-gradient(180deg, rgba(227, 242, 253, 0.8) 0%, #ffffff 55%, #fff5f5 100%);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     color: #333;
-    background: #F8F9FA;
+  }
 
-    .item_score {
-      padding: 10rpx 0 0 30rpx;
-      font-weight: 400;
-      font-size: 24rpx;
-      color: #4379bb;
+  .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32rpx;
+    padding: 0 5vw 5vh;
+  }
+
+  image {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .search_main {
+    width: 100%;
+    min-height: 100rpx;
+    background: #ffffff;
+    border-radius: 50rpx;
+    display: flex;
+    align-items: center;
+    padding: 0 32rpx;
+    box-shadow: 0 12rpx 30rpx rgba(15, 23, 42, 0.08);
+  }
+
+  .search_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 24rpx;
+  }
+
+  .search_text {
+    flex: 1;
+    font-weight: 500;
+    font-size: 28rpx;
+    color: #64748b;
+    word-break: break-word;
+  }
+
+  .banner_main {
+    width: 100%;
+    border-radius: 24rpx;
+    overflow: hidden;
+    box-shadow: 0 20rpx 40rpx rgba(59, 130, 246, 0.16);
+  }
+
+  .practice_main_top,
+  .practice_main_bottom {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30rpx;
+  }
+
+  .practice_main_top .left_item,
+  .practice_main_bottom .left_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 32rpx;
+    border-radius: 32rpx;
+    background-size: cover;
+    background-position: center;
+    min-height: 220rpx;
+  }
+
+  .practice_main_top .right_item,
+  .practice_main_bottom .right_item {
+    display: flex;
+    flex-direction: column;
+    gap: 30rpx;
+  }
+
+  .practice_main_top .right_item_top,
+  .practice_main_top .right_item_bottom,
+  .practice_main_bottom .right_item_top,
+  .practice_main_bottom .right_item_bottom {
+    width: 100%;
+    min-height: 164rpx;
+    border-radius: 32rpx;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 32rpx;
+  }
+
+  .prctice_main_end {
+    width: 100%;
+    min-height: 180rpx;
+    border-radius: 32rpx;
+    background-image: url(static/index/wrongs.png);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12rpx;
+    padding: 40rpx 32rpx;
+  }
+
+  .item_title {
+    font-weight: 700;
+    font-size: 32rpx;
+    word-break: break-word;
+  }
+
+  .item_content,
+  .item_score,
+  .end_content {
+    font-size: 24rpx;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  .end_title {
+    font-weight: 700;
+    font-size: 32rpx;
+    word-break: break-word;
+  }
+
+  .practice_main_top .left_item {
+    background-image: url(static/index/mock.png);
+  }
+
+  .practice_main_top .right_item_top {
+    background-image: url(static/index/theory.png);
+  }
+
+  .practice_main_top .right_item_bottom {
+    background-image: url(static/index/hazard.png);
+  }
+
+  .practice_main_bottom .left_item {
+    background-image: url(static/index/highway.png);
+  }
+
+  .practice_main_bottom .right_item_top {
+    background-image: url(static/index/theory.png);
+  }
+
+  .practice_main_bottom .right_item_bottom {
+    background-image: url(static/index/hazard.png);
+  }
+
+  .practice_main_top .left_item {
+    min-height: 360rpx;
+  }
+
+  .practice_main_bottom .left_item {
+    min-height: 200rpx;
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      padding: 0 12vw 6vh;
     }
 
-    .item_title {
-      padding: 44rpx 0 0 30rpx;
-      font-weight: bold;
-      font-size: 32rpx;
-      color: #4379bb;
-    }
-
-    .prctice_main_end {
-      width: calc(100% - 60rpx);
-      margin: 28rpx 30rpx;
-      height: 165rpx;
-      background-image: url(static/index/wrongs.png);
-      background-size: 100% 100%;
-
-      .end_title {
-        padding: 44rpx 32rpx 0 32rpx;
-        font-weight: bold;
-        font-size: 32rpx;
-        color: #4e5c9b;
-      }
-
-      .end_content {
-        padding: 0 32rpx 0 32rpx;
-        font-weight: 400;
-        font-size: 24rpx;
-        color: #4e5c9b;
-      }
-    }
-
+    .practice_main_top,
     .practice_main_bottom {
-      width: calc(100% - 60rpx);
-      margin: 28rpx 30rpx;
-      display: flex;
-
-      .left_item {
-        width: calc(50% - 15rpx);
-        height: 164rpx;
-        background-image: url(static/index/highway.png);
-        background-size: 100% 100%;
-
-        .item_content {
-          margin-top: 15rpx;
-          width: 184rpx;
-          padding: 0 0 0 28rpx;
-          font-weight: 400;
-          font-size: 24rpx;
-          color: #0073e9;
-        }
-
-        .item_title {
-          padding: 46rpx 27rpx 0 27rpx;
-          font-weight: bold;
-          font-size: 32rpx;
-          color: #0073e9;
-        }
-      }
-
-      .right_item {
-        margin-left: 30rpx;
-        width: calc(50% - 15rpx);
-
-        .right_item_top {
-          width: 100%;
-          height: 164rpx;
-          background-image: url(static/index/theory.png);
-          background-size: 100% 100%;
-        }
-      }
-    }
-
-    .practice_main_top {
-      width: calc(100% - 60rpx);
-      margin: 28rpx 30rpx;
-      display: flex;
-
-      .left_item {
-        width: calc(50% - 15rpx);
-        height: 359rpx;
-        background-image: url(static/index/mock.png);
-        background-size: 100% 100%;
-
-        .item_content {
-          margin-top: 15rpx;
-          width: 184rpx;
-          padding: 0 0 0 28rpx;
-          font-weight: 400;
-          font-size: 24rpx;
-          color: #0073e9;
-        }
-
-        .item_title {
-          padding: 46rpx 27rpx 0 27rpx;
-          font-weight: bold;
-          font-size: 32rpx;
-          color: #0073e9;
-        }
-      }
-
-      .right_item {
-        margin-left: 30rpx;
-        width: calc(50% - 15rpx);
-
-        .right_item_top {
-          width: 100%;
-          height: 164rpx;
-          background-image: url(static/index/theory.png);
-          background-size: 100% 100%;
-        }
-
-        .right_item_bottom {
-          margin-top: 31rpx;
-          width: 100%;
-          height: 164rpx;
-          background-image: url(static/index/hazard.png);
-          background-size: 100% 100%;
-        }
-      }
-    }
-
-    .banner_main {
-      width: calc(100% - 60rpx);
-      margin: 0 30rpx;
-      height: 233rpx;
-      background: #d7d7d7;
-      border-radius: 16rpx;
-    }
-
-    .search_main {
-      width: calc(100% - 60rpx);
-      margin: 0 30rpx 29rpx 30rpx;
-      height: 83rpx;
-      background: #ffffff;
-      border-radius: 42rpx;
-      display: flex;
-
-      .search_text {
-        line-height: 83rpx;
-        font-weight: 400;
-        font-size: 28rpx;
-        color: #999999;
-      }
-
-      .search_icon {
-        padding: 23rpx 15rpx 0 33rpx;
-
-        img {
-          width: 29rpx;
-          height: 32rpx;
-        }
-      }
+      gap: 40rpx;
     }
   }
 </style>

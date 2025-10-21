@@ -1,10 +1,5 @@
 <template>
   <view class="app">
-    <view class="gradient-bg">
-      <view class="gradient-top"></view>
-      <view class="gradient-bottom"></view>
-    </view>
-
     <!-- 主要内容 -->
     <view class="container">
       <!-- 用户信息卡片 -->
@@ -554,48 +549,27 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  position: relative;
-  padding-bottom: 140rpx; /* 为底部导航预留空间 */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 140rpx);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   color: #333;
-  background: #F8F9FA;
-}
-
-/* 渐变背景 */
-.gradient-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
-.gradient-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 45%;
-  background: linear-gradient(180deg, #E3F2FD 0%, #FFFFFF 100%);
-}
-
-.gradient-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 55%;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FFF4F4 100%);
+  background: linear-gradient(180deg, rgba(227, 242, 253, 0.7) 0%, #ffffff 50%, #fff5f5 100%);
 }
 
 /* 容器 */
 .container {
   flex: 1;
-  padding: 60rpx 40rpx 40rpx;
-  position: relative;
-  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+  padding: 6vh 5vw 5vh;
 }
+
+image {
+  max-width: 100%;
+  height: auto;
+}
+
 
 /* 用户信息卡片 */
 .profile-card {

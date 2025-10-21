@@ -1,10 +1,5 @@
 <template>
   <view class="app">
-    <view class="gradient-bg">
-      <view class="gradient-top"></view>
-      <view class="gradient-bottom"></view>
-    </view>
-
     <view class="container">
       <view class="login-card">
         <!-- 欢迎标题 -->
@@ -294,7 +289,6 @@ export default {
 </script>
 
 <style lang="scss">
-/* 全局重置样式 */
 * {
   margin: 0;
   padding: 0;
@@ -305,181 +299,139 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  position: relative;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: linear-gradient(180deg, rgba(227, 242, 253, 0.9) 0%, #ffffff 45%, #fff4f4 100%);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   color: #333;
 }
 
-/* 渐变背景 */
-.gradient-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
-.gradient-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 45%;
-  background: linear-gradient(180deg, #E3F2FD 0%, #FFFFFF 100%);
-}
-
-.gradient-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 55%;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FFF4F4 100%);
-}
-
-/* 主容器 */
 .container {
   flex: 1;
-  padding: 40px 20px 20px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  position: relative;
-  z-index: 10;
-  max-width: 400px;
-  width: 100%;
-  margin: 0 auto;
+  align-items: center;
+  padding: 8vh 6vw;
 }
 
-/* 登录卡片 */
 .login-card {
-  background: white;
-  border-radius: 30px;
-  padding: 35px 30px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  width: 88vw;
+  background: #ffffff;
+  border-radius: 60rpx;
+  padding: 72rpx 60rpx;
+  box-shadow: 0 40rpx 90rpx rgba(74, 158, 255, 0.16);
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
   position: relative;
-  overflow: hidden;
   animation: slideUp 0.6s ease-out;
 }
 
 .login-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
+  inset: 0 0 auto;
+  height: 8rpx;
   background: linear-gradient(90deg, #4A9EFF 0%, #2196F3 100%);
 }
 
-/* 标题区域 */
 .welcome-section {
   text-align: center;
-  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
 }
 
 .welcome-title {
-  font-size: 28px;
+  font-size: 48rpx;
   font-weight: 700;
-  color: #333;
-  margin-bottom: 8px;
-  display: block;
+  color: #1f2937;
+  word-break: break-word;
 }
 
 .welcome-subtitle {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.4;
-  display: block;
+  font-size: 28rpx;
+  color: #64748b;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
-/* 表单样式 */
 .login-form {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 36rpx;
 }
 
 .input-group {
-  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
 }
 
 .input-label {
-  font-size: 15px;
-  color: #666;
-  margin-bottom: 10px;
-  display: block;
-  font-weight: 500;
+  font-size: 28rpx;
+  color: #475569;
+  font-weight: 600;
 }
 
 .input-field {
   width: 100%;
-  height: 100%;
-  padding: 18px 22px;
-  border: 2px solid #F0F0F0;
-  border-radius: 20px;
-  font-size: 16px;
-  background: #FAFAFA;
+  padding: 32rpx 40rpx;
+  border: 2rpx solid #E2E8F0;
+  border-radius: 44rpx;
+  font-size: 30rpx;
+  background: #f8fafc;
   transition: all 0.3s ease;
-  outline: none;
 }
 
 .input-field:focus {
   border-color: #4A9EFF;
-  background: white;
-  box-shadow: 0 0 0 4px rgba(74, 158, 255, 0.1);
+  background: #ffffff;
+  box-shadow: 0 0 0 10rpx rgba(74, 158, 255, 0.12);
 }
 
-/* 密码输入框容器 */
 .password-container {
   position: relative;
 }
 
 .password-toggle {
   position: absolute;
-  right: 18px;
+  right: 32rpx;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #999;
-  font-size: 20px;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: 24rpx;
+  padding: 12rpx;
+  color: #94a3b8;
+  font-size: 32rpx;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.password-toggle:active {
-  background: #F5F5F5;
-}
-
-/* 辅助选项 */
 .form-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
-  margin-top: 5px;
+  flex-wrap: wrap;
+  gap: 24rpx;
 }
 
 .remember-checkbox {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 20rpx;
 }
 
 .checkbox {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #4A9EFF;
-  border-radius: 6px;
+  width: 44rpx;
+  height: 44rpx;
+  border: 2rpx solid #4A9EFF;
+  border-radius: 12rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
-  transition: all 0.3s ease;
+  background: #ffffff;
+  transition: background 0.3s ease;
   flex-shrink: 0;
 }
 
@@ -489,49 +441,44 @@ export default {
 
 .checkbox.checked::after {
   content: '✓';
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 700;
 }
 
-.remember-text {
-  font-size: 15px;
-  color: #666;
-  font-weight: 500;
+.remember-text,
+.forgot-password,
+.divider-text,
+.signup-text,
+.signup-link {
+  font-size: 26rpx;
+  color: #475569;
+  word-break: break-word;
 }
 
 .forgot-password {
-  font-size: 15px;
-  color: #4A9EFF;
   font-weight: 600;
-  transition: all 0.3s ease;
+  color: #2563eb;
 }
 
-.forgot-password:active {
-  color: #2196F3;
-}
-
-/* 登录按钮 */
 .login-button {
   width: 100%;
-  padding: 18px;
-  background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
-  color: white;
-  border: none;
-  border-radius: 20px;
-  font-size: 18px;
+  min-height: 108rpx;
+  background: linear-gradient(135deg, #4A9EFF 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border-radius: 44rpx;
+  font-size: 32rpx;
   font-weight: 600;
-  box-shadow: 0 10px 30px rgba(74, 158, 255, 0.4);
-  transition: all 0.3s ease;
-  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 20rpx;
+  box-shadow: 0 30rpx 60rpx rgba(74, 158, 255, 0.35);
+  transition: transform 0.2s ease;
 }
 
 .login-button:active {
-  transform: scale(0.98);
+  transform: translateY(6rpx);
 }
 
 .login-button.disabled {
@@ -539,210 +486,144 @@ export default {
   transform: none;
 }
 
-/* 分割线 */
 .divider {
   display: flex;
   align-items: center;
-  margin: 20px 0;
-  gap: 15px;
+  gap: 20rpx;
 }
 
 .divider-line {
   flex: 1;
-  height: 1px;
-  background: #E0E0E0;
+  height: 2rpx;
+  background: #E2E8F0;
 }
 
-.divider-text {
-  font-size: 14px;
-  color: #999;
-  font-weight: 500;
-}
-
-/* 社交登录按钮 - 标准设计 */
 .social-login {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 25px;
+  display: grid;
+  gap: 24rpx;
 }
 
-/* Google 登录按钮 - 标准样式 */
-.google-button {
-  width: 100%;
-  height: 50px;
-  background: white;
-  border: 1px solid #DADCE0;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: #3c4043;
-  transition: all 0.2s ease;
-}
-
-.google-button:active {
-  box-shadow: 0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
-  background: #fafafa;
-}
-
-.google-button.disabled {
-  opacity: 0.38;
-}
-
-.google-icon {
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZD0iTTE3LjY0IDkuMjA0NTVjMC0uNjM5NDUtLjA1NzI3LTEuMjUzNjQtLjE2MzY0LTEuODQwOTFIOXY0LjEzNjM2aDQuODQ0NTVjLS4yMDQ1NSAxLjEwNDU1LS44Mjc3MyAyLjAzMTgyLTEuNzYzNjQgMi42NTY4MnY1LjE4MTgySDEzLjhWMTBzMCAwIDAtMWMxLjMxODY4LTEuMzI5MjggMi45ODg2NC0yLjEwNjczIDMuNzEwOTEtMi4xMDY3My4zNjM2NC0uMDkzNjQuODAyMjgtLjE2MjcgMS4yOTU0NS0uMjM5MDl6bS00LjMxODk1IDYuNjU0MDl2Mi4zNTQ1NWgtLjE3MjczYzEuNzU2ODItLjM2MTc0IDMuNDY4MTgtMS4yNzY3NCA0Ljg5MDkxLTIuNjIwNDVWMTUuMjVsLS4yNDEzOS0uMzA0NTVjLS40ODI3My43NDU0NS0xLjEwOTA5IDEuMzg1NDUtMS44NzI3MyAxLjg2MzY0LS4yNjI3My4xNjM2NC0uNjE4MTgtLjE2MzY0LTEuMDMwNDUtMS4wNzI3M3oiIGZpbGw9IiM0Mjg1RjQiLz4KICAgIDxwYXRoIGQ9Ik05IDE4YzIuNDMgMCA0LjQ2NzI3LS43OTM2NCA1Ljk1NjM2LTIuMTVsLTIuOTEzNjQtMi4yNDU0NUMxMC40MjE4MiAxNC42IDkuNzM2MzYgMTQuNzY3MjcgOSAxNC43NjcyN2MtMi4zMDk4MSAwLTQuMjUwMy0uNDU0NTUtNS45NDMxOC0xLjM4NTQ1TDUuMTc2MzYgMTEuNWMtLjMwNTA5LS4yNTkwOS0uNjE1OTEtLjUzNjM2LS45MTA5MS0uODM2MzZsLTIuNzgxODIgMi4xNTQ1NkMuMTI0NzMgMTUuNDk0IDQuMTI1IDI5IDkgMTh6IiBmaWxsPSIjMzRBODUzIi8+CiAgICA8cGF0aCBkPSJNMyA5YzAtMS4zOTA5MS4yNzI3My0yLjcxODE4Ljc2MzY0LTMuOTUxODJsLTIuNzgxODItMi4xNTQ1NXYyLjE1NDU1aC0uMDQzNjRjLS42NTkwOSAxLjIyNzI3LTEuMDM2MzYgMi42NDU0NS0xLjAzNjM2IDQuMTQ3MjdzLjM3NzI3IDIuOTE5MSAxLjAzNjM2IDQuMTQ3MjdsMi44MjU0NS0yLjE5ODkxQzMuMjcyNzMgMTEuNzE4MTggMyAxMC4zOTA5MSAzIDl6IiBmaWxsPSIjRkJCQzA1Ii8+CiAgICA8cGF0aCBkPSJNOSAzLjIzMTgyYzEuMjc1IDAgMi40MjMuNDY1IDMuMzE0IDEuMzk1bDIuNDg1LTIuNDc1QzEzLjQ2NS4yNzUgMTEuNDE5IDAgOSAwIDQuMTI1IDAgLjMxODc4IDMuNjc1IDAgOGwyLjc4MTgyIDIuMTU0NTVDNC43NDk3IDguNDU0NTUgNi42OTAyIDMuMjMxODIgOSAzLjIzMTgyeiIgZmlsbD0iI0VBNDMzNSIvPgogIDwvZz4KICA8L3N2Zz4K");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Apple 登录按钮 - 标准样式 */
+.google-button,
 .apple-button {
   width: 100%;
-  height: 50px;
-  background: #000;
-  border: none;
-  border-radius: 8px;
+  min-height: 104rpx;
+  border-radius: 40rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: white;
-  transition: all 0.2s ease;
+  gap: 20rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  transition: transform 0.2s ease;
 }
 
+.google-button {
+  background: #ffffff;
+  border: 2rpx solid #e2e8f0;
+  color: #1f2937;
+  box-shadow: 0 12rpx 30rpx rgba(15, 23, 42, 0.08);
+}
+
+.google-button:active,
 .apple-button:active {
-  transform: scale(0.98);
-  background: #333;
+  transform: translateY(4rpx);
 }
 
-.apple-button.disabled {
-  opacity: 0.6;
-  transform: none;
-  background: #666;
+.apple-button {
+  background: #111827;
+  color: #ffffff;
 }
 
-.apple-icon {
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyMCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTUuNjM0NSA2LjA5MjczQzE2LjUxNzEgNS4xNzI3MyAxNy4wNjI2IDMuODQzNjQgMTYuOTI2MiAyLjVDMTUuNzQwOCAyLjU4MTgyIDE0LjMzNzQgMy4yNTQ1NSAxMy40MjcxIDQuMjA5MDlDMTIuNTk5MSA1LjA2MzY0IDEyLjAzNTQgNi4zOTI3MyAxMi4xOTkgNy43MjcyN0MxMy41NDg0IDcuODQ1NDUgMTQuOTQzNiA3LjEwOTA5IDE1LjYzNDUgNi4wOTI3M1oiIGZpbGw9IndoaXRlIi8+CiAgPHBhdGggZD0iTTE3LjgxMDQgOC43MTgxOEMxNi4wNzc4IDcuODA5MDkgMTUuNjQzNiA1LjU4MTgyIDE3LjEwNzIgNC4yNzcyN0MxNy41NTk2IDMuNjkwOTEgMTguNzk5NSAzLjE5MDkxIDIwLjA3NTYgMy4xOTA5MUMyMC4xNjY5IDQuMjU5MDkgMTkuNzY4NyA5LjMzNjM2IDE5LjA3NzggNi4wODQ1NUMxOC4yNzI0IDYuOTY4MTggMTcuMDE0MSA3LjQ1IDEzIDdMMTUuNjI1IDguNjM2MzZDMTYuNjAzMSA4LjMzNjM2IDE3LjIzMDQgOC44NTQ1NSAxNy44MTA0IDguNzE4MThaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* 注册链接 */
 .signup-section {
   text-align: center;
-  padding-top: 15px;
-  border-top: 1px solid #F0F0F0;
-}
-
-.signup-text {
-  font-size: 15px;
-  color: #666;
+  border-top: 2rpx solid #E2E8F0;
+  padding-top: 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
 }
 
 .signup-link {
-  color: #4A9EFF;
+  color: #2563eb;
   font-weight: 700;
-  margin-left: 5px;
-  transition: all 0.3s ease;
 }
 
-.signup-link:active {
-  color: #2196F3;
-}
-
-/* 加载状态 */
 .loading {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #ffffff;
-  border-radius: 50%;
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.6);
   border-top-color: transparent;
-  animation: spin 1s ease-in-out infinite;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* 错误消息 */
-.error-message {
-  background: #FFE5E5;
-  color: #D32F2F;
-  padding: 15px 18px;
-  border-radius: 15px;
-  font-size: 14px;
-  margin-bottom: 25px;
-  border: 1px solid #FFCDD2;
-  font-weight: 500;
-}
-
-/* 成功消息 */
+.error-message,
 .success-message {
-  background: #E8F5E8;
-  color: #2E7D32;
-  padding: 15px 18px;
-  border-radius: 15px;
-  font-size: 14px;
-  margin-bottom: 25px;
-  border: 1px solid #C8E6C9;
-  font-weight: 500;
+  padding: 28rpx 32rpx;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
-/* 移动端优化 */
-@media screen and (max-width: 480px) {
-  .container {
-    max-width: 350px;
-    padding: 20px 15px;
-  }
-  
-  .login-card {
-    padding: 35px 25px;
-    border-radius: 25px;
-  }
-  
-  .welcome-title {
-    font-size: 24px;
-  }
-  
-  .input-field {
-    padding: 16px 18px;
-  }
-  
-  .login-button {
-    padding: 18px;
-  }
-  
-  .google-button,
-  .apple-button {
-    height: 48px;
-    font-size: 15px;
-  }
+.error-message {
+  background: rgba(254, 226, 226, 0.8);
+  border: 2rpx solid #fecaca;
+  color: #b91c1c;
 }
 
-/* 页面加载动画 */
+.success-message {
+  background: rgba(220, 252, 231, 0.9);
+  border: 2rpx solid #bbf7d0;
+  color: #047857;
+}
+
+image {
+  max-width: 100%;
+  height: auto;
+}
+
+.google-icon {
+  width: 40rpx;
+  height: 40rpx;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyMCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9"
+    "aHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD1cIk0wIDAgMjAgMjRc"><path d="M19.6 10.2h-7.61v3.58h4.37c-.19 1.09-.88 2.01-1.89 2.63v2.18h3.06c1.79-1.65 2.81-4.09 2.81-6.97 0-.75-.07-1.47-.21-2.17z" fill="#4285F4"/><path d="M12 20c2.43 0 4.47-.81 5.96-2.21l-3.06-2.18c-.85.57-1.93.9-2.9.9-2.22 0-4.1-1.5-4.78-3.52H4.07v2.21C5.55 17.98 8.57 20 12 20z" fill="#34A853"/><path d="M7.22 12.99c-.19-.57-.3-1.18-.3-1.81 0-.63.11-1.24.3-1.81V7.16H4.07A7.978 7.978 0 0 0 3 11.18c0 1.29.31 2.52.86 3.63l3.36-1.82z" fill="#FBBC05"/><path d="M12 6.15c1.32 0 2.5.45 3.43 1.32l2.57-2.57C16.47 3.45 14.43 2.6 12 2.6 8.57 2.6 5.55 4.62 4.07 7.16l3.36 1.81c.68-2.02 2.56-3.52 4.78-3.52z" fill="#EA4335"/></g></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.apple-button u-icon {
+  max-width: 100%;
+  height: auto;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40rpx);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 10vh 18vw;
+  }
+
+  .login-card {
+    width: 60vw;
+    border-radius: 48rpx;
+    padding: 88rpx 72rpx;
   }
 }
 </style>
