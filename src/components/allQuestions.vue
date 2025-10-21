@@ -100,11 +100,11 @@ export default {
 .popup-handle {
   width: 120rpx;
   height: 10rpx;
-  border-radius: 999px;
+  border-radius: 999rpx;
   background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(6rpx);
   margin: 20rpx auto 30rpx;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 0 0 1rpx rgba(255, 255, 255, 0.8);
 }
 
 .popup-card {
@@ -113,7 +113,7 @@ export default {
   border-radius: 40rpx;
   padding: 36rpx;
   box-shadow: 0 26rpx 60rpx rgba(31, 71, 168, 0.18);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10rpx);
 }
 
 .popup-header {
@@ -141,8 +141,8 @@ export default {
   gap: 12rpx;
   padding: 14rpx 24rpx;
   background: rgba(74, 158, 255, 0.12);
-  border-radius: 999px;
-  border: 1px solid rgba(74, 158, 255, 0.35);
+  border-radius: 999rpx;
+  border: 1rpx solid rgba(74, 158, 255, 0.35);
   box-shadow: 0 10rpx 20rpx rgba(74, 158, 255, 0.18);
 }
 
@@ -186,7 +186,7 @@ export default {
 
 .status-chip.total {
   background: #f1f5f9;
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1rpx solid rgba(37, 99, 235, 0.2);
   box-shadow: none;
 }
 
@@ -217,27 +217,28 @@ export default {
   max-height: 60vh;
   border-radius: 30rpx;
   background: rgba(255, 255, 255, 0.92);
-  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+  box-shadow: inset 0 0 0 1rpx rgba(148, 163, 184, 0.25);
   padding: 24rpx;
 }
 
 .question-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96rpx, 1fr));
   gap: 28rpx;
 }
 
 .question-item {
-  width: 78rpx;
-  height: 78rpx;
   border-radius: 50%;
-  text-align: center;
-  line-height: 78rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  min-width: 0;
   font-weight: 600;
   font-size: 26rpx;
   color: #1f2937;
   background: #f8fafc;
-  border: 2px solid transparent;
+  border: 2rpx solid transparent;
   box-shadow: 0 10rpx 16rpx rgba(15, 23, 42, 0.08);
   transition: all 0.2s ease;
 }
