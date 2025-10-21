@@ -1,10 +1,5 @@
 <template>
   <view class="app">
-    <view class="gradient-bg">
-      <view class="gradient-top"></view>
-      <view class="gradient-bottom"></view>
-    </view>
-
     <view class="container">
       <view class="login-card">
         <!-- 欢迎标题 -->
@@ -105,6 +100,8 @@
           <view class="signup-link" @tap="handleSignUp">Create Account</view>
         </view>
       </view>
+    </view>
+  </view>
     </view>
   </view>
 </template>
@@ -294,7 +291,6 @@ export default {
 </script>
 
 <style lang="scss">
-/* 全局重置样式 */
 * {
   margin: 0;
   padding: 0;
@@ -303,121 +299,81 @@ export default {
 
 .app {
   min-height: 100vh;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
   display: flex;
   flex-direction: column;
-  position: relative;
+  align-items: center;
+  background: linear-gradient(180deg, #E3F2FD 0%, #FFFFFF 55%, #FFF4F4 100%);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   color: #333;
 }
 
-/* 渐变背景 */
-.gradient-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
-.gradient-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 45%;
-  background: linear-gradient(180deg, #E3F2FD 0%, #FFFFFF 100%);
-}
-
-.gradient-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 55%;
-  background: linear-gradient(180deg, #FFFFFF 0%, #FFF4F4 100%);
-}
-
-/* 主容器 */
 .container {
   flex: 1;
-  padding: 40px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 10;
-  max-width: 400px;
   width: 100%;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 40rpx;
+  box-sizing: border-box;
 }
 
-/* 登录卡片 */
 .login-card {
-  background: white;
-  border-radius: 30px;
-  padding: 35px 30px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-  position: relative;
-  overflow: hidden;
+  width: 100%;
+  background: #fff;
+  border-radius: 60rpx;
+  padding: 70rpx 60rpx;
+  box-shadow: 0 30rpx 80rpx rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
   animation: slideUp 0.6s ease-out;
 }
 
-.login-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, #4A9EFF 0%, #2196F3 100%);
-}
-
-/* 标题区域 */
 .welcome-section {
   text-align: center;
-  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
 }
 
 .welcome-title {
-  font-size: 28px;
+  font-size: 56rpx;
   font-weight: 700;
   color: #333;
-  margin-bottom: 8px;
-  display: block;
 }
 
 .welcome-subtitle {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #666;
-  line-height: 1.4;
-  display: block;
+  line-height: 1.5;
 }
 
-/* 表单样式 */
 .login-form {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 36rpx;
 }
 
 .input-group {
-  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
 }
 
 .input-label {
-  font-size: 15px;
+  font-size: 30rpx;
   color: #666;
-  margin-bottom: 10px;
-  display: block;
   font-weight: 500;
 }
 
 .input-field {
   width: 100%;
-  height: 100%;
-  padding: 18px 22px;
-  border: 2px solid #F0F0F0;
-  border-radius: 20px;
-  font-size: 16px;
+  padding: 36rpx 44rpx;
+  border: 2rpx solid #F0F0F0;
+  border-radius: 40rpx;
+  font-size: 32rpx;
   background: #FAFAFA;
   transition: all 0.3s ease;
   outline: none;
@@ -425,27 +381,25 @@ export default {
 
 .input-field:focus {
   border-color: #4A9EFF;
-  background: white;
-  box-shadow: 0 0 0 4px rgba(74, 158, 255, 0.1);
+  background: #fff;
+  box-shadow: 0 0 0 8rpx rgba(74, 158, 255, 0.1);
 }
 
-/* 密码输入框容器 */
 .password-container {
   position: relative;
 }
 
 .password-toggle {
   position: absolute;
-  right: 18px;
+  right: 36rpx;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   color: #999;
-  font-size: 20px;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  font-size: 40rpx;
+  padding: 16rpx;
+  border-radius: 16rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -455,31 +409,28 @@ export default {
   background: #F5F5F5;
 }
 
-/* 辅助选项 */
 .form-options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
-  margin-top: 5px;
+  padding-top: 10rpx;
 }
 
 .remember-checkbox {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 24rpx;
 }
 
 .checkbox {
-  width: 22px;
-  height: 22px;
-  border: 2px solid #4A9EFF;
-  border-radius: 6px;
+  width: 44rpx;
+  height: 44rpx;
+  border: 2rpx solid #4A9EFF;
+  border-radius: 12rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
-  transition: all 0.3s ease;
+  background: #fff;
   flex-shrink: 0;
 }
 
@@ -489,45 +440,38 @@ export default {
 
 .checkbox.checked::after {
   content: '✓';
-  color: white;
-  font-size: 14px;
+  color: #fff;
+  font-size: 28rpx;
   font-weight: bold;
 }
 
 .remember-text {
-  font-size: 15px;
+  font-size: 30rpx;
   color: #666;
   font-weight: 500;
 }
 
 .forgot-password {
-  font-size: 15px;
+  font-size: 30rpx;
   color: #4A9EFF;
   font-weight: 600;
-  transition: all 0.3s ease;
 }
 
-.forgot-password:active {
-  color: #2196F3;
-}
-
-/* 登录按钮 */
 .login-button {
   width: 100%;
-  padding: 18px;
+  min-height: 96rpx;
+  padding: 0 36rpx;
   background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 20px;
-  font-size: 18px;
+  border-radius: 40rpx;
+  font-size: 36rpx;
   font-weight: 600;
-  box-shadow: 0 10px 30px rgba(74, 158, 255, 0.4);
-  transition: all 0.3s ease;
-  margin-bottom: 20px;
+  box-shadow: 0 20rpx 60rpx rgba(74, 158, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 16rpx;
 }
 
 .login-button:active {
@@ -539,54 +483,52 @@ export default {
   transform: none;
 }
 
-/* 分割线 */
 .divider {
   display: flex;
   align-items: center;
-  margin: 20px 0;
-  gap: 15px;
+  margin: 40rpx 0;
+  gap: 30rpx;
 }
 
 .divider-line {
   flex: 1;
-  height: 1px;
+  height: 2rpx;
   background: #E0E0E0;
 }
 
 .divider-text {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #999;
   font-weight: 500;
 }
 
-/* 社交登录按钮 - 标准设计 */
 .social-login {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 25px;
+  gap: 24rpx;
 }
 
-/* Google 登录按钮 - 标准样式 */
-.google-button {
+.google-button,
+.apple-button {
   width: 100%;
-  height: 50px;
-  background: white;
-  border: 1px solid #DADCE0;
-  border-radius: 8px;
+  min-height: 96rpx;
+  border-radius: 32rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  font-size: 16px;
+  gap: 24rpx;
+  font-size: 32rpx;
   font-weight: 500;
+}
+
+.google-button {
+  background: #fff;
+  border: 2rpx solid #DADCE0;
   color: #3c4043;
-  transition: all 0.2s ease;
 }
 
 .google-button:active {
-  box-shadow: 0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
+  box-shadow: 0 2rpx 4rpx rgba(60, 64, 67, 0.3), 0 2rpx 6rpx rgba(60, 64, 67, 0.15);
   background: #fafafa;
 }
 
@@ -595,30 +537,18 @@ export default {
 }
 
 .google-icon {
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZD0iTTE3LjY0IDkuMjA0NTVjMC0uNjM5NDUtLjA1NzI3LTEuMjUzNjQtLjE2MzY0LTEuODQwOTFIOXY0LjEzNjM2aDQuODQ0NTVjLS4yMDQ1NSAxLjEwNDU1LS44Mjc3MyAyLjAzMTgyLTEuNzYzNjQgMi42NTY4MnY1LjE4MTgySDEzLjhWMTBzMCAwIDAtMWMxLjMxODY4LTEuMzI5MjggMi45ODg2NC0yLjEwNjczIDMuNzEwOTEtMi4xMDY3My4zNjM2NC0uMDkzNjQuODAyMjgtLjE2MjcgMS4yOTU0NS0uMjM5MDl6bS00LjMxODk1IDYuNjU0MDl2Mi4zNTQ1NWgtLjE3MjczYzEuNzU2ODItLjM2MTc0IDMuNDY4MTgtMS4yNzY3NCA0Ljg5MDkxLTIuNjIwNDVWMTUuMjVsLS4yNDEzOS0uMzA0NTVjLS40ODI3My43NDU0NS0xLjEwOTA5IDEuMzg1NDUtMS44NzI3MyAxLjg2MzY0LS4yNjI3My4xNjM2NC0uNjE4MTgtLjE2MzY0LTEuMDMwNDUtMS4wNzI3M3oiIGZpbGw9IiM0Mjg1RjQiLz4KICAgIDxwYXRoIGQ9Ik05IDE4YzIuNDMgMCA0LjQ2NzI3LS43OTM2NCA1Ljk1NjM2LTIuMTVsLTIuOTEzNjQtMi4yNDU0NUMxMC40MjE4MiAxNC42IDkuNzM2MzYgMTQuNzY3MjcgOSAxNC43NjcyN2MtMi4zMDk4MSAwLTQuMjUwMy0uNDU0NTUtNS45NDMxOC0xLjM4NTQ1TDUuMTc2MzYgMTEuNWMtLjMwNTA5LS4yNTkwOS0uNjE1OTEtLjUzNjM2LS45MTA5MS0uODM2MzZsLTIuNzgxODIgMi4xNTQ1NkMuMTI0NzMgMTUuNDk0IDQuMTI1IDI5IDkgMTh6IiBmaWxsPSIjMzRBODUzIi8+CiAgICA8cGF0aCBkPSJNMyA5YzAtMS4zOTA5MS4yNzI3My0yLjcxODE4Ljc2MzY0LTMuOTUxODJsLTIuNzgxODItMi4xNTQ1NXYyLjE1NDU1aC0uMDQzNjRjLS42NTkwOSAxLjIyNzI3LTEuMDM2MzYgMi42NDU0NS0xLjAzNjM2IDQuMTQ3MjdzLjM3NzI3IDIuOTE5MSAxLjAzNjM2IDQuMTQ3MjdsMi44MjU0NS0yLjE5ODkxQzMuMjcyNzMgMTEuNzE4MTggMyAxMC4zOTA5MSAzIDl6IiBmaWxsPSIjRkJCQzA1Ii8+CiAgICA8cGF0aCBkPSJNOSAzLjIzMTgyYzEuMjc1IDAgMi40MjMuNDY1IDMuMzE0IDEuMzk1bDIuNDg1LTIuNDc1QzEzLjQ2NS4yNzUgMTEuNDE5IDAgOSAwIDQuMTI1IDAgLjMxODc4IDMuNjc1IDAgOGwyLjc4MTgyIDIuMTU0NTVDNC43NDk3IDguNDU0NTUgNi42OTAyIDMuMjMxODIgOSAzLjIzMTgyeiIgZmlsbD0iI0VBNDMzNSIvPgogIDwvZz4KICA8L3N2Zz4K");
+  width: 40rpx;
+  height: 40rpx;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPHBhdGggZD0iTTE3LjY0IDkuMjA0NTVjMC0uNjM5NDUtLjA1NzI3LTEuMjUzNjQtLjE2MzY0LTEuODQwOTFIOXY0LjEzNjM2aDQuODQ0NTVjLS4yMDQ1NSAxLjEwNDU1LS44Mjc3MyAyLjAzMTgyLTEuNzYzNjQgMi42NTY4MnY1LjE4MTgySDEzLjhWMTBzMCAwIDAtMWMxLjMxODY4LTEuMzI5MjggMi45ODg2NC0yLjEwNjczIDMuNzEwOTEtMi4xMDY3My4zNjM2NC0uMDkzNjQuODAyMjgtLjE2MjcgMS4yOTU0NS0uMjM5MDl6bS00LjMxODk1IDYuNjU0MDl2Mi4zNTQ1NWgtLjE3MjczYzEuNzU2ODItLjM2MTc0IDMuNDY4MTgtMS4yNzY3NCA0Ljg5MDkxLTIuNjIwNDVWMTUuMjVsLS4yNDEzOS0uMzA0NTVjLS40ODI3My43NDU0NS0xLjEwOTA5IDEuMzg1NDUtMS44NzI3MyAxLjg2MzY0LS4yNjI3My4xNjM2NC0uNjE4MTgtLjE2MzY0LTEuMDMwNDUtMS4wNzI3M3oiIGZpbGw9IiM0Mjg1RjQiLz4KICAgIDxwYXRoIGQ9Ik05IDE4YzIuNDMgMCA0LjQ2NzI3LS43OTM2NCA1Ljk1NjM2LTIuMTVsLTIuOTEzNjQtMi4yNDU0NUMxMC40MjE4MiAxNC42IDkuNzM2MzYgMTQuNzY3MjcgOSAxNC43NjcyN2MtMi4zMDk4MSAwLTQuMjUwMy0uNDU0NTUtNS45NDMxOC0xLjM4NTQ1TDQuNzE3NjM2IDExLjVjLS4zMDUwOS0uMjU5MDktLjYxNTkxLS41MzYzNi0uOTEwOTEtLjgzNjM2bC0yLjc4MTgyIDIuMTU0NTZDMS4xMjQ3MyAxNS40OTQgNC4xMjUgMjkgOSAxOHoiIGZpbGw9IiMzNEE4NTMiLz4KICAgIDxwYXRoIGQ9Ik0zIDljMC0xLjM5MDkxLjI3MjczLTIuNzE4MTguNzYzNjQtMy45NTE4MmwtMi43ODE4Mi0yLjE1NDU1djIuMTU0NTVoLS4wNDM2NGMtLjY1OTA5IDEuMjI3MjctMS4wMzYzNiAyLjY0NTQ1LTEuMDM2MzYgNC4xNDcyN3MuMzc3MjcgMi45MTkxIDEuMDM2MzYgNC4xNDcyN2wyLjgyNTQ1LTIuMTk4OTFDMy4yNzI3MyAxMS43MTgxOCAzIDEwLjM5MDkxIDMgOXoiIGZpbGw9IiNGQkJDMDUiLz4KICAgIDxwYXRoIGQ9Ik05IDMuMjMxODJjMS4yNzUgMCAyLjQyMy40NjUgMy4zMTQgMS4zOTVsMi40ODUtMi40NzVDMTMuNDY1LjI3NSAxMS40MTkgMCA5IDAgNC4xMjUgMCAuMzE4NzggMy42NzUgMCA4bDIuNzgxODIgMi4xNTQ1NUM0Ljc0OTcgOC40NTQ1NSA2LjY5MDIgMy4yMzE4MiA5IDMuMjMxODJ6IiBmaWxsPSIjRUE0MzM1Ii8+CiAgPC9nPgogIDwvc3ZnPgo=");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-/* Apple 登录按钮 - 标准样式 */
 .apple-button {
-  width: 100%;
-  height: 50px;
   background: #000;
   border: none;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: white;
-  transition: all 0.2s ease;
+  color: #fff;
 }
 
 .apple-button:active {
@@ -632,117 +562,82 @@ export default {
   background: #666;
 }
 
-.apple-icon {
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyMCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMTUuNjM0NSA2LjA5MjczQzE2LjUxNzEgNS4xNzI3MyAxNy4wNjI2IDMuODQzNjQgMTYuOTI2MiAyLjVDMTUuNzQwOCAyLjU4MTgyIDE0LjMzNzQgMy4yNTQ1NSAxMy40MjcxIDQuMjA5MDlDMTIuNTk5MSA1LjA2MzY0IDEyLjAzNTQgNi4zOTI3MyAxMi4xOTkgNy43MjcyN0MxMy41NDg0IDcuODQ1NDUgMTQuOTQzNiA3LjEwOTA5IDE1LjYzNDUgNi4wOTI3M1oiIGZpbGw9IndoaXRlIi8+CiAgPHBhdGggZD0iTTE3LjgxMDQgOC43MTgxOEMxNi4wNzc4IDcuODA5MDkgMTUuNjQzNiA1LjU4MTgyIDE3LjEwNzIgNC4yNzcyN0MxNy41NTk2IDMuNjkwOTEgMTguNzk5NSAzLjE5MDkxIDIwLjA3NTYgMy4xOTA5MUMyMC4xNjY5IDQuMjU5MDkgMTkuNzY4NyA5LjMzNjM2IDE5LjA3NzggNi4wODQ1NUMxOC4yNzI0IDYuOTY4MTggMTcuMDE0MSA3LjQ1IDEzIDdMMTUuNjI1IDguNjM2MzZDMTYuNjAzMSA4LjMzNjM2IDE3LjIzMDQgOC44NTQ1NSAxNy44MTA0IDguNzE4MThaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* 注册链接 */
 .signup-section {
   text-align: center;
-  padding-top: 15px;
-  border-top: 1px solid #F0F0F0;
+  padding-top: 30rpx;
+  border-top: 2rpx solid #F0F0F0;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
 }
 
 .signup-text {
-  font-size: 15px;
+  font-size: 30rpx;
   color: #666;
 }
 
 .signup-link {
   color: #4A9EFF;
   font-weight: 700;
-  margin-left: 5px;
-  transition: all 0.3s ease;
+  font-size: 32rpx;
 }
 
-.signup-link:active {
-  color: #2196F3;
-}
-
-/* 加载状态 */
 .loading {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #ffffff;
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid #ffffff;
   border-radius: 50%;
   border-top-color: transparent;
   animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* 错误消息 */
+.error-message,
+.success-message {
+  padding: 30rpx 36rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  border-width: 2rpx;
+  border-style: solid;
+  font-weight: 500;
+}
+
 .error-message {
   background: #FFE5E5;
   color: #D32F2F;
-  padding: 15px 18px;
-  border-radius: 15px;
-  font-size: 14px;
-  margin-bottom: 25px;
-  border: 1px solid #FFCDD2;
-  font-weight: 500;
+  border-color: #FFCDD2;
 }
 
-/* 成功消息 */
 .success-message {
   background: #E8F5E8;
   color: #2E7D32;
-  padding: 15px 18px;
-  border-radius: 15px;
-  font-size: 14px;
-  margin-bottom: 25px;
-  border: 1px solid #C8E6C9;
-  font-weight: 500;
+  border-color: #C8E6C9;
 }
 
-/* 移动端优化 */
-@media screen and (max-width: 480px) {
-  .container {
-    max-width: 350px;
-    padding: 20px 15px;
-  }
-  
-  .login-card {
-    padding: 35px 25px;
-    border-radius: 25px;
-  }
-  
-  .welcome-title {
-    font-size: 24px;
-  }
-  
-  .input-field {
-    padding: 16px 18px;
-  }
-  
-  .login-button {
-    padding: 18px;
-  }
-  
-  .google-button,
-  .apple-button {
-    height: 48px;
-    font-size: 15px;
-  }
-}
-
-/* 页面加载动画 */
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(60rpx);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 100rpx 10vw;
+    justify-content: center;
+  }
+
+  .login-card {
+    width: 60vw;
   }
 }
 </style>
