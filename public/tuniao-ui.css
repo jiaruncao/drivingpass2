@@ -1,34 +1,34 @@
 
 .tn-text-xs {
-    font-size: 10px;
+    font-size: 0.1rem;
 }
 
 .tn-text-sm {
-    font-size: 12px;
+    font-size: 0.12rem;
 }
 
 .tn-text-md {
-    font-size: 14px;
+    font-size: 0.14rem;
 }
 
 .tn-text-lg {
-    font-size: 16px;
+    font-size: 0.16rem;
 }
 
 .tn-text-xl {
-    font-size: 18px;
+    font-size: 0.18rem;
 }
 
 .tn-text-xxl {
-    font-size: 20px;
+    font-size: 0.2rem;
 }
 
 .tn-text-xl-xxl {
-    font-size: 40px;
+    font-size: 0.4rem;
 }
 
 .tn-text-xxl-xxl {
-    font-size: 60px;
+    font-size: 0.6rem;
 }
 
 /* 全部大写 */
@@ -333,23 +333,23 @@
 }
 
 .tn-margin-xs {
-    margin: 5px;
+    margin: 0.05rem;
 }
 
 .tn-margin-sm {
-    margin: 15px;
+    margin: 0.15rem;
 }
 
 .tn-margin {
-    margin: 30px;
+    margin: 0.3rem;
 }
 
 .tn-margin-lg {
-    margin: 40px;
+    margin: 0.4rem;
 }
 
 .tn-margin-xl {
-    margin: 50px;
+    margin: 0.5rem;
 }
 
 /* For top */
@@ -358,23 +358,23 @@
 }
 
 .tn-margin-top-xs {
-    margin-top: 5px;
+    margin-top: 0.05rem;
 }
 
 .tn-margin-top-sm {
-    margin-top: 15px;
+    margin-top: 0.15rem;
 }
 
 .tn-margin-top {
-    margin-top: 30px;
+    margin-top: 0.3rem;
 }
 
 .tn-margin-top-lg {
-    margin-top: 40px;
+    margin-top: 0.4rem;
 }
 
 .tn-margin-top-xl {
-    margin-top: 50px;
+    margin-top: 0.5rem;
 }
 
 /* For right */
@@ -383,23 +383,23 @@
 }
 
 .tn-margin-right-xs {
-    margin-right: 5px;
+    margin-right: 0.05rem;
 }
 
 .tn-margin-right-sm {
-    margin-right: 15px;
+    margin-right: 0.15rem;
 }
 
 .tn-margin-right {
-    margin-right: 30px;
+    margin-right: 0.3rem;
 }
 
 .tn-margin-right-lg {
-    margin-right: 40px;
+    margin-right: 0.4rem;
 }
 
 .tn-margin-right-xl {
-    margin-right: 50px;
+    margin-right: 0.5rem;
 }
 
 /* For bottom */
@@ -408,23 +408,23 @@
 }
 
 .tn-margin-bottom-xs {
-    margin-bottom: 5px;
+    margin-bottom: 0.05rem;
 }
 
 .tn-margin-bottom-sm {
-    margin-bottom: 15px;
+    margin-bottom: 0.15rem;
 }
 
 .tn-margin-bottom {
-    margin-bottom: 30px;
+    margin-bottom: 0.3rem;
 }
 
 .tn-margin-bottom-lg {
-    margin-bottom: 40px;
+    margin-bottom: 0.4rem;
 }
 
 .tn-margin-bottom-xl {
-    margin-bottom: 50px;
+    margin-bottom: 0.5rem;
 }
 
 /* For left */
@@ -433,23 +433,23 @@
 }
 
 .tn-margin-left-xs {
-    margin-left: 5px;
+    margin-left: 0.05rem;
 }
 
 .tn-margin-left-sm {
-    margin-left: 15px;
+    margin-left: 0.15rem;
 }
 
 .tn-margin-left {
-    margin-left: 30px;
+    margin-left: 0.3rem;
 }
 
 .tn-margin-left-lg {
-    margin-left: 40px;
+    margin-left: 0.4rem;
 }
 
 .tn-margin-left-xl {
-    margin-left: 50px;
+    margin-left: 0.5rem;
 }
 
 
@@ -458,23 +458,23 @@
 }
 
 .tn-padding-xs {
-    padding: 5px;
+    padding: 0.05rem;
 }
 
 .tn-padding-sm {
-    padding: 15px;
+    padding: 0.15rem;
 }
 
 .tn-padding {
-    padding: 30px;
+    padding: 0.3rem;
 }
 
 .tn-padding-lg {
-    padding: 40px;
+    padding: 0.4rem;
 }
 
 .tn-padding-xl {
-    padding: 50px;
+    padding: 0.5rem;
 }
 
 /* For top */
@@ -483,23 +483,23 @@
 }
 
 .tn-padding-top-xs {
-    padding-top: 5px;
+    padding-top: 0.05rem;
 }
 
 .tn-padding-top-sm {
-    padding-top: 15px;
+    padding-top: 0.15rem;
 }
 
 .tn-padding-top {
-    padding-top: 30px;
+    padding-top: 0.3rem;
 }
 
 .tn-padding-top-lg {
-    padding-top: 40px;
+    padding-top: 0.4rem;
 }
 
 .tn-padding-top-xl {
-    padding-top: 50px;
+    padding-top: 0.5rem;
 }
 
 /* For right */
@@ -508,23 +508,23 @@
 }
 
 .tn-padding-right-xs {
-    padding-right: 5px;
+    padding-right: 0.05rem;
 }
 
 .tn-padding-right-sm {
-    padding-right: 15px;
+    padding-right: 0.15rem;
 }
 
 .tn-padding-right {
-    padding-right: 30px;
+    padding-right: 0.3rem;
 }
 
 .tn-padding-right-lg {
-    padding-right: 40px;
+    padding-right: 0.4rem;
 }
 
 .tn-padding-right-xl {
-    padding-right: 50px;
+    padding-right: 0.5rem;
 }
 
 /* For bottom */
@@ -533,23 +533,23 @@
 }
 
 .tn-padding-bottom-xs {
-    padding-bottom: 5px;
+    padding-bottom: 0.05rem;
 }
 
 .tn-padding-bottom-sm {
-    padding-bottom: 15px;
+    padding-bottom: 0.15rem;
 }
 
 .tn-padding-bottom {
-    padding-bottom: 30px;
+    padding-bottom: 0.3rem;
 }
 
 .tn-padding-bottom-lg {
-    padding-bottom: 40px;
+    padding-bottom: 0.4rem;
 }
 
 .tn-padding-bottom-xl {
-    padding-bottom: 50px;
+    padding-bottom: 0.5rem;
 }
 
 /* For left */
@@ -558,25 +558,25 @@
 }
 
 .tn-padding-left-xs {
-    padding-left: 5px;
+    padding-left: 0.05rem;
 }
 
 
 
 .tn-padding-left-sm {
-    padding-left: 15px;
+    padding-left: 0.15rem;
 }
 
 .tn-padding-left {
-    padding-left: 30px;
+    padding-left: 0.3rem;
 }
 
 .tn-padding-left-lg {
-    padding-left: 40px;
+    padding-left: 0.4rem;
 }
 
 .tn-padding-left-xl {
-    padding-left: 50px;
+    padding-left: 0.5rem;
 }
 
 
@@ -585,11 +585,11 @@
 }
 
 .tn-round {
-    border-radius: 5000px !important;
+    border-radius: 50rem !important;
 }
 
 .tn-radius {
-    border-radius: 6px;
+    border-radius: 0.06rem;
 }
 
 .tn-width-full {
