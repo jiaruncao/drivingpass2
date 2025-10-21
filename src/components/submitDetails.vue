@@ -68,7 +68,9 @@ export default {
 <style lang="scss" scoped>
 .submit-popup {
   padding: 16rpx;
-  width: 680rpx;
+  width: 100%;
+  max-width: 680rpx;
+  margin: 0 auto;
 }
 
 .submit-card {
@@ -76,7 +78,7 @@ export default {
   border-radius: 40rpx;
   padding: 48rpx 40rpx 40rpx;
   box-shadow: 0 34rpx 60rpx rgba(31, 71, 168, 0.16);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(12rpx);
   display: flex;
   flex-direction: column;
   gap: 40rpx;
@@ -103,11 +105,13 @@ export default {
 .score-ring {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .score-circle {
-  width: 280rpx;
-  height: 280rpx;
+  width: 60vw;
+  max-width: 280rpx;
+  min-width: 200rpx;
   border-radius: 50%;
   background: conic-gradient(from 0deg, #4a9eff, #2563eb, #4a9eff);
   display: flex;
@@ -116,6 +120,7 @@ export default {
   justify-content: center;
   color: #fff;
   position: relative;
+  aspect-ratio: 1;
   box-shadow: 0 26rpx 40rpx rgba(37, 99, 235, 0.3);
 }
 
@@ -150,15 +155,18 @@ export default {
 
 .score-breakdown {
   display: flex;
+  flex-direction: column;
   align-items: stretch;
   background: rgba(255, 255, 255, 0.85);
   border-radius: 26rpx;
-  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+  box-shadow: inset 0 0 0 1rpx rgba(148, 163, 184, 0.25);
+  padding: 24rpx 0;
+  gap: 24rpx;
 }
 
 .breakdown-card {
   flex: 1;
-  padding: 30rpx 20rpx;
+  padding: 24rpx 20rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -166,8 +174,28 @@ export default {
 }
 
 .breakdown-divider {
-  width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(148, 163, 184, 0.4), transparent);
+  width: 100%;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.4), transparent);
+}
+
+@media (min-width: 48em) {
+  .score-breakdown {
+    flex-direction: row;
+    padding: 0;
+    gap: 0;
+  }
+
+  .breakdown-card {
+    padding: 30rpx 20rpx;
+  }
+
+  .breakdown-divider {
+    width: 1rpx;
+    min-width: 1rpx;
+    height: auto;
+    background: linear-gradient(180deg, transparent, rgba(148, 163, 184, 0.4), transparent);
+  }
 }
 
 .breakdown-value {
@@ -190,8 +218,9 @@ export default {
 
 .btn {
   width: 100%;
-  height: 92rpx;
-  border-radius: 999px;
+  min-height: 92rpx;
+  padding: 24rpx 0;
+  border-radius: 999rpx;
   font-size: 28rpx;
   font-weight: 600;
   display: flex;
