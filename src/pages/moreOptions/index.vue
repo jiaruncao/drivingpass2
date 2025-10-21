@@ -429,41 +429,74 @@ export default {
 
 <style lang="scss" scoped>
 .more_option {
-  max-height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-weight: 400;
   font-size: 28rpx;
   color: #333333;
+  background: #ffffff;
+  padding-bottom: env(safe-area-inset-bottom);
+
   .btn {
     width: calc(100% - 60rpx);
-    margin: 50rpx 30rpx;
-    height: 86rpx;
+    margin: 40rpx 30rpx;
+    min-height: 100rpx;
     background: #419fff;
-    border-radius: 8rpx;
+    border-radius: 20rpx;
     color: #ffffff;
-    line-height: 86rpx;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32rpx;
+    font-weight: 600;
   }
+
   .opeion_main {
+    display: flex;
+    flex-direction: column;
+    gap: 40rpx;
+    padding: 60rpx 30rpx 0;
+
     .option_item {
-      margin: 100rpx 29rpx;
       display: flex;
+      align-items: center;
+      gap: 24rpx;
+      padding: 30rpx 20rpx;
+      border-radius: 30rpx;
+      background: rgba(248, 249, 252, 0.9);
+      box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.05);
+      flex-wrap: wrap;
+
       .item_value {
         margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 12rpx;
       }
+
       .item_icon {
-        margin-left: 10rpx;
-        margin-top: 8rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }
+
   .top_nav {
-    padding: 60rpx 30rpx;
+    position: sticky;
+    top: 0;
+    padding: calc(env(safe-area-inset-top) + 40rpx) 30rpx 30rpx;
     display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16rpx);
+    z-index: 10;
+
     .head_name {
-      margin-top: -5rpx;
       margin-left: 28rpx;
-      font-weight: 400;
-      font-size: 28rpx;
+      font-weight: 500;
+      font-size: 32rpx;
       color: #333333;
     }
   }
