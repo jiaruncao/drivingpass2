@@ -17,6 +17,64 @@
 @import "uview-ui/theme.scss";
 @import "uview-ui/index.scss";
 
+/* 安全区域变量 */
+$safe-area-top: var(--app-safe-area-top, env(safe-area-inset-top, 0rem));
+$safe-area-right: var(--app-safe-area-right, env(safe-area-inset-right, 0rem));
+$safe-area-bottom: var(
+  --app-safe-area-bottom,
+  env(safe-area-inset-bottom, 0rem)
+);
+$safe-area-left: var(--app-safe-area-left, env(safe-area-inset-left, 0rem));
+$safe-area-vertical: calc(#{$safe-area-top} + #{$safe-area-bottom});
+$safe-area-horizontal: calc(#{$safe-area-left} + #{$safe-area-right});
+
+/* 响应式容器变量 */
+$app-container-max-width: var(--app-container-max-width, min(12.8rem, 100vw));
+$app-container-padding-inline: var(
+  --app-container-padding-inline,
+  clamp(0.24rem, 4vw, 0.6rem)
+);
+$app-container-padding-block: var(
+  --app-container-padding-block,
+  clamp(0.24rem, 4vw, 0.72rem)
+);
+
+@mixin safe-area-padding(
+  $top: 0rem,
+  $right: 0rem,
+  $bottom: 0rem,
+  $left: 0rem
+) {
+  padding-top: calc(#{$safe-area-top} + #{$top});
+  padding-right: calc(#{$safe-area-right} + #{$right});
+  padding-bottom: calc(#{$safe-area-bottom} + #{$bottom});
+  padding-left: calc(#{$safe-area-left} + #{$left});
+}
+
+@mixin safe-area-padding-y($extra: 0rem) {
+  padding-top: calc(#{$safe-area-top} + #{$extra});
+  padding-bottom: calc(#{$safe-area-bottom} + #{$extra});
+}
+
+@mixin safe-area-padding-b($extra: 0rem) {
+  padding-bottom: calc(#{$safe-area-bottom} + #{$extra});
+}
+
+@mixin app-responsive-container(
+  $max-width: $app-container-max-width,
+  $padding-inline: $app-container-padding-inline,
+  $padding-block: $app-container-padding-block
+) {
+  width: min(#{$max-width}, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: #{$padding-block};
+  padding-bottom: calc(#{$padding-block} + #{$safe-area-bottom});
+  padding-left: calc(#{$padding-inline} + #{$safe-area-left});
+  padding-right: calc(#{$padding-inline} + #{$safe-area-right});
+  box-sizing: border-box;
+}
+
 /* 行为相关颜色 */
 $uni-color-primary: #007aff;
 $uni-color-success: #4cd964;
