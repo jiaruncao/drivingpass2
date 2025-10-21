@@ -278,6 +278,8 @@ export default {
   position: relative;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   color: #333;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  overflow-x: hidden;
 }
 
 /* 渐变背景 */
@@ -310,65 +312,67 @@ export default {
 
 /* Header 样式 */
 .header {
-  padding: 15px 20px;
+  padding: 30rpx 40rpx;
   display: flex;
   align-items: center;
   background: transparent;
   position: relative;
   z-index: 10;
-  min-height: 60px;
+  min-height: 120rpx;
+  gap: 24rpx;
 }
 
 .back-button {
   background: none;
   border: none;
-  color: #666;
-  font-size: 20px;
-  padding: 8px;
+  color: #666666;
+  font-size: 40rpx;
+  padding: 16rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 80rpx;
+  height: 80rpx;
 }
 
 .page-title {
-  font-size: 24px;
+  font-size: 48rpx;
   font-weight: 600;
   color: #333;
   flex: 1;
   text-align: center;
-  margin-right: 40px;
+  margin-right: 80rpx;
 }
 
 /* 容器 */
 .container {
   flex: 1;
-  padding: 20px;
+  padding: 40rpx;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 10;
+  gap: 40rpx;
 }
 
 /* 模式选择卡片 */
 .mode-cards-container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280rpx, 1fr));
   justify-content: center;
-  gap: 20px;
-  max-width: 350px;
+  gap: 40rpx;
+  max-width: 700rpx;
   width: 100%;
   margin: 0 auto;
 }
 
 .mode-card {
   background: white;
-  border-radius: 20px;
-  padding: 30px 25px;
+  border-radius: 40rpx;
+  padding: 60rpx 50rpx;
   text-align: center;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 16rpx 50rpx rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
 }
@@ -383,7 +387,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 8rpx;
 }
 
 .mode-card.learn::before {
@@ -395,29 +399,29 @@ export default {
 }
 
 .mode-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 20px;
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto 40rpx;
   background: #F8F9FA;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 56rpx;
 }
 
 .mode-title {
-  font-size: 22px;
+  font-size: 44rpx;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 16rpx;
   color: #333;
   display: block;
 }
 
 .mode-subtitle {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 40rpx;
   line-height: 1.4;
   display: block;
 }
@@ -426,17 +430,17 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding-top: 16px;
-  border-top: 1px solid #F0F0F0;
+  padding-top: 32rpx;
+  border-top: 2rpx solid #F0F0F0;
 }
 
 .progress-label {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #999;
 }
 
 .progress-value {
-  font-size: 24px;
+  font-size: 48rpx;
   font-weight: 700;
 }
 
@@ -451,27 +455,27 @@ export default {
 /* 选项容器 */
 .options-container {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  max-width: 350px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280rpx, 1fr));
+  gap: 40rpx;
+  max-width: 700rpx;
   width: 100%;
   margin: 0 auto;
 }
 
 .options-card {
   background: white;
-  border-radius: 20px;
-  padding: 25px;
-  margin-bottom: 25px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  border-radius: 40rpx;
+  padding: 50rpx;
+  box-shadow: 0 16rpx 50rpx rgba(0, 0, 0, 0.08);
 }
 
 .option-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid #F5F5F5;
+  padding: 36rpx 0;
+  border-bottom: 2rpx solid #F5F5F5;
 }
 
 .option-item:last-child {
@@ -479,25 +483,25 @@ export default {
 }
 
 .option-label {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #333;
   font-weight: 500;
 }
 
 .option-value {
-  font-size: 16px;
+  font-size: 32rpx;
   color: #4A9EFF;
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12rpx;
 }
 
 .toggle-switch {
-  width: 48px;
-  height: 28px;
+  width: 96rpx;
+  height: 56rpx;
   background: #E0E0E0;
-  border-radius: 14px;
+  border-radius: 28rpx;
   position: relative;
   transition: background 0.3s;
 }
@@ -509,37 +513,39 @@ export default {
 .toggle-switch::after {
   content: '';
   position: absolute;
-  width: 22px;
-  height: 22px;
+  width: 44rpx;
+  height: 44rpx;
   background: white;
   border-radius: 50%;
-  top: 3px;
-  left: 3px;
+  top: 6rpx;
+  left: 6rpx;
   transition: transform 0.3s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 4rpx 8rpx rgba(0,0,0,0.2);
 }
 
 .toggle-switch.active::after {
-  transform: translateX(20px);
+  transform: translateX(40rpx);
 }
 
 /* 分类选择 */
 .categories-container {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 100px;
-  max-width: 350px;
+  padding-bottom: calc(200rpx + env(safe-area-inset-bottom, 0));
+  max-width: 700rpx;
   width: 100%;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280rpx, 1fr));
+  gap: 32rpx;
 }
 
 .category-card {
   background: white;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 5px 18px rgba(0,0,0,0.06);
-  border: 2px solid transparent;
+  border-radius: 40rpx;
+  padding: 40rpx;
+  box-shadow: 0 10rpx 36rpx rgba(0,0,0,0.06);
+  border: 4rpx solid transparent;
 }
 
 .category-card:active {
@@ -555,19 +561,19 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 24rpx;
 }
 
 .category-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 24rpx;
 }
 
 .radio-button {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #4A9EFF;
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid #4A9EFF;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -578,46 +584,46 @@ export default {
 
 .radio-button.selected::after {
   content: '';
-  width: 10px;
-  height: 10px;
+  width: 20rpx;
+  height: 20rpx;
   background: #4A9EFF;
   border-radius: 50%;
 }
 
 .category-name {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: 600;
   color: #333;
 }
 
 .category-progress {
-  font-size: 16px;
+  font-size: 32rpx;
   font-weight: 600;
   color: #4A9EFF;
 }
 
 .category-stats {
   display: flex;
-  gap: 25px;
-  font-size: 14px;
+  gap: 50rpx;
+  font-size: 28rpx;
   color: #666;
-  margin-bottom: 12px;
-  padding-left: 32px;
+  margin-bottom: 24rpx;
+  padding-left: 64rpx;
 }
 
 .progress-bar {
-  width: calc(100% - 32px);
-  height: 6px;
+  width: calc(100% - 64rpx);
+  height: 12rpx;
   background: #F0F0F0;
-  border-radius: 3px;
+  border-radius: 6rpx;
   overflow: hidden;
-  margin-left: 32px;
+  margin-left: 64rpx;
 }
 
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #4A9EFF 0%, #2196F3 100%);
-  border-radius: 3px;
+  border-radius: 6rpx;
   transition: width 0.5s ease;
 }
 
@@ -627,26 +633,27 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 15px 20px;
+  padding: 30rpx 40rpx;
+  padding-bottom: calc(30rpx + env(safe-area-inset-bottom, 0));
   background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 30%, white 100%);
   z-index: 20;
 }
 
 .action-button {
   width: 100%;
-  max-width: 330px;
+  max-width: 660rpx;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 32rpx;
   background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
   color: white;
   border: none;
-  border-radius: 25px;
-  font-size: 16px;
+  border-radius: 50rpx;
+  font-size: 32rpx;
   font-weight: 600;
-  box-shadow: 0 6px 20px rgba(74, 158, 255, 0.35);
+  box-shadow: 0 12rpx 40rpx rgba(74, 158, 255, 0.35);
   text-align: center;
 }
 
@@ -669,60 +676,60 @@ export default {
 
 .modal-content {
   background: white;
-  border-radius: 25px 25px 0 0;
-  padding: 25px 20px 35px;
+  border-radius: 50rpx 50rpx 0 0;
+  padding: 50rpx 40rpx calc(70rpx + env(safe-area-inset-bottom, 0));
   width: 100%;
   animation: slideUp 0.3s ease;
 }
 
 .modal-header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 50rpx;
 }
 
 .modal-title {
-  font-size: 20px;
+  font-size: 40rpx;
   font-weight: 600;
   color: #333;
 }
 
 .picker-container {
-  padding: 15px 0;
+  padding: 30rpx 0;
 }
 
 .range-slider {
   width: 100%;
-  margin: 20px 0;
+  margin: 40rpx 0;
 }
 
 .range-value {
   text-align: center;
-  font-size: 42px;
+  font-size: 84rpx;
   font-weight: 700;
   color: #4A9EFF;
-  margin: 15px 0;
+  margin: 30rpx 0;
   display: block;
 }
 
 .range-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 26rpx;
   color: #999;
-  margin-top: 8px;
+  margin-top: 16rpx;
 }
 
 .modal-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 35px;
+  gap: 24rpx;
+  margin-top: 70rpx;
 }
 
 .modal-button {
   flex: 1;
-  padding: 14px;
-  border-radius: 20px;
-  font-size: 16px;
+  padding: 28rpx;
+  border-radius: 40rpx;
+  font-size: 32rpx;
   font-weight: 600;
   border: none;
   text-align: center;
@@ -739,7 +746,7 @@ export default {
 .modal-button.confirm {
   background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
   color: white;
-  box-shadow: 0 3px 12px rgba(74, 158, 255, 0.3);
+  box-shadow: 0 6rpx 24rpx rgba(74, 158, 255, 0.3);
 }
 
 @keyframes slideUp {
@@ -748,28 +755,28 @@ export default {
 }
 
 /* 移动端优化 */
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 750rpx) {
   .mode-cards-container {
-    max-width: 320px;
+    max-width: 640rpx;
   }
-  
+
   .options-container,
   .categories-container {
-    max-width: 320px;
+    max-width: 640rpx;
   }
-  
+
   .mode-card {
-    padding: 25px 20px;
+    padding: 50rpx 40rpx;
   }
-  
+
   .mode-title {
-    font-size: 20px;
+    font-size: 40rpx;
   }
-  
+
   .mode-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
+    width: 100rpx;
+    height: 100rpx;
+    font-size: 48rpx;
   }
 }
 </style>
