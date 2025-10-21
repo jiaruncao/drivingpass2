@@ -5,34 +5,35 @@
       <view class="gradient-bottom"></view>
     </view>
 
-    <!-- 顶部标签切换 -->
-    <view class="tabs-header">
-      <view class="tabs-container">
-        <view class="tab-button" :class="{active: activeTab === 'followed'}" @tap="switchTab('followed')">
-          Followed
-        </view>
-        <view class="tab-button" :class="{active: activeTab === 'discover'}" @tap="switchTab('discover')">
-          Discover
+    <!-- 顶部标签切换 & 分类筛选 -->
+    <view class="sticky-toolbar">
+      <view class="tabs-header">
+        <view class="tabs-container">
+          <view class="tab-button" :class="{active: activeTab === 'followed'}" @tap="switchTab('followed')">
+            Followed
+          </view>
+          <view class="tab-button" :class="{active: activeTab === 'discover'}" @tap="switchTab('discover')">
+            Discover
+          </view>
         </view>
       </view>
-    </view>
 
-    <!-- 分类筛选 -->
-    <scroll-view class="categories-scroll" scroll-x>
-      <view class="categories-container">
-        <view v-for="category in categories" :key="category.id" class="category-chip"
-          :class="{active: selectedCategory === category.id}" @tap="selectCategory(category.id)">
-          <!-- <text class="category-icon">{{ category.icon }}</text> -->
-          <text>{{ category.category }}</text>
+      <scroll-view class="categories-scroll" scroll-x>
+        <view class="categories-container">
+          <view v-for="category in categories" :key="category.id" class="category-chip"
+            :class="{active: selectedCategory === category.id}" @tap="selectCategory(category.id)">
+            <text>{{ category.category }}</text>
+          </view>
         </view>
-      </view>
-    </scroll-view>
+      </scroll-view>
+    </view>
 
     <!-- 主内容容器 -->
     <scroll-view class="container" scroll-y @scrolltolower="loadMorePosts" :lower-threshold="100">
 
       <!-- 帖子列表 -->
-      <view v-for="post in discoverPosts" :key="post.id" class="post-card">
+      <view class="posts-grid">
+        <view v-for="post in discoverPosts" :key="post.id" class="post-card">
         <!-- 用户信息头部 -->
         <view class="user-header" @click="userProfileClick(post.user_id)">
           <view class="user-avatar">
@@ -54,7 +55,7 @@
 
           <!-- 图片网格 -->
           <view v-if="post.file_url && post.file_url.length" class="images-grid">
-            <view v-for="(image, index) in post.file_url" :key="index" style="width: 100%;">
+            <view v-for="(image, index) in post.file_url" :key="index" class="media-item">
               <image v-if="['webp', 'png', 'jpg', 'jpeg'].includes(getExtension(image))" :src="image" class="post-image"
                 mode="aspectFill" @tap="viewImage(image)">
               </image>
@@ -67,7 +68,7 @@
         <view v-if="post.first_reply.nickname" class="comment-preview">
           <text class="comment-text">
             <text class="comment-author">{{ post.first_reply.nickname }}:</text>
-            <text style="margin-left: 16rpx;">{{ post.first_reply.content }}</text>
+            <text class="comment-content">{{ post.first_reply.content }}</text>
           </text>
           <text v-if="post.reply_count > 1" class="view-replies-button" @tap="viewAllReplies(post.id)">
             View all replies →
@@ -126,6 +127,7 @@
               </view>
             </view>
           </view>
+        </view>
         </view>
       </view>
 
@@ -546,10 +548,20 @@
     background: linear-gradient(180deg, #FFFFFF 0%, #FFF4F4 100%);
   }
 
+  .sticky-toolbar {
+    position: sticky;
+    top: 0;
+    padding-top: env(safe-area-inset-top);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.9) 100%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+  }
+
   /* 顶部标签切换 */
   .tabs-header {
     background: transparent;
-    padding: 40rpx 40rpx 20rpx;
+    padding: 20rpx 40rpx 0;
     position: relative;
     z-index: 10;
   }
@@ -557,7 +569,7 @@
   .tabs-container {
     display: flex;
     justify-content: center;
-    // gap: 100rpx;
+    gap: 80rpx;
     position: relative;
   }
 
@@ -568,7 +580,6 @@
     color: #999;
     position: relative;
     transition: color 0.3s ease;
-    margin: 0 50rpx;
   }
 
   .tab-button.active {
@@ -591,15 +602,15 @@
   /* 分类滚动条 */
   .categories-scroll {
     background: transparent;
-    padding: 20rpx 40rpx;
+    padding: 0 40rpx 20rpx;
     position: relative;
     z-index: 10;
-    white-space: nowrap;
   }
 
   .categories-container {
-    display: inline-flex;
-    // gap: 24rpx;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 24rpx;
   }
 
   .category-chip {
@@ -614,7 +625,6 @@
     transition: all 0.3s ease;
     border: 4rpx solid transparent;
     box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
-    margin-right: 24rpx;
   }
 
   .category-chip.active {
@@ -631,11 +641,16 @@
   /* 主内容容器 */
   .container {
     flex: 1;
-    padding: 40rpx;
+    padding: 20rpx 40rpx calc(env(safe-area-inset-bottom) + 220rpx);
     position: relative;
     z-index: 10;
-    padding-bottom: 180rpx;
-    /* 为底部导航留空间 */
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(520rpx, 1fr));
+    gap: 32rpx;
+    align-content: start;
   }
 
   /* 帖子卡片 */
@@ -643,8 +658,10 @@
     background: white;
     border-radius: 40rpx;
     padding: 40rpx;
-    margin-bottom: 30rpx;
     box-shadow: 0 10rpx 36rpx rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
   }
 
   /* 用户信息头部 */
@@ -684,11 +701,13 @@
     font-weight: 600;
     color: #333;
     margin-bottom: 6rpx;
+    word-break: break-word;
   }
 
   .test-centre {
     font-size: 26rpx;
     color: #999;
+    word-break: break-word;
   }
 
   /* 帖子内容 */
@@ -713,41 +732,40 @@
     color: #333;
     margin-bottom: 30rpx;
     display: block;
+    word-break: break-word;
+    white-space: normal;
   }
 
   /* 图片网格 */
   .images-grid {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    // gap: 20rpx;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200rpx, 1fr));
+    gap: 20rpx;
     margin-bottom: 30rpx;
   }
+
+  .media-item {
+    width: 100%;
+    display: block;
+  }
+
+  .post-image {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 20rpx;
+    background: #F0F0F0;
+    object-fit: cover;
+  }
+
   .post-video {
     width: 100%;
-    height: 300rpx;
-  }
-  /* #ifdef APP */
-  .post-image {
-    width: 200rpx;
-    height: 200rpx;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
     border-radius: 20rpx;
-    background: #F0F0F0;
-    margin-right: 20rpx;
+    object-fit: cover;
   }
-  /* #endif */
-  
-  /* #ifndef APP */
-  .post-image {
-    width: calc(33.333% - 14rpx);
-    height: 100%;
-    aspect-ratio: 1;
-    -webkit-aspect-ratio: 1; /* 对于旧的WebKit浏览器 */
-    border-radius: 20rpx;
-    background: #F0F0F0;
-    margin-right: 20rpx;
-  }
-  /* #endif */
   
 
   /* 评论预览 */
@@ -762,11 +780,20 @@
     font-size: 28rpx;
     color: #333;
     line-height: 1.4;
+    display: block;
+    word-break: break-word;
   }
 
   .comment-author {
     font-weight: 600;
     color: #333;
+  }
+
+  .comment-content {
+    margin-left: 16rpx;
+    color: #333;
+    word-break: break-word;
+    display: inline;
   }
 
   .view-replies-button {
@@ -788,6 +815,7 @@
   .tag {
     font-size: 26rpx;
     color: #999;
+    word-break: break-word;
   }
 
   /* 互动栏 */
@@ -859,7 +887,7 @@
   /* 浮动操作按钮 */
   .floating-action-button {
     position: fixed;
-    bottom: 180rpx;
+    bottom: calc(env(safe-area-inset-bottom) + 180rpx);
     right: 40rpx;
     width: 112rpx;
     height: 112rpx;

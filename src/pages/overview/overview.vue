@@ -286,12 +286,13 @@ export default {
 
 /* Header 样式 */
 .header {
-  padding: 30rpx 40rpx;
+  padding: calc(env(safe-area-inset-top) + 20rpx) 40rpx 20rpx;
   display: flex;
   align-items: center;
-  background: transparent;
-  position: relative;
-  z-index: 10;
+  background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.9) 100%);
+  position: sticky;
+  top: 0;
+  z-index: 20;
   min-height: 120rpx;
 }
 
@@ -319,14 +320,18 @@ export default {
   flex: 1;
   text-align: center;
   margin-right: 80rpx;
+  word-break: break-word;
 }
 
 /* 主容器 - 竖版默认 */
 .container {
   flex: 1;
-  padding: 40rpx;
+  padding: 20rpx 40rpx calc(env(safe-area-inset-bottom) + 200rpx);
   position: relative;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
 }
 
 /* 统计卡片 */
@@ -385,7 +390,8 @@ export default {
 .legend {
   display: flex;
   justify-content: center;
-  gap: 80rpx;
+  gap: 40rpx;
+  flex-wrap: wrap;
   padding: 30rpx;
   background: white;
   border-radius: 30rpx;
@@ -421,13 +427,12 @@ export default {
   border-radius: 40rpx;
   padding: 40rpx;
   box-shadow: 0 16rpx 50rpx rgba(0,0,0,0.08);
-  margin-bottom: 200rpx;
 }
 
 /* 题目网格 - 竖版 */
 .questions-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(120rpx, 1fr));
   gap: 24rpx;
 }
 
@@ -482,18 +487,19 @@ export default {
 
 /* 底部按钮 - 竖版固定底部 */
 .button-container {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 30rpx 40rpx 40rpx;
-  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 20%, white 100%);
+  padding: 30rpx 40rpx calc(env(safe-area-inset-bottom) + 40rpx);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 40%, white 100%);
   z-index: 20;
 }
 
 /* 竖版模式下显示底部按钮 */
 .mobile-buttons {
   display: flex;
+  width: 100%;
 }
 
 /* 横版模式下的按钮默认隐藏 */
@@ -510,6 +516,7 @@ export default {
   max-width: 800rpx;
   margin: 0 auto;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .action-button {
@@ -540,11 +547,11 @@ export default {
 }
 
 /* 横版布局 - 平板和大屏幕 */
-@media screen and (min-width: 768px) and (orientation: landscape),
-       screen and (min-width: 1024px) {
-  
+@media screen and (min-width: 1536rpx) and (orientation: landscape),
+       screen and (min-width: 2048rpx) {
+
   .header {
-    padding: 20rpx 60rpx;
+    padding: calc(env(safe-area-inset-top) + 20rpx) 60rpx 20rpx;
     min-height: 100rpx;
   }
 
@@ -558,7 +565,7 @@ export default {
   .container {
     display: flex;
     gap: 40rpx;
-    padding: 0 60rpx 40rpx;
+    padding: 0 60rpx calc(env(safe-area-inset-bottom) + 40rpx);
   }
 
   /* 左侧面板 */
@@ -604,7 +611,6 @@ export default {
   }
 
   .questions-grid {
-    grid-template-columns: repeat(10, 1fr);
     gap: 30rpx;
   }
 
@@ -621,9 +627,9 @@ export default {
 }
 
 /* 小屏幕优化 */
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 750rpx) {
   .questions-grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100rpx, 1fr));
     gap: 20rpx;
   }
   

@@ -1028,8 +1028,8 @@
   }
 
   .send-button svg {
-    width: 20px;
-    height: 20px;
+    width: 40rpx;
+    height: 40rpx;
     stroke: white;
     fill: none;
     stroke-width: 2;
