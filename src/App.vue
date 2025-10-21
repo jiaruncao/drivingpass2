@@ -19,6 +19,7 @@ export default {
 @import "../public/tuniao-ui.css";
 
 :root {
-  font-size: 14px; /* 750px设计稿下，1rem = 100px */
+  font-size: clamp(90%, calc(100vw / 7.5), 125%);
+  /* 750 设计宽度下，100vw / 7.5 ≈ 100，对应 1rem ≈ 100 设计单位 */
 }
 </style>
