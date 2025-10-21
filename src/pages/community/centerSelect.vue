@@ -59,39 +59,50 @@
 </script>
 
 <style>
-	.container {
-		flex: 1;
-		background-color: #fff;
-	}
+        .container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                background-color: #fff;
+                padding-bottom: calc(env(safe-area-inset-bottom) + 40rpx);
+        }
 
-	.content {
-		margin-top: 64px;
-	}
+        .content {
+                padding-top: calc(env(safe-area-inset-top) + 64rpx);
+                display: flex;
+                flex-direction: column;
+                gap: 32rpx;
+        }
 
 	.left-section {
 		position: relative;
 		width: 100%;
 	}
 
-	.center-photo {
-		width: 100%;
-		height: 200rpx;
-		border-radius: 8rpx;
-	}
+        .center-photo {
+                width: 100%;
+                max-width: 100%;
+                height: 200rpx;
+                border-radius: 16rpx;
+                object-fit: cover;
+        }
 
-	.photo-tag {
-		position: absolute;
-		top: 0;
-		right: 0;
-		background-color: #ff9800;
-		color: #fff;
-		font-size: 24rpx;
-		padding: 4rpx 8rpx;
-		border-radius: 4rpx;
-	}
+        .photo-tag {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background-color: #ff9800;
+                color: #fff;
+                font-size: 24rpx;
+                padding: 4rpx 8rpx;
+                border-radius: 8rpx;
+        }
 
-	.center-text {
-		font-size: 28rpx;
-		color: #333;
-	}
+        .center-text {
+                font-size: 28rpx;
+                color: #333;
+                line-height: 1.5;
+                word-break: break-word;
+        }
 </style>

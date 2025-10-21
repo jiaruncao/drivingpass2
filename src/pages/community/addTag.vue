@@ -213,25 +213,34 @@
 </script>
 
 <style>
-	.container {
-		flex: 1;
-		background-color: #fff;
-	}
+        .container {
+                flex: 1;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                background-color: #fff;
+                padding-bottom: calc(env(safe-area-inset-bottom) + 40rpx);
+        }
 
-	.content {
-		margin-top: 64px;
-	}
+        .content {
+                padding-top: calc(env(safe-area-inset-top) + 64rpx);
+                display: flex;
+                flex-direction: column;
+                gap: 32rpx;
+        }
 
 	.section {
 		margin-bottom: 30rpx;
 	}
 
-	.section-title {
-		font-size: 28rpx;
-		color: #999;
-		margin-bottom: 16rpx;
-		display: block;
-	}
+        .section-title {
+                font-size: 28rpx;
+                color: #999;
+                margin-bottom: 16rpx;
+                display: block;
+                line-height: 1.4;
+                word-break: break-word;
+        }
 
 	/* 已选标签样式 */
 	.selected-tags {
@@ -239,16 +248,16 @@
 		flex-wrap: wrap;
 	}
 
-	.tag-item {
-		display: flex;
-		align-items: center;
-		background-color: #fff;
-		border: 1px solid #ddd;
-		border-radius: 30rpx;
-		padding: 8rpx 16rpx;
-		margin-right: 16rpx;
-		margin-bottom: 16rpx;
-	}
+        .tag-item {
+                display: flex;
+                align-items: center;
+                background-color: #fff;
+                border: 2rpx solid #ddd;
+                border-radius: 30rpx;
+                padding: 8rpx 16rpx;
+                margin-right: 16rpx;
+                margin-bottom: 16rpx;
+        }
 
 	.tag-item.selected {
 		background-color: #e6f7ff;
@@ -264,16 +273,16 @@
 		margin-left: 8rpx;
 	}
 
-	.add-tag-btn {
-		width: 124rpx;
-		height: 60rpx;
-		background: #FFFFFF;
-		color: #419FFF;
-		border-radius: 24px;
-		border: 1rpx solid #419FFF;
-		padding: 0 20rpx;
-		margin-bottom: 16rpx;
-	}
+        .add-tag-btn {
+                width: 124rpx;
+                height: 60rpx;
+                background: #FFFFFF;
+                color: #419FFF;
+                border-radius: 48rpx;
+                border: 2rpx solid #419FFF;
+                padding: 0 20rpx;
+                margin-bottom: 16rpx;
+        }
 
 	/* 热门标签样式 */
 	.tag-list {
@@ -292,7 +301,6 @@
                 border-radius: 32rpx;
                 padding: 40rpx 34rpx;
                 box-shadow: 0 30rpx 60rpx rgba(31, 71, 168, 0.18);
-                backdrop-filter: blur(10px);
         }
 
         .dialog-header {
@@ -325,7 +333,7 @@
         .dialog-btn {
                 flex: 1;
                 height: 88rpx;
-                border-radius: 999px;
+                border-radius: 999rpx;
                 display: flex;
                 align-items: center;
                 justify-content: center;
