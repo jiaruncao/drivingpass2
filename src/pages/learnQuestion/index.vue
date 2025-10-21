@@ -88,6 +88,16 @@
       </view>
     </view>
 
+    <view class="progress-summary" v-if="totalQuestions">
+      <view class="progress-summary-header">
+        <text class="progress-summary-title">Progress</text>
+        <text class="progress-summary-value">{{ answeredCount }}/{{ totalQuestions }} ({{ learningProgress }}%)</text>
+      </view>
+      <view class="progress-summary-bar">
+        <view class="progress-summary-fill" :style="{ width: learningProgress + '%' }"></view>
+      </view>
+    </view>
+
     <!-- 连续答对庆祝动画 -->
     <view v-if="showStreakCelebration" class="streak-celebration">🎉</view>
 
@@ -98,90 +108,97 @@
         <scroll-view scroll-y class="slide" @scroll="onScroll"
     :scroll-with-animation="true">
           <view class="question-page">
-            <view class="question-primary">
-              <!-- 题目卡片 -->
-              <view class="question-card">
-                <view class="question-section">
-                  <view class="question-header">
-                    <button class="audio-button" :class="{ playing: playingIndex === index }" @tap="playAudio(index)">
-                      <text class="audio-icon">🔊</text>
-                    </button>
-                    <text class="question-text">{{ question.title }}</text>
-                  </view>
-                  <view class="question-image" v-if="question.title_video_url">
-                    <image :src="question.title_video_url" mode=""></image>
+            <!-- 题目区域 -->
+            <view class="question-section">
+              <!-- 题目头部 -->
+              <view class="question-header">
+                <!-- 音频播放按钮 -->
+                <button class="audio-button" :class="{ playing: playingIndex === index }" @tap="playAudio(index)">
+                  <text class="audio-icon">🔊</text>
+                </button>
+                <!-- 题目文本 -->
+                <text class="question-text">{{ question.title }}</text>
+              </view>
+
+              <!-- 题目图片 -->
+              <view class="question-image" v-if="question.title_video_url">
+                <image :src="question.title_video_url" mode=""></image>
+              </view>
+            </view>
+
+            <!-- 选项列表 -->
+            <view class="options-list" v-if="mode == 'learn'">
+              <view v-for="(option, optIndex) in question.options_json" :key="optIndex" class="option-item" :class="optionClass(question, option)" @tap="selectOption(index, optIndex)">
+                <view class="option-label">
+                  <text
+                    v-if="!question.showAnswer || ((question.selectedOption != option.key) && (option.key != question.answer))">{{ option.key }}</text>
+                  <text v-else-if="option.key == question.answer" class="option-label-icon check">✓</text>
+                  <text v-else-if="(question.selectedOption == option.key) && (option.key != question.answer)"
+                    class="option-label-icon cross">✗</text>
+                </view>
+                <text class="option-text">{{ option.value }}  111</text>
+              </view>
+            </view>
+            
+            <!-- test模式，只出现选中的答案 -->
+            <view class="options-list" v-if="mode == 'test'">
+              <view v-for="(option, optIndex) in question.options_json" :key="optIndex" class="option-item" :class="optionClass(question, option)" @tap="selectOption(index, optIndex)">
+                <view class="option-label">
+                  <text>{{ option.key }}</text>
+                  <!-- <text v-else-if="option.key == question.answer" class="option-label-icon check">✓</text>
+                  <text v-else-if="(question.selectedOption == option.key) && (option.key != question.answer)"
+                    class="option-label-icon cross">✗</text> -->
+                </view>
+                <text class="option-text">{{ option.value }}</text>
+              </view>
+            </view>
+            
+            <!-- Key Point - 极简设计，直接跟在选项后面 -->
+            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="key-point-section">
+              <text class="key-point-text">💡 {{ question.key_point }}</text>
+            </view>
+
+            <!-- AI解释 - 只在答错时显示 -->
+            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="ai-explanation">
+              <view class="ai-header">
+                <view class="ai-avatar">
+                  <text class="ai-avatar-icon">🤖</text>
+                </view>
+                <text class="ai-title">AI Explanation</text>
+              </view>
+              <view class="ai-content">
+                <text>{{ question.explain }}</text>
+                <text class="remember-tip">
+                  <text class="strong" style="margin-right: 20rpx;">Remember:</text>
+                  {{ question.rememberTip || 'Always check your mirrors and follow the Highway Code.' }}
+                </text>
+              </view>
+            </view>
+
+            <!-- 统计信息 - 只在答错时显示 -->
+            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="stats-container">
+              <view class="stat-card">
+                <text class="stat-label">Difficulty Level</text>
+                <view class="difficulty-visual">
+                  <view v-for="i in 5" :key="i" class="difficulty-bar" :class="{ active: i <= question.difficulty }">
                   </view>
                 </view>
               </view>
-
-              <!-- 选项卡片 -->
-              <view class="options-card">
-                <view class="options-list" v-if="mode == 'learn'">
-                  <view v-for="(option, optIndex) in question.options_json" :key="optIndex" class="option-item" :class="optionClass(question, option)" @tap="selectOption(index, optIndex)">
-                    <view class="option-label">
-                      <text
-                        v-if="!question.showAnswer || ((question.selectedOption != option.key) && (option.key != question.answer))">{{ option.key }}</text>
-                      <text v-else-if="option.key == question.answer" class="option-label-icon check">✓</text>
-                      <text v-else-if="(question.selectedOption == option.key) && (option.key != question.answer)"
-                        class="option-label-icon cross">✗</text>
-                    </view>
-                    <text class="option-text">{{ option.value }}  111</text>
-                  </view>
-                </view>
-                <view class="options-list" v-else>
-                  <view v-for="(option, optIndex) in question.options_json" :key="optIndex" class="option-item" :class="optionClass(question, option)" @tap="selectOption(index, optIndex)">
-                    <view class="option-label">
-                      <text>{{ option.key }}</text>
-                    </view>
-                    <text class="option-text">{{ option.value }}</text>
+              <view class="stat-card">
+                <text class="stat-label">Pass Rate</text>
+                <view class="accuracy-visual">
+                  <view class="accuracy-circle" :style="{ '--accuracy': Number(question.accuracy) }">
+                    <text class="accuracy-value">{{ question.accuracy }}%</text>
                   </view>
                 </view>
               </view>
             </view>
 
-            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="question-insights">
-              <view class="key-point-section">
-                <text class="key-point-text">💡 {{ question.key_point }}</text>
-              </view>
-
-              <view class="ai-explanation">
-                <view class="ai-header">
-                  <view class="ai-avatar">
-                    <text class="ai-avatar-icon">🤖</text>
-                  </view>
-                  <text class="ai-title">AI Explanation</text>
-                </view>
-                <view class="ai-content">
-                  <text>{{ question.explain }}</text>
-                  <text class="remember-tip">
-                    <text class="strong" style="margin-right: 20rpx;">Remember:</text>
-                    {{ question.rememberTip || 'Always check your mirrors and follow the Highway Code.' }}
-                  </text>
-                </view>
-              </view>
-
-              <view class="stats-container">
-                <view class="stat-card">
-                  <text class="stat-label">Difficulty Level</text>
-                  <view class="difficulty-visual">
-                    <view v-for="i in 5" :key="i" class="difficulty-bar" :class="{ active: i <= question.difficulty }">
-                    </view>
-                  </view>
-                </view>
-                <view class="stat-card">
-                  <text class="stat-label">Pass Rate</text>
-                  <view class="accuracy-visual">
-                    <view class="accuracy-circle" :style="{ '--accuracy': Number(question.accuracy) }">
-                      <text class="accuracy-value">{{ question.accuracy }}%</text>
-                    </view>
-                  </view>
-                </view>
-              </view>
-
-              <view class="comments-section">
-                <view class="comments-header">
-                  <text>Community Discussion</text>
-                  <text class="comments-count">{{ question.comments ? question.comments.length : 0 }} comments</text>
+            <!-- 社区评论区 - 只在答错时显示 -->
+            <view v-if="question.showAnswer && !isCorrectAnswer(question) && mode == 'learn' || hasAllAnswered" class="comments-section">
+              <view class="comments-header">
+                <text>Community Discussion</text>
+                <text class="comments-count">{{ question.comments ? question.comments.length : 0 }} comments</text>
               </view>
 
               <!-- 评论列表 -->
@@ -305,16 +322,16 @@
       <view class="result-content completion-content">
         <view class="result-header completion-header">
           <view class="completion-icon">🎉</view>
-          <view class="result-title">您已完成本章节学习</view>
-          <view class="result-subtitle">是否重置再次学习？</view>
+          <view class="result-title">Great job!</view>
+          <view class="result-subtitle">You've finished this section. What would you like to do next?</view>
         </view>
 
         <view class="result-actions completion-actions">
           <button class="result-button reset-btn" @tap="resetLearning">
-            重置学习
+            Reset Progress
           </button>
           <button class="result-button home-btn" @tap="returnHome">
-            返回主页
+            Return Home
           </button>
         </view>
       </view>
@@ -342,6 +359,7 @@
         correctStreak: 0, // 连续答对数
         commentText: '', // 评论输入
         showCommentInput: false, // 是否显示评论输入框
+        correctQuestionIds: [], // 已经答对的题目ID
         // 设置选项
         settings: {
           autoAdvance: true, // 答对自动跳转
@@ -366,21 +384,39 @@
       fontSizeClass() {
         const sizes = ['font-size-small', 'font-size-medium', 'font-size-large', 'font-size-extra-large'];
         return sizes[this.settings.fontSize - 1];
+      },
+      answeredCount() {
+        if (!Array.isArray(this.correctQuestionIds)) return 0;
+        return this.correctQuestionIds.length;
+      },
+      learningProgress() {
+        if (!this.totalQuestions) return 0;
+        return Math.round((this.answeredCount / this.totalQuestions) * 100);
       }
     },
     watch: {
       currentQuestionIndex(newIndex) {
         if (this.mode !== 'learn') return;
+        this.persistProgress(newIndex);
+      }
+    },
+    methods: {
+      persistProgress (index) {
         if (!this.subject_id || !this.cate_id) return;
+
         this.$utils.updateSubjectStorage('subjects', {
           subjectId: this.subject_id,
           cateId: this.cate_id
         }, {
-          'current_question_index': newIndex
+          'current_question_index': index
         });
-      }
-    },
-    methods: {
+
+        this.$utils.updateSubjectStorage('subjects', {
+          subjectId: this.subject_id
+        }, {
+          'last_learn_cate_id': this.cate_id
+        });
+      },
       getInitial(username) {
         return username.charAt(0).toUpperCase();
       },
@@ -482,15 +518,7 @@
       // Swiper切换
       onSwiperChange(e) {
         this.currentQuestionIndex = e.detail.current;
-        
-        // 记录当前题目
-        this.$utils.updateSubjectStorage('subjects', {
-          subjectId: this.subject_id,
-          cateId: this.cate_id
-        }, {
-          'current_question_index': this.currentQuestionIndex
-        });
-        
+
         if (this.settings.voiceAutoRead) {
           this.readCurrentQuestion();
         }
@@ -532,14 +560,15 @@
 
         // 判断是否答对
         const isCorrect = question.options_json[optionIndex].key == question.answer;
-        
+
         question.isCorrect = isCorrect;
         question.status = isCorrect ? 'correct' : 'incorrect';
 
         if (isCorrect) {
+          this.trackCorrectAnswer(question);
           // 答对了
           this.correctStreak++;
-          
+
           // 移除本地错题
           this.removeWrong()
           
@@ -562,6 +591,7 @@
           }
 
         } else {
+          this.trackIncorrectAnswer(question, questionIndex);
           if (this.mode == 'learn') {
             // 查询评论
             this.queryPostList()
@@ -581,21 +611,20 @@
           this.wrongAdd()
           this.$forceUpdate()
         }
-        
+
         this.recordAdd()
-        
+
         // 如果答题答完
-        const hasAllAnswered = this.questions.every(question => {
-          return question.showAnswer
-        });
+        const hasAllAnswered = this.correctQuestionIds.length >= this.totalQuestions;
         this.hasAllAnswered = hasAllAnswered;
         if (hasAllAnswered) {
           // 所有题目都答完了
           this.showResult = true;
         }
-        
+
         // 缓存答题
         uni.setStorageSync('records', this.questions)
+        uni.setStorageSync('questions', this.questions)
         // this.$forceUpdate()
       },
       resetLearning() {
@@ -610,14 +639,15 @@
         this.currentQuestionIndex = 0;
         this.hasAllAnswered = false;
         this.showResult = false;
+        this.correctQuestionIds = [];
         uni.setStorageSync('questions', this.questions);
         uni.setStorageSync('records', this.questions);
         if (this.mode === 'learn' && this.subject_id && this.cate_id) {
+          this.persistProgress(0);
           this.$utils.updateSubjectStorage('subjects', {
             subjectId: this.subject_id,
             cateId: this.cate_id
           }, {
-            'current_question_index': 0,
             'answerQuestions': []
           });
         }
@@ -771,6 +801,13 @@
         if (questions && questions.length) {
           this.questions = questions
           this.totalQuestions = questions.length
+          const correctIds = []
+          questions.forEach(question => {
+            if (question && question.isCorrect && !correctIds.includes(question.id)) {
+              correctIds.push(question.id)
+            }
+          })
+          this.correctQuestionIds = correctIds
           uni.setStorageSync('records', this.questions)
         }
       },
@@ -867,13 +904,65 @@
           // 记录答题
           this.addRecord()
           // 记录当前题目
-          this.$utils.updateSubjectStorage('subjects', {
-            subjectId: this.subject_id,
-            cateId: this.cate_id
-          }, {
-            'current_question_index': this.currentQuestionIndex
-          });
+          if (this.mode === 'learn') {
+            this.persistProgress(this.currentQuestionIndex)
+          }
         })
+      },
+      trackCorrectAnswer(question) {
+        if (!question || !question.id) return
+        if (!this.correctQuestionIds.includes(question.id)) {
+          this.correctQuestionIds = [...this.correctQuestionIds, question.id]
+        }
+        this.removePendingRetry(question.id)
+      },
+      trackIncorrectAnswer(question, questionIndex) {
+        if (!question || !question.id) return
+        this.correctQuestionIds = this.correctQuestionIds.filter(id => id !== question.id)
+        if (this.mode !== 'learn') return
+        this.enqueueRetryQuestion(question, questionIndex)
+      },
+      enqueueRetryQuestion(question, questionIndex) {
+        if (!Array.isArray(this.questions)) return
+        const alreadyQueued = this.questions.some((item, idx) => {
+          if (idx <= questionIndex) return false
+          if (!item) return false
+          return item.id === question.id && item.needsRetry
+        })
+        if (alreadyQueued) return
+
+        const retryQuestion = {
+          ...question,
+          showAnswer: false,
+          selectedOption: question.type === 'MCQ' ? [] : null,
+          status: '',
+          isCorrect: false,
+          needsRetry: true
+        }
+
+        const minIndex = questionIndex + 1
+        let insertIndex = this.questions.length
+        if (minIndex < this.questions.length) {
+          const range = this.questions.length - minIndex
+          insertIndex = minIndex + Math.floor(Math.random() * (range + 1))
+        }
+
+        this.questions.splice(insertIndex, 0, retryQuestion)
+      },
+      removePendingRetry(questionId) {
+        if (!Array.isArray(this.questions)) return
+        let removed = false
+        for (let i = this.questions.length - 1; i > this.currentQuestionIndex; i--) {
+          const item = this.questions[i]
+          if (!item) continue
+          if (item.id === questionId && item.needsRetry) {
+            this.questions.splice(i, 1)
+            removed = true
+          }
+        }
+        if (removed) {
+          uni.setStorageSync('questions', this.questions)
+        }
       }
     },
     onLoad(option) {
@@ -907,6 +996,14 @@
       // 如果开启了语音自动读题，读第一题
       if (this.settings.voiceAutoRead) {
         this.readCurrentQuestion();
+      }
+
+      if (this.mode === 'learn' && this.subject_id && this.cate_id) {
+        this.$utils.updateSubjectStorage('subjects', {
+          subjectId: this.subject_id
+        }, {
+          'last_learn_cate_id': this.cate_id
+        });
       }
       // 监听
       const _this= this
@@ -1024,6 +1121,43 @@
     background: white;
     position: relative;
     z-index: 100;
+  }
+
+  .progress-summary {
+    padding: 0 40rpx 40rpx;
+  }
+
+  .progress-summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16rpx;
+  }
+
+  .progress-summary-title {
+    font-size: 28rpx;
+    color: #6b7280;
+  }
+
+  .progress-summary-value {
+    font-size: 30rpx;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .progress-summary-bar {
+    width: 100%;
+    height: 12rpx;
+    border-radius: 999rpx;
+    background: #e5e7eb;
+    overflow: hidden;
+  }
+
+  .progress-summary-fill {
+    height: 100%;
+    border-radius: 999rpx;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
   }
 
   .back-button {
@@ -1329,35 +1463,13 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 40rpx;
     padding: 40rpx;
-    padding-bottom: 160rpx;
-  }
-
-  .question-primary {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 32rpx;
-    justify-content: space-between;
-  }
-
-  .question-card {
-    background: linear-gradient(180deg, #ffffff 0%, #f2f7ff 100%);
-    border-radius: 40rpx;
-    padding: 48rpx 40rpx;
-    box-shadow: 0 20rpx 80rpx rgba(15, 23, 42, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 32rpx;
-    flex-shrink: 0;
+    padding-bottom: 200rpx;
   }
 
   /* 题目区域 */
   .question-section {
-    display: flex;
-    flex-direction: column;
-    gap: 32rpx;
+    margin-bottom: 40rpx;
   }
 
   /* 题目头部 - 音频按钮和题目文本 */
@@ -1365,6 +1477,7 @@
     display: flex;
     align-items: flex-start;
     gap: 30rpx;
+    margin-bottom: 50rpx;
   }
 
   /* 音频播放按钮 */
@@ -1372,12 +1485,13 @@
     width: 88rpx;
     height: 88rpx;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
+    // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    // background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 8rpx 30rpx rgba(102, 126, 234, 0.3);
+    // box-shadow: 0 8rpx 30rpx rgba(102, 126, 234, 0.3);
     flex-shrink: 0;
   }
 
@@ -1411,7 +1525,7 @@
   /* 题目文本 */
   .question-text {
     flex: 1;
-    font-size: 44rpx;
+    font-size: 40rpx;
     font-weight: 600;
     color: #1a1a1a;
     line-height: 1.5;
@@ -1421,17 +1535,18 @@
   /* 题目图片 */
   .question-image {
     width: 100%;
-    height: 320rpx;
+    height: 400rpx;
     border-radius: 40rpx;
     overflow: hidden;
+    margin-bottom: 50rpx;
     position: relative;
-    background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
-    box-shadow: 0 20rpx 80rpx rgba(102, 126, 234, 0.12);
-
+    // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
+    box-shadow: 0 20rpx 80rpx rgba(102, 126, 234, 0.15);
+    
     > image {
       width: 100%;
       height: 100%;
-      object-fit: cover;
     }
   }
 
@@ -1499,23 +1614,11 @@
     }
   }
 
-  .options-card {
-    flex: 1;
-    background: #ffffff;
-    border-radius: 40rpx;
-    padding: 32rpx;
-    box-shadow: 0 18rpx 60rpx rgba(15, 23, 42, 0.08);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 24rpx;
-  }
-
   /* 选项列表 */
   .options-list {
     display: flex;
     flex-direction: column;
-    gap: 24rpx;
+    // gap: 24rpx;
   }
 
   .option-item {
@@ -1526,6 +1629,7 @@
     border-radius: 32rpx;
     border: 4rpx solid transparent;
     position: relative;
+    margin-bottom: 24rpx;
   }
 
   .option-item:active {
@@ -1594,14 +1698,9 @@
     font-weight: 500;
   }
 
-  .question-insights {
-    display: flex;
-    flex-direction: column;
-    gap: 40rpx;
-  }
-
   /* Key Point - 极简设计，直接显示在选项后面 */
   .key-point-section {
+    margin-top: 40rpx;
     padding: 0;
   }
 
@@ -2262,22 +2361,24 @@
     color: #9ca3af;
   }
 
+  .dark-mode .progress-summary-title {
+    color: #9ca3af;
+  }
+
+  .dark-mode .progress-summary-value {
+    color: #f9fafb;
+  }
+
+  .dark-mode .progress-summary-bar {
+    background: #374151;
+  }
+
+  .dark-mode .progress-summary-fill {
+    background: linear-gradient(90deg, #8b5cf6 0%, #6366f1 100%);
+  }
+
   .dark-mode .question-text {
     color: #e5e5e5;
-  }
-
-  .dark-mode .question-card {
-    background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-    box-shadow: 0 20rpx 80rpx rgba(0, 0, 0, 0.6);
-  }
-
-  .dark-mode .question-image {
-    background: linear-gradient(180deg, #1f2937 0%, #0f172a 100%);
-  }
-
-  .dark-mode .options-card {
-    background: #1f1f1f;
-    box-shadow: 0 18rpx 60rpx rgba(0, 0, 0, 0.6);
   }
 
   .dark-mode .option-item {
@@ -2497,22 +2598,9 @@
       font-size: 30rpx;
     }
 
-    .question-page {
-      padding: 30rpx;
-      padding-bottom: 150rpx;
-      gap: 32rpx;
-    }
-
-    .question-card,
-    .options-card {
-      padding: 36rpx 28rpx;
-      border-radius: 32rpx;
-    }
-
-    .option-item {
-      padding: 32rpx;
-      border-radius: 28rpx;
-    }
+    // .question-page {
+    //   padding: 30rpx;
+    // }
   }
 
   /* 平板适配 */
