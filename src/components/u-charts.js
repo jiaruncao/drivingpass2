@@ -17,35 +17,81 @@
 
 'use strict';
 
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(value, max));
+}
+
+function getSystemInfo() {
+  if (typeof uni !== 'undefined' && typeof uni.getSystemInfoSync === 'function') {
+    try {
+      return uni.getSystemInfoSync() || {};
+    } catch (err) {
+      console.warn('[uCharts] failed to read system info from uni:', err);
+    }
+  }
+  if (typeof wx !== 'undefined' && typeof wx.getSystemInfoSync === 'function') {
+    try {
+      return wx.getSystemInfoSync() || {};
+    } catch (err) {
+      console.warn('[uCharts] failed to read system info from wx:', err);
+    }
+  }
+  if (typeof window !== 'undefined') {
+    return {
+      pixelRatio: window.devicePixelRatio || 1,
+      windowWidth: window.innerWidth || 375
+    };
+  }
+  return {};
+}
+
+var systemInfo = getSystemInfo();
+var devicePixelRatio = systemInfo.pixelRatio && systemInfo.pixelRatio > 0 ? clamp(systemInfo.pixelRatio, 1, 3) : 1;
+var fallbackWindowWidth = systemInfo.windowWidth && systemInfo.windowWidth > 0 ? systemInfo.windowWidth : 375;
+var widthScale = clamp(fallbackWindowWidth / 375, 0.7, 1.5);
+var baseFontSize = Math.max(Math.round(13 * widthScale), 10);
+var baseTitleFontSize = Math.max(Math.round(20 * widthScale), 16);
+var baseSubtitleFontSize = Math.max(Math.round(15 * widthScale), 12);
+var baseAxisSize = Math.max(Math.round(15 * widthScale), 12);
+var baseToolTipLineHeight = Math.max(Math.round(20 * widthScale), 18);
+var defaultFontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif";
+
 var config = {
-  yAxisWidth: 15,
+  yAxisWidth: baseAxisSize,
   yAxisSplit: 5,
-  xAxisHeight: 15,
-  xAxisLineHeight: 15,
-  legendHeight: 15,
-  yAxisTitleWidth: 15,
+  xAxisHeight: baseAxisSize,
+  xAxisLineHeight: baseAxisSize,
+  legendHeight: baseAxisSize,
+  yAxisTitleWidth: baseAxisSize,
   padding: [10, 10, 10, 10],
-  pixelRatio: 1,
+  pixelRatio: devicePixelRatio,
   rotate: false,
-  columePadding: 3,
-  fontSize: 13,
+  columePadding: Math.max(2, Math.round(3 * widthScale)),
+  fontSize: baseFontSize,
+  fontFamily: defaultFontFamily,
   //dataPointShape: ['diamond', 'circle', 'triangle', 'rect'],
   dataPointShape: ['circle', 'circle', 'circle', 'circle'],
   colors: ['#1890ff', '#2fc25b', '#facc14', '#f04864', '#8543e0', '#90ed7d'],
-  pieChartLinePadding: 15,
-  pieChartTextPadding: 5,
-  xAxisTextPadding: 3,
+  pieChartLinePadding: Math.max(Math.round(15 * widthScale), 10),
+  pieChartTextPadding: Math.max(Math.round(5 * widthScale), 4),
+  xAxisTextPadding: Math.max(Math.round(3 * widthScale), 2),
   titleColor: '#333333',
-  titleFontSize: 20,
+  titleFontSize: baseTitleFontSize,
   subtitleColor: '#999999',
-  subtitleFontSize: 15,
-  toolTipPadding: 3,
+  subtitleFontSize: baseSubtitleFontSize,
+  toolTipPadding: Math.max(Math.round(3 * widthScale), 2),
   toolTipBackground: '#000000',
   toolTipOpacity: 0.7,
-  toolTipLineHeight: 20,
-  radarLabelTextMargin: 15,
-  gaugeLabelTextMargin: 15
+  toolTipLineHeight: baseToolTipLineHeight,
+  radarLabelTextMargin: Math.max(Math.round(15 * widthScale), 12),
+  gaugeLabelTextMargin: Math.max(Math.round(15 * widthScale), 12)
 };
+
+function formatFontDeclaration(size) {
+  var fontSize = Math.max(size, 1);
+  var family = config.fontFamily || defaultFontFamily;
+  return fontSize + 'px ' + family;
+}
 
 let assign = function (target, ...varArgs) {
     if (target == null) {
@@ -5135,8 +5181,10 @@ Event.prototype.trigger = function() {
 };
 
 var Charts = function Charts(opts) {
-  opts.pixelRatio = opts.pixelRatio ? opts.pixelRatio : 1;
-  opts.fontSize = opts.fontSize ? opts.fontSize * opts.pixelRatio : 13 * opts.pixelRatio;
+  opts.pixelRatio = opts.pixelRatio ? opts.pixelRatio : config.pixelRatio;
+  var resolvedFontSize = typeof opts.fontSize === 'number' ? opts.fontSize : config.fontSize;
+  opts.baseFontSize = resolvedFontSize;
+  opts.fontSize = resolvedFontSize * opts.pixelRatio;
   opts.title = assign({}, opts.title);
   opts.subtitle = assign({}, opts.subtitle);
   opts.duration = opts.duration ? opts.duration : 1000;
@@ -5233,20 +5281,28 @@ var Charts = function Charts(opts) {
   
   this.context = opts.context ? opts.context : uni.createCanvasContext(opts.canvasId, opts.$this);
 	
-	if(opts.canvas2d){
-		this.context.setStrokeStyle = function(e){ return this.strokeStyle=e; }
-		this.context.setLineWidth = function(e){ return this.lineWidth=e; }
-		this.context.setLineCap = function(e){ return this.lineCap=e; }
-		this.context.setFontSize = function(e){ return this.font=e+"px sans-serif"; }
-		this.context.setFillStyle = function(e){ return this.fillStyle=e; }
-		this.context.draw = function(){ }
-	}
+        if(opts.canvas2d){
+                this.context.setStrokeStyle = function(e){ return this.strokeStyle=e; }
+                this.context.setLineWidth = function(e){ return this.lineWidth=e; }
+                this.context.setLineCap = function(e){ return this.lineCap=e; }
+                this.context.setFontSize = function(e){
+                  var font = formatFontDeclaration(e);
+                  this.font = font;
+                  return this.font;
+                }
+                this.context.setFillStyle = function(e){ return this.fillStyle=e; }
+                this.context.draw = function(){ }
+        }
   /* 兼容原生H5
   this.context = document.getElementById(opts.canvasId).getContext("2d");
   this.context.setStrokeStyle = function(e){ return this.strokeStyle=e; }
   this.context.setLineWidth = function(e){ return this.lineWidth=e; }
   this.context.setLineCap = function(e){ return this.lineCap=e; }
-  this.context.setFontSize = function(e){ return this.font=e+"px sans-serif"; }
+  this.context.setFontSize = function(e){
+    var font = formatFontDeclaration(e);
+    this.font = font;
+    return this.font;
+  }
   this.context.setFillStyle = function(e){ return this.fillStyle=e; }
   this.context.draw = function(){ }
   */
