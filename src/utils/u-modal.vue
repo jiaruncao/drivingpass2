@@ -3,11 +3,11 @@
 		mode="center"
 		:zoom="zoom"
 		:show="show"
-		:customStyle="{
-			borderRadius: '16px',
-			overflow: 'hidden',
-			marginTop: `-${$u.addUnit(negativeTop)}`
-		}"
+                :customStyle="{
+                        borderRadius: '16rpx',
+                        overflow: 'hidden',
+                        marginTop: `-${$u.addUnit(negativeTop)}`
+                }"
 		:closeOnClickOverlay="closeOnClickOverlay"
 		:safeAreaInsetBottom="false"
 		:duration="duration"
@@ -25,9 +25,9 @@
 			>{{ title }}</text>
 			<view
 				class="u-modal__content"
-				:style="{
-					paddingTop: `${title ? 12 : 25}px`
-				}"
+                                :style="{
+                                        paddingTop: `${title ? 12 : 25}rpx`
+                                }"
 			>
 				<slot>
 					<text class="u-modal__content__text">{{ content }}</text>
@@ -116,73 +116,73 @@
 
 <style lang="scss" scoped>
 	@import "../../libs/css/components.scss";
-	$u-modal-border-radius: 16px;
+        $u-modal-border-radius: 16rpx;
 
 	.u-modal {
 		width: 650rpx;
 		border-radius: $u-modal-border-radius;
 		overflow: hidden;
 		background-color: #fff;
-		padding-bottom: 20px;
+                padding-bottom: 20rpx;
 
-		&__title {
-			font-size: 18px;
-			font-weight: 600;
-			color: #333;
-			text-align: center;
-			padding-top: 30px;
-			line-height: 1.4;
-		}
+                &__title {
+                        font-size: 18rpx;
+                        font-weight: 600;
+                        color: #333;
+                        text-align: center;
+                        padding-top: 30rpx;
+                        line-height: 1.4;
+                }
 
-		&__content {
-			padding: 20px 25px 30px 25px;
-			@include flex;
-			justify-content: center;
+                &__content {
+                        padding: 20rpx 25rpx 30rpx 25rpx;
+                        @include flex;
+                        justify-content: center;
 
-			&__text {
-				font-size: 16px;
-				color: #666;
-				line-height: 1.5;
-				text-align: center;
-				flex: 1;
-			}
-		}
+                        &__text {
+                                font-size: 16rpx;
+                                color: #666;
+                                line-height: 1.5;
+                                text-align: center;
+                                flex: 1;
+                        }
+                }
 
-		&__divider {
-			height: 1px;
-			background-color: #f0f0f0;
-			margin: 0 0 20px 0;
-		}
+                &__divider {
+                        height: 1rpx;
+                        background-color: #f0f0f0;
+                        margin: 0 0 20rpx 0;
+                }
 
-		&__button-group {
-			@include flex;
-			padding: 0 25px;
-			gap: 12px;
+                &__button-group {
+                        @include flex;
+                        padding: 0 25rpx;
+                        gap: 12rpx;
 
-			&--confirm-button {
-				flex-direction: column;
-				padding: 0px 25px 15px 25px;
-			}
+                        &--confirm-button {
+                                flex-direction: column;
+                                padding: 0 25rpx 15rpx 25rpx;
+                        }
 
-			&__wrapper {
-				flex: 1;
-				@include flex;
-				justify-content: center;
-				align-items: center;
-				height: 44px;
-				border-radius: 22px;
-				transition: all 0.3s ease;
+                        &__wrapper {
+                                flex: 1;
+                                @include flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 44rpx;
+                                border-radius: 22rpx;
+                                transition: all 0.3s ease;
 
-				&--cancel {
+                                &--cancel {
           background: white;
-          border: 1px solid #4A9EFF;
+          border: 1rpx solid #4A9EFF;
           color: #4A9EFF;
-				}
+                                }
 
-				&--confirm {
-					background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
-					box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
-				}
+                                &--confirm {
+                                        background: linear-gradient(135deg, #4A9EFF 0%, #2196F3 100%);
+                                        box-shadow: 0 4rpx 12rpx rgba(0, 122, 255, 0.3);
+                                }
 
 				&--only-cancel {
 					width: 100%;
@@ -197,10 +197,10 @@
 					opacity: 0.9;
 				}
 
-				&__text {
-					font-size: 16px;
-					font-weight: 500;
-					text-align: center;
+                                &__text {
+                                        font-size: 16rpx;
+                                        font-weight: 500;
+                                        text-align: center;
 
 					&--cancel {
 						color: #4A9EFF;
@@ -213,8 +213,8 @@
 			}
 		}
 
-		&__button-gap {
-			width: 12px;
-		}
-	}
+                &__button-gap {
+                        width: 12rpx;
+                }
+        }
 </style>
