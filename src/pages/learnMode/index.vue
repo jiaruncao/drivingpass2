@@ -417,9 +417,12 @@ export default {
 
 <style lang="scss" scoped>
 .learn_mode {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom, 0);
   .btn {
-    width: calc(100% - 60rpx);
-    margin: 117rpx 30rpx;
+    margin: 80rpx 30rpx calc(80rpx + env(safe-area-inset-bottom, 0)) 30rpx;
     height: 85rpx;
     background: linear-gradient(90deg, #67a6fe 0%, #4180ff 100%);
     border-radius: 43rpx;
@@ -430,22 +433,26 @@ export default {
     line-height: 85rpx;
   }
   .learn_mode_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320rpx, 1fr));
+    gap: 24rpx;
+    padding: 0 30rpx 30rpx;
     .learn_item {
-      width: calc(100% - 60rpx);
-      margin: 23rpx 30rpx;
-      height: 148rpx;
+      min-height: 148rpx;
       background: #dfefff;
       border-radius: 10rpx;
       display: flex;
+      align-items: center;
+      gap: 20rpx;
+      padding: 24rpx;
       .item_progress {
-        margin-right: 20rpx;
-        width: 100rpx;
         margin-left: auto;
+        width: 120rpx;
         .progress {
-          margin-top: 50rpx;
+          margin-top: 20rpx;
         }
         .percentage {
-          margin-top: 12rpx;
+          margin-top: 16rpx;
           font-weight: 400;
           font-size: 20rpx;
           color: #999999;
@@ -453,7 +460,9 @@ export default {
         }
       }
       .item_content {
-        margin-top: 35rpx;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         .content_name {
           font-weight: bold;
           font-size: 28rpx;
@@ -462,16 +471,14 @@ export default {
         .content_sum {
           margin-top: 10rpx;
           display: flex;
+          gap: 24rpx;
           font-weight: 400;
           font-size: 22rpx;
           color: #333333;
-          .sum_wrong {
-            margin-left: 40rpx;
-          }
         }
       }
       .item_select {
-        padding: 56rpx 29rpx;
+        padding: 16rpx 0;
       }
     }
   }
@@ -479,7 +486,7 @@ export default {
     padding: 0 29rpx 20rpx 29rpx;
   }
   .top_nav {
-    padding: 60rpx 30rpx;
+    padding: 60rpx 30rpx 40rpx;
     display: flex;
     .head_name {
       margin-top: -5rpx;
