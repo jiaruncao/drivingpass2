@@ -75,59 +75,70 @@
 </script>
 
 <style scoped>
-	.login-container {
-		padding: 40rpx 30rpx;
-		background: linear-gradient(to bottom right, #e6f7ff, #fff0f0);
-		min-height: 100vh;
-	}
-	
-	.content{
-		padding-left: 45rpx;
-		padding-right: 94rpx;
-	}
+.login-container {
+  min-height: 100vh;
+  padding: calc(env(safe-area-inset-top) + 40rpx) 30rpx calc(env(safe-area-inset-bottom) + 40rpx);
+  background: linear-gradient(to bottom right, #e6f7ff, #fff0f0);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: 40rpx;
+}
 
-	.back-button {
-		margin-bottom: 60rpx;
-	}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 48rpx;
+  padding: 0 6vw;
+}
 
-	.title {
-		font-family: Microsoft YaHei UI;
-		font-weight: bold;
-		font-size: 48rpx;
-		color: #333333;
-		padding-left: 107rpx;
-	}
+.back-button {
+  display: flex;
+  align-items: center;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 48rpx;
+  justify-content: center;
+}
 
-	.input-group {
-		display: flex;
-		border-radius: 8rpx;
-	}
+.title {
+  font-family: Microsoft YaHei UI;
+  font-weight: bold;
+  font-size: 48rpx;
+  color: #333333;
+  text-align: center;
+}
 
-	.input {
-		flex: 1;
-		height: 80rpx;
-	}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  border-radius: 16rpx;
+}
 
-	.signin-button {
-		margin-top: 128rpx;
-		height: 87rpx;
-		background: linear-gradient(90deg, #67A6FE 0%, #4180FF 100%);
-		border-radius: 43rpx;
-		color: #fff;
-	}
-	
-	.get-code{
-		width: 212rpx;
-		height: 69rpx;
-		background: #FFFFFF;
-		border-radius: 35rpx;
-		border: 1rpx solid #419FFF;
-		
-		font-family: Microsoft YaHei UI;
-		font-weight: 400;
-		font-size: 26rpx;
-		color: #419FFF;
-	}
+.input {
+  flex: 1;
+  min-height: 88rpx;
+}
 
-	
+.signin-button {
+  margin-top: 80rpx;
+  min-height: 96rpx;
+  background: linear-gradient(90deg, #67A6FE 0%, #4180FF 100%);
+  border-radius: 48rpx;
+  color: #fff;
+}
+
+.get-code {
+  min-width: 40vw;
+  min-height: 96rpx;
+  padding: 0 24rpx;
+  background: #FFFFFF;
+  border-radius: 48rpx;
+  border: 1rpx solid #419FFF;
+  font-family: Microsoft YaHei UI;
+  font-weight: 400;
+  font-size: 26rpx;
+  color: #419FFF;
+}
 </style>
